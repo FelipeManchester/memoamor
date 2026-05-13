@@ -15,6 +15,8 @@ import MemoryPageClient from '@/components/page-builder/MemoryPageClient'
 
 import ResetFormOnSuccess from '@/components/page-builder/ResetFormOnSuccess'
 
+import PendingPage from '@/components/page-builder/PendingPage'
+
 const USE_MOCK = false // 👈 mude para false quando o banco estiver populado
 
 interface PageProps {
@@ -67,11 +69,7 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
   }
 
   if (page.status === 'pending_payment') {
-    return (
-      <main>
-        <p>Preparando sua página...</p>
-      </main>
-    )
+    return <PendingPage slug={page.slug} template={page.template} />
   }
 
   return (

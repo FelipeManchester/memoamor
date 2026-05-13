@@ -27,7 +27,7 @@ export async function sendDeliveryEmail({
           A página de memórias de <strong>${nameA} e ${nameB}</strong> está no ar.
           Compartilhe o link abaixo com quem você ama:
         </p>
-        
+        <a
           href="${pageUrl}"
           style="display:inline-block;margin:24px 0;padding:14px 28px;background:#7a3f3f;color:#faf6f1;text-decoration:none;border-radius:2px;font-family:sans-serif;font-size:14px;"
         >

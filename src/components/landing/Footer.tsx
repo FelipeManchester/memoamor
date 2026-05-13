@@ -3,7 +3,6 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   const links = [
-    { label: 'Sobre', href: '/sobre' },
     { label: 'Termos de uso', href: '/termos' },
     { label: 'Privacidade', href: '/privacidade' },
     { label: 'Contato', href: '/contato' },
