@@ -28,9 +28,9 @@ export default function TemplatesSection() {
   return (
     <section
       className="bg-light relative overflow-hidden"
-      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
+      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
-      <div className="max-w-[1100px] mx-auto">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20">
         {/* Cabeçalho */}
         <div
           className="text-center"
@@ -55,7 +55,7 @@ export default function TemplatesSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {templates.map((template) => (
             <a
               key={template.id}

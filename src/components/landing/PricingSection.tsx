@@ -43,7 +43,7 @@ export default function PricingSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
+      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
       {/* Fundo decorativo */}
       <div
@@ -53,7 +53,7 @@ export default function PricingSection() {
         }}
       />
 
-      <div className="max-w-[900px] mx-auto relative z-[1]">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
         {/* Cabeçalho */}
         <div
           className="text-center"
@@ -77,7 +77,7 @@ export default function PricingSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-2 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start max-w-3xl mx-auto">
           {plans.map((plan) => (
             <div
               key={plan.id}

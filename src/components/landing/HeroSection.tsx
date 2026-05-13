@@ -13,7 +13,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="min-h-svh grid grid-cols-2 items-center gap-0 pt-20 relative overflow-hidden">
+    <section className="relative overflow-hidden">
       {/* Gradiente de fundo */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -23,11 +23,10 @@ export default function HeroSection() {
         }}
       />
 
+      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 grid grid-cols-1 lg:grid-cols-2 items-center min-h-svh pt-20">
+
       {/* ── Coluna esquerda — texto ── */}
-      <div
-        className="flex flex-col gap-8 relative z-[1]"
-        style={{ padding: 'clamp(40px, 8vw, 100px)' }}
-      >
+      <div className="flex flex-col gap-8 relative z-[1] py-16 pr-8">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-blush border border-rose rounded-full px-4 py-[6px] w-fit">
           <span className="text-[0.6rem]">✦</span>
@@ -105,7 +104,7 @@ export default function HeroSection() {
       </div>
 
       {/* ── Coluna direita — preview mockup ── */}
-      <div className="h-svh relative overflow-hidden flex items-center justify-center">
+      <div className="hidden lg:flex h-svh relative overflow-hidden items-center justify-center">
         {/* Moldura do mockup */}
         <div
           className="w-[75%] max-w-[380px] h-[75vh] rounded-3xl overflow-hidden border border-blush relative flex flex-col"
@@ -156,6 +155,8 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      </div>{/* end container */}
     </section>
   )
 }

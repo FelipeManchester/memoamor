@@ -4,7 +4,7 @@ export default function CtaSection() {
   return (
     <section
       className="bg-wine relative overflow-hidden text-center"
-      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
+      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
       {/* Elementos decorativos */}
       <div
@@ -66,7 +66,7 @@ export default function CtaSection() {
         />
       </svg>
 
-      <div className="relative z-[1] max-w-[600px] mx-auto">
+      <div className="max-w-[600px] mx-auto px-5 relative z-[1]">
         <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-rose mb-6 opacity-80">
           Comece agora
         </p>

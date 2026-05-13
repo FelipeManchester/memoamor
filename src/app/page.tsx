@@ -9,7 +9,7 @@ import Footer from '@/components/landing/Footer'
 
 export default function LandingPage() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <Navbar />
       <HeroSection />
       <HowItWorksSection />

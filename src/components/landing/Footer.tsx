@@ -9,11 +9,8 @@ export default function Footer() {
   ]
 
   return (
-    <footer
-      className="bg-cream border-t border-blush"
-      style={{ padding: '40px clamp(24px, 8vw, 100px)' }}
-    >
-      <div className="max-w-[1100px] mx-auto flex items-center justify-between flex-wrap gap-6">
+    <footer className="bg-cream border-t border-blush py-10">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
         {/* Logo + tagline */}
         <div>
           <p className="font-serif text-[1.2rem] italic font-light text-wine mb-1">

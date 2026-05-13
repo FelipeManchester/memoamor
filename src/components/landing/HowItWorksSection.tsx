@@ -28,7 +28,7 @@ export default function HowItWorksSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
+      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
       {/* Fundo decorativo */}
       <div
@@ -38,7 +38,7 @@ export default function HowItWorksSection() {
         }}
       />
 
-      <div className="max-w-[1100px] mx-auto relative z-[1]">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
         {/* Cabeçalho */}
         <div
           className="text-center"
@@ -57,12 +57,12 @@ export default function HowItWorksSection() {
 
         {/* Steps */}
         <div
-          className="grid grid-cols-3 relative"
+          className="grid grid-cols-1 md:grid-cols-3 relative"
           style={{ gap: 'clamp(24px, 4vw, 48px)' }}
         >
           {/* Linha conectora */}
           <div
-            className="absolute top-9 h-px opacity-40 pointer-events-none"
+            className="absolute top-9 h-px opacity-40 pointer-events-none hidden md:block"
             style={{
               left: 'calc(16.66% + 24px)',
               right: 'calc(16.66% + 24px)',
