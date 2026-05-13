@@ -6,12 +6,12 @@ import { processImage, createLocalPreview } from '@/lib/image'
 import { createClient } from '@/lib/supabase/client'
 import { nanoid } from 'nanoid'
 import type { UploadStatus } from '@/types'
+import { cn } from '@/lib/utils'
 
 export default function StepTwo() {
   const { data, updateMemory, addMemory, removeMemory, setStep } = useCreateFormStore()
   const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({})
 
-  // Valida se pode avançar — mínimo 1 memória com título e corpo
   const canAdvance = data.memories.every(
     (m) =>
       m.title.trim().length >= 2 &&
@@ -20,17 +20,14 @@ export default function StepTwo() {
       m.uploadStatus !== 'uploading',
   )
 
-  // Gerencia o upload de foto de uma memória específica
   async function handleImageSelect(memoryId: string, file: File) {
     const preview = createLocalPreview(file)
     updateMemory(memoryId, { imagePreview: preview, uploadStatus: 'processing' })
 
     try {
-      // Converte para WebP no browser
       const processed = await processImage(file)
       updateMemory(memoryId, { uploadStatus: 'uploading' })
 
-      // Faz upload direto para o Supabase Storage
       const supabase = createClient()
       const path = `temp/${nanoid()}/${processed.name}`
       const { error } = await supabase.storage.from('pages').upload(path, processed)
@@ -44,46 +41,49 @@ export default function StepTwo() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="flex flex-col gap-8">
       {/* Cabeçalho */}
       <div>
-        <p style={eyebrowStyle}>Passo 2 de 5</p>
-        <h1 style={titleStyle}>Conte as memórias de vocês</h1>
-        <p style={subtitleStyle}>Adicione de 1 a 3 memórias especiais.</p>
+        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+          Passo 2 de 5
+        </p>
+        <h1
+          className="font-serif font-light italic text-wine"
+          style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)' }}
+        >
+          Conte as memórias de vocês
+        </h1>
+        <p className="font-sans text-[0.85rem] text-mauve mt-2">
+          Adicione de 1 a 3 memórias especiais.
+        </p>
       </div>
 
       {/* Lista de memórias */}
       {data.memories.map((memory, i) => (
         <div
           key={memory.id}
-          style={{
-            border: '1px solid var(--color-rose)',
-            borderRadius: 4,
-            padding: 24,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 20,
-            background: 'white',
-          }}
+          className="border border-rose rounded flex flex-col gap-5 p-6 bg-white"
         >
           {/* Cabeçalho do card */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ ...eyebrowStyle, margin: 0 }}>Memória {i + 1}</span>
+          <div className="flex justify-between items-center">
+            <span className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve">
+              Memória {i + 1}
+            </span>
             {data.memories.length > 1 && (
-              <button onClick={() => removeMemory(memory.id)} style={ghostButtonStyle}>
+              <button onClick={() => removeMemory(memory.id)} className="btn-ghost">
                 Remover
               </button>
             )}
           </div>
 
           {/* Época */}
-          <div style={fieldWrapStyle}>
-            <label style={labelStyle}>
+          <div className="flex flex-col gap-2">
+            <label className="form-label">
               Época ou data
-              <span style={optionalStyle}>(opcional)</span>
+              <span className="text-mauve ml-1.5">(opcional)</span>
             </label>
             <input
-              style={inputStyle}
+              className="form-input"
               type="text"
               placeholder="Ex: Maio de 2016"
               maxLength={30}
@@ -93,10 +93,10 @@ export default function StepTwo() {
           </div>
 
           {/* Título */}
-          <div style={fieldWrapStyle}>
-            <label style={labelStyle}>Título *</label>
+          <div className="flex flex-col gap-2">
+            <label className="form-label">Título *</label>
             <input
-              style={inputStyle}
+              className="form-input"
               type="text"
               placeholder="Ex: O início de tudo"
               maxLength={60}
@@ -106,39 +106,39 @@ export default function StepTwo() {
           </div>
 
           {/* Texto */}
-          <div style={fieldWrapStyle}>
-            <label style={labelStyle}>Texto *</label>
+          <div className="flex flex-col gap-2">
+            <label className="form-label">Texto *</label>
             <textarea
-              style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }}
+              className="form-input min-h-[100px] resize-y"
               placeholder="Conte essa memória com suas palavras..."
               maxLength={300}
               value={memory.body}
               onChange={(e) => updateMemory(memory.id, { body: e.target.value })}
             />
-            <span
-              style={{ fontSize: '0.7rem', color: 'var(--color-mauve)', alignSelf: 'flex-end' }}
-            >
+            <span className="text-[0.7rem] text-mauve self-end">
               {memory.body.length}/300
             </span>
           </div>
 
           {/* Upload de foto */}
-          <div style={fieldWrapStyle}>
-            <label style={labelStyle}>
+          <div className="flex flex-col gap-2">
+            <label className="form-label">
               Foto
-              <span style={optionalStyle}>(opcional)</span>
+              <span className="text-mauve ml-1.5">(opcional)</span>
             </label>
 
             {memory.imagePreview ? (
-              // Preview da foto selecionada
-              <div style={{ position: 'relative', display: 'inline-block' }}>
+              <div className="relative inline-block">
                 <img
                   src={memory.imagePreview}
                   alt="Preview"
-                  style={{ width: 120, height: 120, objectFit: 'cover', borderRadius: 2 }}
+                  className="w-[120px] h-[120px] object-cover rounded-sm"
                 />
                 {/* Badge de status */}
-                <span style={getStatusBadgeStyle(memory.uploadStatus)}>
+                <span
+                  className="absolute bottom-1 left-1 text-white text-[0.6rem] py-0.5 px-1.5 rounded-sm"
+                  style={{ background: getStatusBadgeColor(memory.uploadStatus) }}
+                >
                   {getStatusLabel(memory.uploadStatus)}
                 </span>
                 {/* Botão remover foto */}
@@ -151,64 +151,34 @@ export default function StepTwo() {
                         uploadStatus: 'idle',
                       })
                     }
-                    style={{
-                      position: 'absolute',
-                      top: -8,
-                      right: -8,
-                      background: 'var(--color-wine)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '50%',
-                      width: 20,
-                      height: 20,
-                      cursor: 'pointer',
-                      fontSize: '0.65rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
+                    className="absolute -top-2 -right-2 bg-wine text-white border-none rounded-full w-5 h-5 cursor-pointer text-[0.65rem] flex items-center justify-center"
                   >
                     ✕
                   </button>
                 )}
-                {/* Botão tentar novamente em caso de erro */}
                 {memory.uploadStatus === 'error' && (
                   <button
                     onClick={() => fileInputRefs.current[memory.id]?.click()}
-                    style={ghostButtonStyle}
+                    className="btn-ghost mt-2"
                   >
                     Tentar novamente
                   </button>
                 )}
               </div>
             ) : (
-              // Área de seleção de foto
               <button
                 onClick={() => fileInputRefs.current[memory.id]?.click()}
-                style={{
-                  border: '1px dashed var(--color-rose)',
-                  borderRadius: 2,
-                  padding: '20px 24px',
-                  background: 'transparent',
-                  cursor: 'pointer',
-                  color: 'var(--color-mauve)',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.8rem',
-                  width: '100%',
-                }}
+                className="border border-dashed border-rose rounded-sm py-5 px-6 bg-transparent cursor-pointer text-mauve font-sans text-[0.8rem] w-full"
               >
                 + Adicionar foto
               </button>
             )}
 
-            {/* Input de arquivo oculto */}
             <input
-              ref={(el) => {
-                fileInputRefs.current[memory.id] = el
-              }}
+              ref={(el) => { fileInputRefs.current[memory.id] = el }}
               type="file"
               accept="image/jpeg,image/png,image/webp"
-              style={{ display: 'none' }}
+              className="hidden"
               onChange={(e) => {
                 const file = e.target.files?.[0]
                 if (file) handleImageSelect(memory.id, file)
@@ -220,20 +190,23 @@ export default function StepTwo() {
 
       {/* Botão adicionar memória */}
       {data.memories.length < 3 && (
-        <button onClick={addMemory} style={ghostButtonStyle}>
+        <button onClick={addMemory} className="btn-ghost">
           + Adicionar outra memória
         </button>
       )}
 
       {/* Navegação */}
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={() => setStep(1)} style={ghostButtonStyle}>
+      <div className="flex justify-between">
+        <button onClick={() => setStep(1)} className="btn-ghost">
           ← Voltar
         </button>
         <button
           onClick={() => setStep(3)}
           disabled={!canAdvance}
-          style={primaryButtonStyle(canAdvance)}
+          className={cn(
+            'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200',
+            canAdvance ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
+          )}
         >
           Continuar →
         </button>
@@ -242,7 +215,6 @@ export default function StepTwo() {
   )
 }
 
-// ── Helpers de status de upload ───────────────
 function getStatusLabel(status: UploadStatus): string {
   const labels: Record<UploadStatus, string> = {
     idle: '',
@@ -254,7 +226,7 @@ function getStatusLabel(status: UploadStatus): string {
   return labels[status]
 }
 
-function getStatusBadgeStyle(status: UploadStatus): React.CSSProperties {
+function getStatusBadgeColor(status: UploadStatus): string {
   const colors: Record<UploadStatus, string> = {
     idle: 'transparent',
     processing: '#c49a8a',
@@ -262,96 +234,5 @@ function getStatusBadgeStyle(status: UploadStatus): React.CSSProperties {
     done: '#4a7a4a',
     error: '#c0392b',
   }
-  return {
-    position: 'absolute',
-    bottom: 4,
-    left: 4,
-    background: colors[status],
-    color: 'white',
-    fontSize: '0.6rem',
-    padding: '2px 6px',
-    borderRadius: 2,
-  }
+  return colors[status]
 }
-
-// ── Estilos compartilhados ────────────────────
-const eyebrowStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.65rem',
-  letterSpacing: '0.3em',
-  textTransform: 'uppercase',
-  color: 'var(--color-mauve)',
-  marginBottom: 8,
-}
-
-const titleStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-serif)',
-  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-  fontWeight: 300,
-  fontStyle: 'italic',
-  color: 'var(--color-wine)',
-}
-
-const subtitleStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.85rem',
-  color: 'var(--color-mauve)',
-  marginTop: 8,
-}
-
-const fieldWrapStyle: React.CSSProperties = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 8,
-}
-
-const labelStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.75rem',
-  letterSpacing: '0.1em',
-  color: 'var(--color-text)',
-}
-
-const optionalStyle: React.CSSProperties = {
-  color: 'var(--color-mauve)',
-  marginLeft: 6,
-}
-
-const inputStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.95rem',
-  color: 'var(--color-text)',
-  background: 'white',
-  border: '1px solid var(--color-rose)',
-  borderRadius: 2,
-  padding: '10px 14px',
-  outline: 'none',
-  width: '100%',
-}
-
-const ghostButtonStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.75rem',
-  letterSpacing: '0.15em',
-  textTransform: 'uppercase',
-  background: 'transparent',
-  border: '1px solid var(--color-rose)',
-  borderRadius: 2,
-  padding: '10px 20px',
-  color: 'var(--color-mauve)',
-  cursor: 'pointer',
-}
-
-const primaryButtonStyle = (enabled: boolean): React.CSSProperties => ({
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.72rem',
-  letterSpacing: '0.2em',
-  textTransform: 'uppercase',
-  padding: '16px 32px',
-  background: enabled ? 'var(--color-wine)' : 'var(--color-blush)',
-  color: enabled ? 'var(--color-cream)' : 'var(--color-mauve)',
-  border: 'none',
-  borderRadius: 2,
-  cursor: enabled ? 'pointer' : 'not-allowed',
-  transition: 'all 0.2s',
-})

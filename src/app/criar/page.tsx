@@ -1,6 +1,7 @@
 'use client'
 
 import { useCreateFormStore } from '@/store/createForm'
+import { cn } from '@/lib/utils'
 
 import StepOne from '@/components/forms/StepOne'
 import StepTwo from '@/components/forms/StepTwo'
@@ -14,75 +15,40 @@ export default function CriarPage() {
   const currentStep = useCreateFormStore((s) => s.currentStep)
 
   return (
-    <main
-      style={{
-        minHeight: '100svh',
-        background: 'var(--color-cream)',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <main className="min-h-svh bg-cream flex flex-col">
       {/* Header com logo e progresso */}
-      <header
-        style={{
-          padding: '20px 24px',
-          borderBottom: '1px solid var(--color-blush)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 16,
-        }}
-      >
+      <header className="py-5 px-6 border-b border-blush flex flex-col gap-4">
         {/* Logo */}
         <a
           href="/"
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '1.3rem',
-            fontStyle: 'italic',
-            color: 'var(--color-wine)',
-            textDecoration: 'none',
-          }}
+          className="font-serif text-[1.3rem] italic text-wine no-underline"
         >
           Memoamor
         </a>
 
         {/* Barra de progresso */}
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div className="flex gap-2 items-center">
           {STEPS.map((label, i) => {
             const step = i + 1
             const isDone = currentStep > step
             const isActive = currentStep === step
 
             return (
-              <div key={step} style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1 }}>
-                <div
-                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}
-                >
+              <div key={step} className="flex items-center gap-2 flex-1">
+                <div className="flex flex-col items-center gap-1">
                   <div
-                    style={{
-                      width: 28,
-                      height: 28,
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: '0.7rem',
-                      fontFamily: 'var(--font-sans)',
-                      background: isDone || isActive ? 'var(--color-wine)' : 'var(--color-blush)',
-                      color: isDone || isActive ? 'var(--color-cream)' : 'var(--color-mauve)',
-                      transition: 'all 0.3s',
-                    }}
+                    className={cn(
+                      'w-7 h-7 rounded-full flex items-center justify-center text-[0.7rem] font-sans transition-all duration-300',
+                      isDone || isActive ? 'bg-wine text-cream' : 'bg-blush text-mauve',
+                    )}
                   >
                     {isDone ? '✓' : step}
                   </div>
                   <span
-                    style={{
-                      fontSize: '0.55rem',
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      color: isActive ? 'var(--color-wine)' : 'var(--color-mauve)',
-                      whiteSpace: 'nowrap',
-                    }}
+                    className={cn(
+                      'text-[0.55rem] tracking-[0.1em] uppercase whitespace-nowrap',
+                      isActive ? 'text-wine' : 'text-mauve',
+                    )}
                   >
                     {label}
                   </span>
@@ -91,13 +57,10 @@ export default function CriarPage() {
                 {/* Linha conectora */}
                 {i < STEPS.length - 1 && (
                   <div
-                    style={{
-                      flex: 1,
-                      height: 1,
-                      marginBottom: 18,
-                      background: currentStep > step ? 'var(--color-wine)' : 'var(--color-blush)',
-                      transition: 'background 0.3s',
-                    }}
+                    className={cn(
+                      'flex-1 h-px mb-[18px] transition-[background] duration-300',
+                      currentStep > step ? 'bg-wine' : 'bg-blush',
+                    )}
                   />
                 )}
               </div>
@@ -108,21 +71,15 @@ export default function CriarPage() {
 
       {/* Conteúdo do passo atual */}
       <div
-        style={{
-          flex: 1,
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          padding: 'clamp(32px, 6vw, 80px) 24px',
-        }}
+        className="flex-1 flex items-start justify-center px-6"
+        style={{ padding: 'clamp(32px, 6vw, 80px) 24px' }}
       >
-        <div style={{ width: '100%', maxWidth: 560 }}>
+        <div className="w-full max-w-[560px]">
           {currentStep === 1 && <StepOne />}
           {currentStep === 2 && <StepTwo />}
           {currentStep === 3 && <StepThree />}
           {currentStep === 4 && <StepFour />}
           {currentStep === 5 && <StepFive />}
-          {/* Demais passos serão adicionados aqui */}
         </div>
       </div>
     </main>

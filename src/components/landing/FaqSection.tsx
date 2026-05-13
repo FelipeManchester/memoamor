@@ -49,88 +49,50 @@ export default function FaqSection() {
 
   return (
     <section
-      style={{
-        background: 'var(--color-light)',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)',
-      }}
+      className="bg-light"
+      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
     >
-      <div style={{ maxWidth: 720, margin: '0 auto' }}>
+      <div className="max-w-[720px] mx-auto">
         {/* Cabeçalho */}
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 6vw, 64px)' }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.65rem',
-              letterSpacing: '0.4em',
-              textTransform: 'uppercase',
-              color: 'var(--color-mauve)',
-              marginBottom: 16,
-            }}
-          >
+        <div
+          className="text-center"
+          style={{ marginBottom: 'clamp(48px, 6vw, 64px)' }}
+        >
+          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
             Dúvidas frequentes
           </p>
           <h2
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-            }}
+            className="font-serif font-light italic text-wine"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
           >
             Perguntas e respostas
           </h2>
         </div>
 
         {/* Accordion */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        <div className="flex flex-col gap-0">
           {faqs.map((faq, i) => (
             <div
               key={i}
+              className="border-t border-rose"
               style={{
-                borderTop: '1px solid var(--color-rose)',
                 borderBottom: i === faqs.length - 1 ? '1px solid var(--color-rose)' : 'none',
               }}
             >
               {/* Pergunta */}
               <button
                 onClick={() => toggle(i)}
-                style={{
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  padding: '20px 0',
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  textAlign: 'left',
-                  gap: 16,
-                }}
+                className="w-full flex justify-between items-center py-5 bg-transparent border-none cursor-pointer text-left gap-4"
               >
                 <span
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.92rem',
-                    color: 'var(--color-text)',
-                    lineHeight: 1.5,
-                    fontWeight: openIndex === i ? 400 : 300,
-                    transition: 'font-weight 0.2s',
-                  }}
+                  className="font-sans text-[0.92rem] text-text leading-[1.5] transition-[font-weight] duration-200"
+                  style={{ fontWeight: openIndex === i ? 400 : 300 }}
                 >
                   {faq.question}
                 </span>
                 <span
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '1.4rem',
-                    color: 'var(--color-mauve)',
-                    flexShrink: 0,
-                    transition: 'transform 0.3s ease',
-                    transform: openIndex === i ? 'rotate(45deg)' : 'rotate(0)',
-                    display: 'inline-block',
-                    lineHeight: 1,
-                  }}
+                  className="font-serif text-[1.4rem] text-mauve shrink-0 inline-block leading-none transition-transform duration-300"
+                  style={{ transform: openIndex === i ? 'rotate(45deg)' : 'rotate(0)' }}
                 >
                   +
                 </span>
@@ -138,21 +100,10 @@ export default function FaqSection() {
 
               {/* Resposta */}
               <div
-                style={{
-                  maxHeight: openIndex === i ? 300 : 0,
-                  overflow: 'hidden',
-                  transition: 'max-height 0.4s ease',
-                }}
+                className="overflow-hidden transition-[max-height] duration-[400ms] ease-[ease]"
+                style={{ maxHeight: openIndex === i ? 300 : 0 }}
               >
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.88rem',
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.8,
-                    paddingBottom: 20,
-                  }}
-                >
+                <p className="font-sans text-[0.88rem] text-text-muted leading-[1.8] pb-5">
                   {faq.answer}
                 </p>
               </div>
@@ -161,24 +112,12 @@ export default function FaqSection() {
         </div>
 
         {/* Contato */}
-        <div style={{ textAlign: 'center', marginTop: 48 }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.85rem',
-              color: 'var(--color-text-muted)',
-              lineHeight: 1.8,
-            }}
-          >
+        <div className="text-center mt-12">
+          <p className="font-sans text-[0.85rem] text-text-muted leading-[1.8]">
             Ainda tem dúvidas?{' '}
             <a
               href="/contato"
-              style={{
-                color: 'var(--color-wine)',
-                textDecoration: 'none',
-                borderBottom: '1px solid var(--color-rose)',
-                paddingBottom: 1,
-              }}
+              className="text-wine no-underline border-b border-rose pb-px"
             >
               Entre em contato
             </a>

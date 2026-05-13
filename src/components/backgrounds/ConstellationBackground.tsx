@@ -41,14 +41,12 @@ export default function ConstellationBackground() {
     const svg = svgRef.current
     if (!svg) return
 
-    // Fundo escuro
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
     rect.setAttribute('width', '100')
     rect.setAttribute('height', '100')
     rect.setAttribute('fill', '#1a0f0f')
     svg.appendChild(rect)
 
-    // Linhas de conexão
     starsRef.current.forEach((star, i) => {
       starsRef.current.forEach((other, j) => {
         if (j <= i) return
@@ -68,7 +66,6 @@ export default function ConstellationBackground() {
       })
     })
 
-    // Estrelas
     starsRef.current.forEach((star) => {
       const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
       circle.setAttribute('cx', String(star.x))
@@ -105,14 +102,7 @@ export default function ConstellationBackground() {
       ref={svgRef}
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        pointerEvents: 'none',
-      }}
+      className="fixed inset-0 w-full h-full z-[-1] pointer-events-none"
       aria-hidden="true"
     />
   )

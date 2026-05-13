@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
+import { cn } from '@/lib/utils'
 
 const SUGGESTED_SONGS = [
   {
@@ -48,7 +49,6 @@ export default function StepFour() {
     const videoId = extractVideoId(url)
     if (!videoId) return
 
-    // Valida o link via YouTube oEmbed — não requer API key
     setStatus('loading')
     try {
       const res = await fetch(
@@ -64,20 +64,29 @@ export default function StepFour() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="flex flex-col gap-8">
       {/* Cabeçalho */}
       <div>
-        <p style={eyebrowStyle}>Passo 4 de 5</p>
-        <h1 style={titleStyle}>Qual é a música de vocês?</h1>
-        <p style={subtitleStyle}>Cole o link de um vídeo do YouTube. Você pode pular essa etapa.</p>
+        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+          Passo 4 de 5
+        </p>
+        <h1
+          className="font-serif font-light italic text-wine"
+          style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)' }}
+        >
+          Qual é a música de vocês?
+        </h1>
+        <p className="font-sans text-[0.85rem] text-mauve mt-2">
+          Cole o link de um vídeo do YouTube. Você pode pular essa etapa.
+        </p>
       </div>
 
       {/* Campo de URL */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <label style={labelStyle}>Link do YouTube</label>
+      <div className="flex flex-col gap-2">
+        <label className="form-label">Link do YouTube</label>
         <input
+          className="form-input"
           style={{
-            ...inputStyle,
             borderColor:
               status === 'valid' ? '#4a7a4a' : status === 'error' ? '#c0392b' : 'var(--color-rose)',
           }}
@@ -89,78 +98,60 @@ export default function StepFour() {
 
         {/* Feedback de validação */}
         {status === 'loading' && (
-          <p style={{ ...feedbackStyle, color: 'var(--color-mauve)' }}>Verificando...</p>
+          <p className="font-sans text-[0.8rem] text-mauve">Verificando...</p>
         )}
         {status === 'valid' && data.youtubeTitle && (
-          <p style={{ ...feedbackStyle, color: '#4a7a4a' }}>✓ {data.youtubeTitle}</p>
+          <p className="font-sans text-[0.8rem]" style={{ color: '#4a7a4a' }}>
+            ✓ {data.youtubeTitle}
+          </p>
         )}
         {status === 'error' && (
-          <p style={{ ...feedbackStyle, color: '#c0392b' }}>
+          <p className="font-sans text-[0.8rem]" style={{ color: '#c0392b' }}>
             Vídeo não encontrado. Verifique o link.
           </p>
         )}
       </div>
 
       {/* Sugestões */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <p style={labelStyle}>Ou escolha uma sugestão:</p>
+      <div className="flex flex-col gap-3">
+        <p className="form-label">Ou escolha uma sugestão:</p>
         {SUGGESTED_SONGS.map((song) => (
           <button
             key={song.url}
             onClick={() => handleUrlChange(song.url)}
+            className="flex items-center justify-between py-3 px-4 rounded-sm transition-all duration-200 cursor-pointer text-left"
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px 16px',
               border: `1px solid ${data.youtubeUrl === song.url ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-              borderRadius: 2,
               background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'white',
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-              textAlign: 'left',
             }}
           >
             <div>
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.85rem',
-                  color: 'var(--color-text)',
-                }}
-              >
-                {song.title}
-              </p>
-              <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.72rem',
-                  color: 'var(--color-mauve)',
-                }}
-              >
-                {song.artist}
-              </p>
+              <p className="font-sans text-[0.85rem] text-text">{song.title}</p>
+              <p className="font-sans text-[0.72rem] text-mauve">{song.artist}</p>
             </div>
             {data.youtubeUrl === song.url && (
-              <span style={{ color: 'var(--color-wine)', fontSize: '0.8rem' }}>✓</span>
+              <span className="text-wine text-[0.8rem]">✓</span>
             )}
           </button>
         ))}
       </div>
 
       {/* Navegação */}
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <button onClick={() => setStep(3)} style={ghostButtonStyle}>
+      <div className="flex justify-between">
+        <button onClick={() => setStep(3)} className="btn-ghost">
           ← Voltar
         </button>
-        <div style={{ display: 'flex', gap: 12 }}>
-          <button onClick={() => setStep(5)} style={ghostButtonStyle}>
+        <div className="flex gap-3">
+          <button onClick={() => setStep(5)} className="btn-ghost">
             Pular
           </button>
           <button
             onClick={() => setStep(5)}
             disabled={status === 'loading'}
-            style={primaryButtonStyle(status !== 'loading')}
+            className={cn(
+              'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200',
+              status !== 'loading' ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
+            )}
           >
             Continuar →
           </button>
@@ -169,80 +160,3 @@ export default function StepFour() {
     </div>
   )
 }
-
-// ── Estilos ───────────────────────────────────
-const eyebrowStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.65rem',
-  letterSpacing: '0.3em',
-  textTransform: 'uppercase',
-  color: 'var(--color-mauve)',
-  marginBottom: 8,
-}
-
-const titleStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-serif)',
-  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-  fontWeight: 300,
-  fontStyle: 'italic',
-  color: 'var(--color-wine)',
-}
-
-const subtitleStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.85rem',
-  color: 'var(--color-mauve)',
-  marginTop: 8,
-}
-
-const labelStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.75rem',
-  letterSpacing: '0.1em',
-  color: 'var(--color-text)',
-}
-
-const feedbackStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.8rem',
-}
-
-const inputStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.95rem',
-  color: 'var(--color-text)',
-  background: 'white',
-  border: '1px solid var(--color-rose)',
-  borderRadius: 2,
-  padding: '10px 14px',
-  outline: 'none',
-  width: '100%',
-  transition: 'border-color 0.2s',
-}
-
-const ghostButtonStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.75rem',
-  letterSpacing: '0.15em',
-  textTransform: 'uppercase',
-  background: 'transparent',
-  border: '1px solid var(--color-rose)',
-  borderRadius: 2,
-  padding: '10px 20px',
-  color: 'var(--color-mauve)',
-  cursor: 'pointer',
-}
-
-const primaryButtonStyle = (enabled: boolean): React.CSSProperties => ({
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.72rem',
-  letterSpacing: '0.2em',
-  textTransform: 'uppercase',
-  padding: '16px 32px',
-  background: enabled ? 'var(--color-wine)' : 'var(--color-blush)',
-  color: enabled ? 'var(--color-cream)' : 'var(--color-mauve)',
-  border: 'none',
-  borderRadius: 2,
-  cursor: enabled ? 'pointer' : 'not-allowed',
-  transition: 'all 0.2s',
-})

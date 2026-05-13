@@ -77,16 +77,13 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
       {/* Aqui vamos montar os componentes um por um */}
       <ScrollAnimations />
       <PetalBackground />
-      <main style={{ position: 'relative', zIndex: 1 }}>
+      <main className="relative z-[1]">
         <Hero page={page} />
 
         {/* Memórias */}
         <section
-          style={{
-            padding: 'clamp(60px, 10vw, 120px) clamp(20px, 8vw, 100px)',
-            maxWidth: 1100,
-            margin: '0 auto',
-          }}
+          className="max-w-[1100px] mx-auto"
+          style={{ padding: 'clamp(60px, 10vw, 120px) clamp(20px, 8vw, 100px)' }}
         >
           {page.memories.map((memory, i) => (
             <MemoryBlock

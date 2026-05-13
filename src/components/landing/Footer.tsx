@@ -10,74 +10,27 @@ export default function Footer() {
 
   return (
     <footer
-      style={{
-        background: 'var(--color-cream)',
-        borderTop: '1px solid var(--color-blush)',
-        padding: '40px clamp(24px, 8vw, 100px)',
-      }}
+      className="bg-cream border-t border-blush"
+      style={{ padding: '40px clamp(24px, 8vw, 100px)' }}
     >
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: '0 auto',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 24,
-        }}
-      >
+      <div className="max-w-[1100px] mx-auto flex items-center justify-between flex-wrap gap-6">
         {/* Logo + tagline */}
         <div>
-          <p
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '1.2rem',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              color: 'var(--color-wine)',
-              marginBottom: 4,
-            }}
-          >
+          <p className="font-serif text-[1.2rem] italic font-light text-wine mb-1">
             Memoamor
           </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.72rem',
-              color: 'var(--color-mauve)',
-            }}
-          >
+          <p className="font-sans text-[0.72rem] text-mauve">
             A história de vocês, em uma página.
           </p>
         </div>
 
         {/* Links */}
-        <nav
-          style={{
-            display: 'flex',
-            gap: 32,
-            flexWrap: 'wrap',
-          }}
-        >
+        <nav className="flex gap-8 flex-wrap">
           {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.1em',
-                color: 'var(--color-mauve)',
-                textDecoration: 'none',
-                transition: 'color 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--color-wine)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--color-mauve)'
-              }}
+              className="font-sans text-[0.75rem] tracking-[0.1em] text-mauve no-underline transition-colors duration-200 hover:text-wine"
             >
               {link.label}
             </a>
@@ -85,14 +38,7 @@ export default function Footer() {
         </nav>
 
         {/* Copyright */}
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.68rem',
-            color: 'var(--color-mauve)',
-            opacity: 0.7,
-          }}
-        >
+        <p className="font-sans text-[0.68rem] text-mauve opacity-70">
           © {currentYear} Memoamor. Feito com amor.
         </p>
       </div>

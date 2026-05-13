@@ -47,7 +47,6 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
 
   const videoId = youtubeUrl ? extractVideoId(youtubeUrl) : null
 
-  // Carrega a YouTube IFrame API
   useEffect(() => {
     if (!videoId) return
 
@@ -63,7 +62,6 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
     document.head.appendChild(tag)
   }, [videoId])
 
-  // Inicializa o player quando a API estiver pronta
   useEffect(() => {
     if (!apiReady || !videoId || !containerRef.current) return
 
@@ -78,7 +76,6 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
       },
     })
 
-    // Expõe o método play para o componente pai
     if (onPlayReady) {
       onPlayReady(() => playerRef.current?.playVideo())
     }
@@ -103,51 +100,22 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
 
   return (
     <div
+      className="fixed bottom-0 left-0 right-0 h-[72px] border-t border-rose flex items-center px-6 gap-5 z-[1000]"
       style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 72,
         background: 'rgba(250, 246, 241, 0.88)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderTop: '1px solid var(--color-rose)',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 24px',
-        gap: 20,
-        zIndex: 1000,
       }}
     >
       {/* Container oculto do player YT */}
-      <div ref={containerRef} style={{ display: 'none' }} />
+      <div ref={containerRef} className="hidden" />
 
       {/* Info da música */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.55rem',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'var(--color-mauve)',
-            marginBottom: 2,
-          }}
-        >
+      <div className="flex-1 min-w-0">
+        <p className="font-sans text-[0.55rem] tracking-[0.3em] uppercase text-mauve mb-0.5">
           ♪ tocando agora
         </p>
-        <p
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: '1rem',
-            fontStyle: 'italic',
-            color: 'var(--color-wine)',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
+        <p className="font-serif text-base italic text-wine whitespace-nowrap overflow-hidden text-ellipsis">
           {songTitle ?? 'Nossa música'}
         </p>
       </div>
@@ -156,18 +124,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
       <button
         onClick={togglePlay}
         aria-label={isPlaying ? 'Pausar' : 'Tocar'}
-        style={{
-          background: 'none',
-          border: 'none',
-          cursor: 'pointer',
-          color: 'var(--color-wine)',
-          padding: 8,
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'background 0.2s',
-        }}
+        className="bg-transparent border-none cursor-pointer text-wine p-2 rounded-full flex items-center justify-center transition-[background] duration-200"
       >
         {isPlaying ? (
           <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
@@ -181,13 +138,13 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
       </button>
 
       {/* Volume */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+      <div className="flex items-center gap-2">
         <svg
           width="16"
           height="16"
           viewBox="0 0 24 24"
           fill="var(--color-mauve)"
-          style={{ flexShrink: 0 }}
+          className="shrink-0"
         >
           <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
         </svg>
@@ -197,11 +154,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
           max={100}
           value={volume}
           onChange={handleVolume}
-          style={{
-            width: 80,
-            accentColor: 'var(--color-wine)',
-            cursor: 'pointer',
-          }}
+          className="w-20 cursor-pointer accent-wine"
         />
       </div>
     </div>

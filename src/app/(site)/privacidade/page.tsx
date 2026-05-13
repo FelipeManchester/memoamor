@@ -9,56 +9,31 @@ export const metadata: Metadata = {
 export default function PrivacidadePage() {
   return (
     <main
-      style={{
-        minHeight: '100svh',
-        background: 'var(--color-cream)',
-        padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)',
-      }}
+      className="min-h-svh bg-cream"
+      style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)' }}
     >
-      <div style={{ maxWidth: 720, margin: '0 auto' }}>
+      <div className="max-w-[720px] mx-auto">
         {/* Header */}
-        <div style={{ marginBottom: 48 }}>
+        <div className="mb-12">
           <Link
             href="/"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '1.2rem',
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-              textDecoration: 'none',
-              display: 'block',
-              marginBottom: 40,
-            }}
+            className="font-serif text-[1.2rem] italic text-wine no-underline block mb-10"
           >
             Memoamor
           </Link>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.65rem',
-              letterSpacing: '0.3em',
-              textTransform: 'uppercase',
-              color: 'var(--color-mauve)',
-              marginBottom: 12,
-            }}
-          >
+          <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-3">
             Última atualização: maio de 2026
           </p>
           <h1
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-            }}
+            className="font-serif font-light italic text-wine"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
           >
             Política de Privacidade
           </h1>
         </div>
 
         {/* Conteúdo */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+        <div className="flex flex-col gap-8">
           <Block title="1. Quem somos">
             O Memoamor é operado por pessoa jurídica inscrita no CNPJ 62.485.352/0001-31. Esta
             política descreve como coletamos, usamos e protegemos seus dados pessoais, em
@@ -67,30 +42,14 @@ export default function PrivacidadePage() {
 
           <Block title="2. Dados que coletamos">
             Coletamos apenas os dados necessários para a prestação do serviço:
-            <ul
-              style={{
-                marginTop: 12,
-                paddingLeft: 20,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-              }}
-            >
+            <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[
                 'E-mail — para entrega do link da página e comunicações sobre o serviço',
                 'Fotos e textos — conteúdo inserido voluntariamente para compor a página',
                 'Dados de pagamento — processados pelo gateway AbacatePay, não armazenamos dados de cartão',
                 'Dados de acesso — logs técnicos para segurança e diagnóstico de problemas',
               ].map((item, i) => (
-                <li
-                  key={i}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.88rem',
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.7,
-                  }}
-                >
+                <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
                   {item}
                 </li>
               ))}
@@ -99,15 +58,7 @@ export default function PrivacidadePage() {
 
           <Block title="3. Como usamos seus dados">
             Seus dados são usados exclusivamente para:
-            <ul
-              style={{
-                marginTop: 12,
-                paddingLeft: 20,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-              }}
-            >
+            <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[
                 'Criar e manter sua página de memórias',
                 'Enviar o link da página após o pagamento',
@@ -115,15 +66,7 @@ export default function PrivacidadePage() {
                 'Responder solicitações de suporte',
                 'Cumprir obrigações legais',
               ].map((item, i) => (
-                <li
-                  key={i}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.88rem',
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.7,
-                  }}
-                >
+                <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
                   {item}
                 </li>
               ))}
@@ -153,15 +96,7 @@ export default function PrivacidadePage() {
 
           <Block title="7. Seus direitos (LGPD)">
             Você tem direito a:
-            <ul
-              style={{
-                marginTop: 12,
-                paddingLeft: 20,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-              }}
-            >
+            <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[
                 'Confirmar a existência de tratamento dos seus dados',
                 'Acessar seus dados pessoais',
@@ -170,25 +105,14 @@ export default function PrivacidadePage() {
                 'Revogar o consentimento a qualquer momento',
                 'Solicitar portabilidade dos seus dados',
               ].map((item, i) => (
-                <li
-                  key={i}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.88rem',
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.7,
-                  }}
-                >
+                <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
                   {item}
                 </li>
               ))}
             </ul>
-            <p style={{ marginTop: 12 }}>
+            <p className="mt-3">
               Para exercer qualquer desses direitos, entre em contato pelo e-mail{' '}
-              <a
-                href="mailto:contato@memoamor.app"
-                style={{ color: 'var(--color-wine)', textDecoration: 'none' }}
-              >
+              <a href="mailto:contato@memoamor.app" className="text-wine no-underline">
                 contato@memoamor.app
               </a>
               . Responderemos em até 15 dias úteis.
@@ -210,10 +134,7 @@ export default function PrivacidadePage() {
           <Block title="10. Contato">
             Para dúvidas, solicitações ou reclamações relacionadas à privacidade e proteção de
             dados, entre em contato pelo e-mail{' '}
-            <a
-              href="mailto:contato@memoamor.app"
-              style={{ color: 'var(--color-wine)', textDecoration: 'none' }}
-            >
+            <a href="mailto:contato@memoamor.app" className="text-wine no-underline">
               contato@memoamor.app
             </a>
             .
@@ -226,28 +147,9 @@ export default function PrivacidadePage() {
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <h2
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: '1.15rem',
-          fontWeight: 300,
-          fontStyle: 'italic',
-          color: 'var(--color-wine)',
-        }}
-      >
-        {title}
-      </h2>
-      <div
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '0.88rem',
-          color: 'var(--color-text-muted)',
-          lineHeight: 1.8,
-        }}
-      >
-        {children}
-      </div>
+    <div className="flex flex-col gap-3">
+      <h2 className="font-serif text-[1.15rem] font-light italic text-wine">{title}</h2>
+      <div className="font-sans text-[0.88rem] text-text-muted leading-[1.8]">{children}</div>
     </div>
   )
 }

@@ -38,19 +38,16 @@ export default function PetalBackground() {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) return
 
-    // Inicializa pétalas APENAS no cliente — resolve o hydration error
     petalsRef.current = Array.from({ length: PETAL_COUNT }, createPetal)
 
     const svg = svgRef.current
     if (!svg) return
 
-    // Cria os elementos SVG dinamicamente no cliente
     petalsRef.current.forEach((petal, i) => {
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
       g.setAttribute('opacity', String(petal.opacity))
       g.setAttribute('transform', `translate(${petal.x}, ${petal.y}) rotate(${petal.rotation})`)
 
-      // Pétala — forma alongada
       const s = petal.size
       const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       path1.setAttribute(
@@ -102,26 +99,17 @@ export default function PetalBackground() {
 
     return () => {
       cancelAnimationFrame(rafRef.current)
-      // Limpa os elementos criados
       groupsRef.current.forEach((g) => g?.remove())
       groupsRef.current = []
     }
   }, [])
 
-  // SVG vazio no servidor — elementos criados no cliente via useEffect
   return (
     <svg
       ref={svgRef}
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        pointerEvents: 'none',
-      }}
+      className="fixed inset-0 w-full h-full z-[-1] pointer-events-none"
       aria-hidden="true"
     />
   )

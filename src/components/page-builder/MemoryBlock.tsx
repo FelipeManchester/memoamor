@@ -14,61 +14,39 @@ function getImageUrl(path: string, supabaseUrl: string): string {
 export default function MemoryBlock({ memory, flip = false, supabaseUrl }: MemoryBlockProps) {
   return (
     <div
-      className="reveal"
+      className="reveal grid grid-cols-2 items-center"
       style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
         gap: 'clamp(32px, 5vw, 80px)',
-        alignItems: 'center',
         marginBottom: 'clamp(80px, 12vw, 140px)',
         direction: flip ? 'rtl' : 'ltr',
       }}
     >
       {/* Foto */}
       <div
-        className={flip ? 'reveal from-right' : 'reveal from-left'}
-        style={{ position: 'relative', direction: 'ltr' }}
+        className={`${flip ? 'reveal from-right' : 'reveal from-left'} relative`}
+        style={{ direction: 'ltr' }}
       >
         {/* Borda decorativa rotacionada */}
         <div
-          style={{
-            position: 'absolute',
-            inset: -12,
-            border: '1px solid var(--color-rose)',
-            borderRadius: 2,
-            transform: 'rotate(-1.5deg)',
-            transition: 'transform 0.6s ease',
-            pointerEvents: 'none',
-          }}
+          className="absolute -inset-3 border border-rose rounded-sm pointer-events-none transition-transform duration-[600ms]"
+          style={{ transform: 'rotate(-1.5deg)' }}
         />
 
         {memory.imagePath ? (
-          <div className="memory-img" style={{ overflow: 'hidden', borderRadius: 2 }}>
+          <div className="memory-img overflow-hidden rounded-sm">
             <Image
               src={getImageUrl(memory.imagePath, supabaseUrl)}
               alt={memory.title}
               width={600}
               height={750}
-              style={{
-                width: '100%',
-                height: 'auto',
-                aspectRatio: '4/5',
-                objectFit: 'cover',
-                display: 'block',
-              }}
+              className="w-full h-auto aspect-[4/5] object-cover block"
             />
           </div>
         ) : (
-          /* Placeholder quando não há foto */
           <div
+            className="w-full aspect-[4/5] rounded-sm flex items-center justify-center"
             style={{
-              width: '100%',
-              aspectRatio: '4/5',
               background: 'linear-gradient(135deg, var(--color-blush), var(--color-rose))',
-              borderRadius: 2,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
             }}
           >
             <svg
@@ -90,48 +68,25 @@ export default function MemoryBlock({ memory, flip = false, supabaseUrl }: Memor
 
       {/* Texto */}
       <div
-        className={flip ? 'reveal from-left' : 'reveal from-right'}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-          direction: 'ltr',
-        }}
+        className={`${flip ? 'reveal from-left' : 'reveal from-right'} flex flex-col gap-5`}
+        style={{ direction: 'ltr' }}
       >
         {memory.dateLabel && (
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.65rem',
-              letterSpacing: '0.35em',
-              textTransform: 'uppercase',
-              color: 'var(--color-mauve)',
-            }}
-          >
+          <p className="font-sans text-[0.65rem] tracking-[0.35em] uppercase text-mauve">
             {memory.dateLabel}
           </p>
         )}
 
         <h2
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
-            fontWeight: 300,
-            fontStyle: 'italic',
-            color: 'var(--color-wine)',
-            lineHeight: 1.15,
-          }}
+          className="font-serif font-light italic text-wine leading-[1.15]"
+          style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)' }}
         >
           {memory.title}
         </h2>
 
         <p
-          style={{
-            fontSize: '0.95rem',
-            lineHeight: 1.9,
-            color: 'var(--color-text-muted)',
-            maxWidth: '42ch',
-          }}
+          className="text-[0.95rem] leading-[1.9] text-text-muted"
+          style={{ maxWidth: '42ch' }}
         >
           {memory.body}
         </p>

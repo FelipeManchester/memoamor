@@ -52,126 +52,65 @@ export default function Hero({ page }: HeroProps) {
   })
 
   return (
-    <section
-      style={{
-        minHeight: '100svh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '60px 24px',
-        position: 'relative',
-      }}
-    >
+    <section className="min-h-svh flex flex-col items-center justify-center text-center py-[60px] px-6 relative">
       {/* Gradiente suave atrás do conteúdo */}
       <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          position: 'absolute',
-          inset: 0,
           background: 'radial-gradient(ellipse 70% 60% at 50% 0%, #f0d4ca44 0%, transparent 70%)',
-          pointerEvents: 'none',
         }}
       />
 
       {/* Eyebrow */}
       <p
-        className="reveal"
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '0.68rem',
-          letterSpacing: '0.35em',
-          textTransform: 'uppercase',
-          color: 'var(--color-mauve)',
-          marginBottom: '20px',
-          position: 'relative',
-        }}
+        className="reveal font-sans text-[0.68rem] tracking-[0.35em] uppercase text-mauve mb-5 relative"
       >
         Uma história de amor
       </p>
 
       {/* Nomes */}
       <h1
-        className="reveal"
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: 'clamp(3rem, 9vw, 7rem)',
-          fontWeight: 300,
-          fontStyle: 'italic',
-          lineHeight: 1.05,
-          color: 'var(--color-wine)',
-          position: 'relative',
-        }}
+        className="reveal font-serif font-light italic leading-[1.05] text-wine relative"
+        style={{ fontSize: 'clamp(3rem, 9vw, 7rem)' }}
       >
         {page.nameA}
         <br />
-        <span style={{ fontSize: '0.55em', color: 'var(--color-mauve)' }}>&</span>
+        <span className="text-[0.55em] text-mauve">&</span>
         <br />
         {page.nameB}
       </h1>
 
       {/* Divisor */}
       <div
-        className="reveal"
+        className="reveal w-[60px] h-px my-7 mx-auto"
         style={{
-          width: 60,
-          height: 1,
           background: 'linear-gradient(90deg, transparent, var(--color-mauve), transparent)',
-          margin: '28px auto',
         }}
       />
 
       {/* Data */}
-      <p
-        className="reveal"
-        style={{
-          fontSize: '0.82rem',
-          letterSpacing: '0.15em',
-          color: 'var(--color-mauve)',
-          textTransform: 'uppercase',
-        }}
-      >
+      <p className="reveal text-[0.82rem] tracking-[0.15em] text-mauve uppercase">
         {startFormatted}
       </p>
 
       {/* Contador */}
       <div
-        className="reveal"
-        style={{
-          display: 'flex',
-          gap: 'clamp(24px, 5vw, 56px)',
-          marginTop: 48,
-          alignItems: 'flex-start',
-        }}
+        className="reveal flex items-start mt-12"
+        style={{ gap: 'clamp(24px, 5vw, 56px)' }}
       >
         {[
           { value: time.years, label: 'anos' },
           { value: time.months, label: 'meses' },
           { value: time.days, label: 'dias' },
         ].map((item, i) => (
-          <div key={i} style={{ textAlign: 'center' }}>
+          <div key={i} className="text-center">
             <span
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.8rem, 7vw, 5.5rem)',
-                fontWeight: 300,
-                color: 'var(--color-wine)',
-                lineHeight: 1,
-              }}
+              className="block font-serif font-light text-wine leading-none"
+              style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
             >
               {item.value}
             </span>
-            <span
-              style={{
-                display: 'block',
-                fontSize: '0.62rem',
-                letterSpacing: '0.3em',
-                textTransform: 'uppercase',
-                color: 'var(--color-mauve)',
-                marginTop: 4,
-              }}
-            >
+            <span className="block text-[0.62rem] tracking-[0.3em] uppercase text-mauve mt-1">
               {item.label}
             </span>
           </div>
@@ -179,46 +118,15 @@ export default function Hero({ page }: HeroProps) {
       </div>
 
       {/* Scroll CTA */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 32,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 8,
-          opacity: 0.6,
-        }}
-      >
-        <span
-          style={{
-            fontSize: '0.58rem',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'var(--color-mauve)',
-          }}
-        >
-          Rolar
-        </span>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60">
+        <span className="text-[0.58rem] tracking-[0.3em] uppercase text-mauve">Rolar</span>
         <div
+          className="w-px h-10 animate-scroll-pulse"
           style={{
-            width: 1,
-            height: 40,
             background: 'linear-gradient(to bottom, var(--color-mauve), transparent)',
-            animation: 'scrollPulse 2s ease-in-out infinite',
           }}
         />
       </div>
-
-      {/* Animação do scroll CTA */}
-      <style>{`
-        @keyframes scrollPulse {
-          0%, 100% { transform: scaleY(1); opacity: 0.7; }
-          50% { transform: scaleY(0.5); opacity: 0.3; }
-        }
-      `}</style>
     </section>
   )
 }

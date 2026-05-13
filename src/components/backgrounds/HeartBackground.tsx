@@ -96,14 +96,7 @@ export default function HeartBackground() {
       ref={svgRef}
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid slice"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -1,
-        pointerEvents: 'none',
-      }}
+      className="fixed inset-0 w-full h-full z-[-1] pointer-events-none"
       aria-hidden="true"
     />
   )

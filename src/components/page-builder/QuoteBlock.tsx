@@ -6,64 +6,33 @@ interface QuoteBlockProps {
 export default function QuoteBlock({ text, author }: QuoteBlockProps) {
   return (
     <section
+      className="text-center relative overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, var(--color-blush) 0%, var(--color-cream) 100%)',
         padding: 'clamp(60px, 10vw, 120px) clamp(20px, 10vw, 140px)',
-        textAlign: 'center',
-        position: 'relative',
-        overflow: 'hidden',
       }}
     >
       {/* Aspas decorativas */}
       <span
         aria-hidden="true"
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: '16rem',
-          color: 'var(--color-rose)',
-          position: 'absolute',
-          top: -60,
-          left: 20,
-          lineHeight: 1,
-          opacity: 0.2,
-          pointerEvents: 'none',
-          userSelect: 'none',
-        }}
+        className="font-serif text-rose absolute pointer-events-none select-none opacity-20 leading-none"
+        style={{ fontSize: '16rem', top: -60, left: 20 }}
       >
         &ldquo;
       </span>
 
       <p
-        className="reveal"
+        className="reveal font-serif italic font-light text-wine mx-auto mb-6 leading-[1.45] relative z-[1]"
         style={{
-          fontFamily: 'var(--font-serif)',
           fontSize: 'clamp(1.5rem, 3.5vw, 2.6rem)',
-          fontStyle: 'italic',
-          fontWeight: 300,
-          color: 'var(--color-wine)',
           maxWidth: 700,
-          margin: '0 auto 24px',
-          lineHeight: 1.45,
-          position: 'relative',
-          zIndex: 1,
         }}
       >
         {text}
       </p>
 
       {author && (
-        <p
-          className="reveal"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.68rem',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'var(--color-mauve)',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
+        <p className="reveal font-sans text-[0.68rem] tracking-[0.3em] uppercase text-mauve relative z-[1]">
           {author}
         </p>
       )}

@@ -1,11 +1,11 @@
 'use client'
 
 import { useCreateFormStore } from '@/store/createForm'
+import { cn } from '@/lib/utils'
 
 export default function StepOne() {
   const { data, updateField, setStep } = useCreateFormStore()
 
-  // Valida se pode avançar — nomes e data obrigatórios
   const canAdvance =
     data.nameA.trim().length >= 2 && data.nameB.trim().length >= 2 && data.startDate !== ''
 
@@ -15,40 +15,26 @@ export default function StepOne() {
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+    <div className="flex flex-col gap-8">
       {/* Cabeçalho do passo */}
       <div>
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.65rem',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            color: 'var(--color-mauve)',
-            marginBottom: 8,
-          }}
-        >
+        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
           Passo 1 de 5
         </p>
         <h1
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-            fontWeight: 300,
-            fontStyle: 'italic',
-            color: 'var(--color-wine)',
-          }}
+          className="font-serif font-light italic text-wine"
+          style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)' }}
         >
           Como vocês se chamam?
         </h1>
       </div>
 
       {/* Nomes */}
-      <div style={{ display: 'flex', gap: 16 }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <label style={labelStyle}>Nome 1 *</label>
+      <div className="flex gap-4">
+        <div className="flex-1 flex flex-col gap-2">
+          <label className="form-label">Nome 1 *</label>
           <input
-            style={inputStyle}
+            className="form-input"
             type="text"
             placeholder="Ana"
             maxLength={30}
@@ -56,10 +42,10 @@ export default function StepOne() {
             onChange={(e) => updateField('nameA', e.target.value)}
           />
         </div>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <label style={labelStyle}>Nome 2 *</label>
+        <div className="flex-1 flex flex-col gap-2">
+          <label className="form-label">Nome 2 *</label>
           <input
-            style={inputStyle}
+            className="form-input"
             type="text"
             placeholder="Pedro"
             maxLength={30}
@@ -70,10 +56,10 @@ export default function StepOne() {
       </div>
 
       {/* Data */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <label style={labelStyle}>Desde quando estão juntos? *</label>
+      <div className="flex flex-col gap-2">
+        <label className="form-label">Desde quando estão juntos? *</label>
         <input
-          style={inputStyle}
+          className="form-input"
           type="date"
           max={new Date().toISOString().split('T')[0]}
           value={data.startDate}
@@ -82,33 +68,17 @@ export default function StepOne() {
       </div>
 
       {/* Título personalizado */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <label style={labelStyle}>
+      <div className="flex flex-col gap-2">
+        <label className="form-label">
           Endereço da página
-          <span style={{ color: 'var(--color-mauve)', marginLeft: 6 }}>(opcional)</span>
+          <span className="text-mauve ml-1.5">(opcional)</span>
         </label>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.85rem',
-              color: 'var(--color-mauve)',
-              background: 'var(--color-blush)',
-              border: '1px solid var(--color-rose)',
-              borderRight: 'none',
-              padding: '10px 12px',
-              borderRadius: '2px 0 0 2px',
-              whiteSpace: 'nowrap',
-            }}
-          >
+        <div className="flex items-center gap-0">
+          <span className="font-sans text-[0.85rem] text-mauve bg-blush border border-rose border-r-0 py-[10px] px-3 rounded-l-[2px] whitespace-nowrap">
             memoamor.app/p/
           </span>
           <input
-            style={{
-              ...inputStyle,
-              borderRadius: '0 2px 2px 0',
-              flex: 1,
-            }}
+            className="form-input rounded-l-none rounded-r-[2px] flex-1"
             type="text"
             placeholder="ana-e-pedro"
             maxLength={40}
@@ -118,53 +88,20 @@ export default function StepOne() {
             }
           />
         </div>
-        <p style={{ fontSize: '0.72rem', color: 'var(--color-mauve)' }}>
-          Se deixar em branco, geramos automaticamente.
-        </p>
+        <p className="text-[0.72rem] text-mauve">Se deixar em branco, geramos automaticamente.</p>
       </div>
 
       {/* Botão avançar */}
       <button
         onClick={handleAdvance}
         disabled={!canAdvance}
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '0.72rem',
-          letterSpacing: '0.2em',
-          textTransform: 'uppercase',
-          padding: '16px 32px',
-          background: canAdvance ? 'var(--color-wine)' : 'var(--color-blush)',
-          color: canAdvance ? 'var(--color-cream)' : 'var(--color-mauve)',
-          border: 'none',
-          borderRadius: 2,
-          cursor: canAdvance ? 'pointer' : 'not-allowed',
-          transition: 'all 0.2s',
-          alignSelf: 'flex-end',
-        }}
+        className={cn(
+          'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 self-end',
+          canAdvance ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
+        )}
       >
         Continuar →
       </button>
     </div>
   )
-}
-
-// Estilos reutilizáveis
-const labelStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.75rem',
-  letterSpacing: '0.1em',
-  color: 'var(--color-text)',
-}
-
-const inputStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.95rem',
-  color: 'var(--color-text)',
-  background: 'white',
-  border: '1px solid var(--color-rose)',
-  borderRadius: 2,
-  padding: '10px 14px',
-  outline: 'none',
-  width: '100%',
-  transition: 'border-color 0.2s',
 }

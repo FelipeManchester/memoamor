@@ -27,49 +27,27 @@ export default function TemplatesSection() {
 
   return (
     <section
-      style={{
-        background: 'var(--color-light)',
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      className="bg-light relative overflow-hidden"
+      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
     >
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+      <div className="max-w-[1100px] mx-auto">
         {/* Cabeçalho */}
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 72px)' }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.65rem',
-              letterSpacing: '0.4em',
-              textTransform: 'uppercase',
-              color: 'var(--color-mauve)',
-              marginBottom: 16,
-            }}
-          >
+        <div
+          className="text-center"
+          style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}
+        >
+          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
             Três temas exclusivos
           </p>
           <h2
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-              marginBottom: 16,
-            }}
+            className="font-serif font-light italic text-wine mb-4"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
           >
             Escolha o clima da sua história
           </h2>
           <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.95rem',
-              color: 'var(--color-text-muted)',
-              maxWidth: '48ch',
-              margin: '0 auto',
-              lineHeight: 1.8,
-            }}
+            className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
+            style={{ maxWidth: '48ch' }}
           >
             Cada tema tem animações únicas que se revelam conforme o scroll. O conteúdo é sempre o
             mesmo — só o clima muda.
@@ -77,114 +55,44 @@ export default function TemplatesSection() {
         </div>
 
         {/* Cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 24,
-          }}
-        >
+        <div className="grid grid-cols-3 gap-6">
           {templates.map((template) => (
             <a
               key={template.id}
               href={`/demo?template=${template.id}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                textDecoration: 'none',
-                display: 'block',
-                borderRadius: 8,
-                overflow: 'hidden',
-                border: '1px solid var(--color-rose)',
-                background: 'white',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                cursor: 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-6px)'
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(122, 63, 63, 0.12)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)'
-                e.currentTarget.style.boxShadow = 'none'
-              }}
+              className="no-underline block rounded-lg overflow-hidden border border-rose bg-white transition-[transform,box-shadow] duration-300 cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(122,63,63,0.12)]"
             >
               {/* Preview visual do tema */}
               <div
+                className="h-[200px] relative overflow-hidden flex items-center justify-center"
                 style={{
-                  height: 200,
                   background:
                     template.id === 'constellations'
                       ? 'linear-gradient(135deg, #1a0f0f 0%, #2d1515 100%)'
                       : `linear-gradient(135deg, ${template.colors[0]} 0%, ${template.colors[1]} 100%)`,
-                  position: 'relative',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                 }}
               >
-                {/* Elementos decorativos de cada tema */}
                 {template.id === 'petals' && <PetalPreview />}
                 {template.id === 'hearts' && <HeartPreview />}
                 {template.id === 'constellations' && <ConstellationPreview />}
 
                 {/* Badge "Ver ao vivo" */}
-                <div
-                  style={{
-                    position: 'absolute',
-                    bottom: 12,
-                    right: 12,
-                    background: 'rgba(255,255,255,0.9)',
-                    borderRadius: 100,
-                    padding: '4px 12px',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.6rem',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-wine)',
-                  }}
-                >
+                <div className="absolute bottom-3 right-3 bg-white/90 rounded-full py-1 px-3 font-sans text-[0.6rem] tracking-[0.15em] uppercase text-wine">
                   Ver ao vivo ↗
                 </div>
               </div>
 
               {/* Info do template */}
-              <div style={{ padding: '20px 24px 24px' }}>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-serif)',
-                    fontSize: '1.4rem',
-                    fontStyle: 'italic',
-                    fontWeight: 300,
-                    color: 'var(--color-wine)',
-                    marginBottom: 6,
-                  }}
-                >
+              <div className="py-5 px-6 pb-6">
+                <h3 className="font-serif text-[1.4rem] italic font-light text-wine mb-1.5">
                   {template.name}
                 </h3>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.78rem',
-                    color: 'var(--color-mauve)',
-                    marginBottom: 8,
-                    letterSpacing: '0.05em',
-                  }}
-                >
+                <p className="font-sans text-[0.78rem] text-mauve mb-2 tracking-[0.05em]">
                   {template.description}
                 </p>
-                <p
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.75rem',
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.6,
-                    borderTop: '1px solid var(--color-blush)',
-                    paddingTop: 12,
-                    marginTop: 4,
-                  }}
-                >
+                <p className="font-sans text-[0.75rem] text-text-muted leading-[1.6] border-t border-blush pt-3 mt-1">
                   {template.mood}
                 </p>
               </div>
@@ -193,15 +101,7 @@ export default function TemplatesSection() {
         </div>
 
         {/* Rodapé da seção */}
-        <p
-          style={{
-            textAlign: 'center',
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.78rem',
-            color: 'var(--color-mauve)',
-            marginTop: 40,
-          }}
-        >
+        <p className="text-center font-sans text-[0.78rem] text-mauve mt-10">
           Clique em qualquer tema para ver a página completa ao vivo ↑
         </p>
       </div>
@@ -224,7 +124,7 @@ function PetalPreview() {
   return (
     <svg
       viewBox="0 0 100 100"
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+      className="absolute inset-0 w-full h-full"
     >
       {petals.map((p, i) => (
         <ellipse
@@ -265,7 +165,7 @@ function HeartPreview() {
   return (
     <svg
       viewBox="0 0 100 100"
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+      className="absolute inset-0 w-full h-full"
     >
       {hearts.map((h, i) => {
         const s = h.size * 0.4
@@ -320,7 +220,7 @@ function ConstellationPreview() {
   return (
     <svg
       viewBox="0 0 100 100"
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+      className="absolute inset-0 w-full h-full"
     >
       {lines.map(([a, b], i) => (
         <line

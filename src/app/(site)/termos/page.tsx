@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -8,56 +9,31 @@ export const metadata: Metadata = {
 export default function TermosPage() {
   return (
     <main
-      style={{
-        minHeight: '100svh',
-        background: 'var(--color-cream)',
-        padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)',
-      }}
+      className="min-h-svh bg-cream"
+      style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)' }}
     >
-      <div style={{ maxWidth: 720, margin: '0 auto' }}>
+      <div className="max-w-[720px] mx-auto">
         {/* Header */}
-        <div style={{ marginBottom: 48 }}>
-          <a
+        <div className="mb-12">
+          <Link
             href="/"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '1.2rem',
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-              textDecoration: 'none',
-              display: 'block',
-              marginBottom: 40,
-            }}
+            className="font-serif text-[1.2rem] italic text-wine no-underline block mb-10"
           >
             Memoamor
-          </a>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.65rem',
-              letterSpacing: '0.3em',
-              textTransform: 'uppercase',
-              color: 'var(--color-mauve)',
-              marginBottom: 12,
-            }}
-          >
+          </Link>
+          <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-3">
             Última atualização: maio de 2026
           </p>
           <h1
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-            }}
+            className="font-serif font-light italic text-wine"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
           >
             Termos de Uso
           </h1>
         </div>
 
         {/* Conteúdo */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+        <div className="flex flex-col gap-8">
           <Block title="1. O que é o Memoamor">
             O Memoamor é uma plataforma digital que permite a criação de páginas web personalizadas
             para registrar e compartilhar memórias de relacionamentos. O serviço é operado por
@@ -94,30 +70,14 @@ export default function TermosPage() {
           <Block title="6. Conteúdo do usuário">
             Você é integralmente responsável pelo conteúdo inserido na sua página — textos, fotos e
             links. É proibido inserir conteúdo que:
-            <ul
-              style={{
-                marginTop: 12,
-                paddingLeft: 20,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 8,
-              }}
-            >
+            <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[
                 'Viole direitos autorais ou propriedade intelectual de terceiros',
                 'Contenha imagens ou textos de cunho sexual, violento ou discriminatório',
                 'Seja falso, enganoso ou difamatório',
                 'Viole a privacidade de terceiros sem consentimento',
               ].map((item, i) => (
-                <li
-                  key={i}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.88rem',
-                    color: 'var(--color-text-muted)',
-                    lineHeight: 1.7,
-                  }}
-                >
+                <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
                   {item}
                 </li>
               ))}
@@ -145,10 +105,7 @@ export default function TermosPage() {
           <Block title="10. Contato">
             Para dúvidas, solicitações ou reclamações relacionadas a estes termos, entre em contato
             pelo e-mail{' '}
-            <a
-              href="mailto:contato@memoamor.app"
-              style={{ color: 'var(--color-wine)', textDecoration: 'none' }}
-            >
+            <a href="mailto:contato@memoamor.app" className="text-wine no-underline">
               contato@memoamor.app
             </a>
             .
@@ -161,28 +118,9 @@ export default function TermosPage() {
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      <h2
-        style={{
-          fontFamily: 'var(--font-serif)',
-          fontSize: '1.15rem',
-          fontWeight: 300,
-          fontStyle: 'italic',
-          color: 'var(--color-wine)',
-        }}
-      >
-        {title}
-      </h2>
-      <div
-        style={{
-          fontFamily: 'var(--font-sans)',
-          fontSize: '0.88rem',
-          color: 'var(--color-text-muted)',
-          lineHeight: 1.8,
-        }}
-      >
-        {children}
-      </div>
+    <div className="flex flex-col gap-3">
+      <h2 className="font-serif text-[1.15rem] font-light italic text-wine">{title}</h2>
+      <div className="font-sans text-[0.88rem] text-text-muted leading-[1.8]">{children}</div>
     </div>
   )
 }

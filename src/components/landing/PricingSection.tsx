@@ -42,129 +42,75 @@ export default function PricingSection() {
 
   return (
     <section
-      style={{
-        padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      className="relative overflow-hidden"
+      style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 8vw, 100px)' }}
     >
       {/* Fundo decorativo */}
       <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          position: 'absolute',
-          inset: 0,
           background: 'radial-gradient(ellipse 70% 60% at 50% 100%, #f0d4ca33 0%, transparent 70%)',
-          pointerEvents: 'none',
         }}
       />
 
-      <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div className="max-w-[900px] mx-auto relative z-[1]">
         {/* Cabeçalho */}
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(48px, 8vw, 72px)' }}>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.65rem',
-              letterSpacing: '0.4em',
-              textTransform: 'uppercase',
-              color: 'var(--color-mauve)',
-              marginBottom: 16,
-            }}
-          >
+        <div
+          className="text-center"
+          style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}
+        >
+          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
             Sem surpresas
           </p>
           <h2
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-              fontWeight: 300,
-              fontStyle: 'italic',
-              color: 'var(--color-wine)',
-              marginBottom: 16,
-            }}
+            className="font-serif font-light italic text-wine mb-4"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
           >
             Simples e transparente
           </h2>
           <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.95rem',
-              color: 'var(--color-text-muted)',
-              maxWidth: '44ch',
-              margin: '0 auto',
-              lineHeight: 1.8,
-            }}
+            className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
+            style={{ maxWidth: '44ch' }}
           >
             Pagamento único. Sem assinatura, sem cobranças escondidas.
           </p>
         </div>
 
         {/* Cards */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 24,
-            alignItems: 'start',
-          }}
-        >
+        <div className="grid grid-cols-2 gap-6 items-start">
           {plans.map((plan) => (
             <div
               key={plan.id}
+              className="rounded-lg relative overflow-hidden"
               style={{
-                borderRadius: 8,
                 border: plan.highlighted
                   ? '2px solid var(--color-wine)'
                   : '1px solid var(--color-rose)',
                 background: plan.highlighted ? 'var(--color-wine)' : 'white',
                 padding: 'clamp(28px, 4vw, 40px)',
-                position: 'relative',
-                overflow: 'hidden',
               }}
             >
               {/* Badge mais popular */}
               {plan.highlighted && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 20,
-                    right: 20,
-                    background: 'var(--color-rose)',
-                    borderRadius: 100,
-                    padding: '4px 12px',
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.6rem',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    color: 'var(--color-wine)',
-                  }}
-                >
+                <div className="absolute top-5 right-5 bg-rose rounded-full px-3 py-1 font-sans text-[0.6rem] tracking-[0.15em] uppercase text-wine">
                   Mais popular
                 </div>
               )}
 
               {/* Nome e preço */}
               <p
-                style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.7rem',
-                  letterSpacing: '0.25em',
-                  textTransform: 'uppercase',
-                  color: plan.highlighted ? 'var(--color-rose)' : 'var(--color-mauve)',
-                  marginBottom: 12,
-                }}
+                className="font-sans text-[0.7rem] tracking-[0.25em] uppercase mb-3"
+                style={{ color: plan.highlighted ? 'var(--color-rose)' : 'var(--color-mauve)' }}
               >
                 {plan.name}
               </p>
 
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 8 }}>
+              <div className="flex items-baseline gap-1 mb-2">
                 <span
+                  className="font-serif font-light leading-none"
                   style={{
-                    fontFamily: 'var(--font-serif)',
                     fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-                    fontWeight: 300,
                     color: plan.highlighted ? 'var(--color-cream)' : 'var(--color-wine)',
-                    lineHeight: 1,
                   }}
                 >
                   {plan.price}
@@ -172,12 +118,9 @@ export default function PricingSection() {
               </div>
 
               <p
+                className="font-sans text-[0.82rem] mb-7 leading-[1.6]"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.82rem',
                   color: plan.highlighted ? 'var(--color-blush)' : 'var(--color-text-muted)',
-                  marginBottom: 28,
-                  lineHeight: 1.6,
                 }}
               >
                 {plan.description}
@@ -185,41 +128,26 @@ export default function PricingSection() {
 
               {/* Divisor */}
               <div
+                className="h-px mb-6"
                 style={{
-                  height: 1,
                   background: plan.highlighted ? 'rgba(242, 221, 213, 0.2)' : 'var(--color-blush)',
-                  marginBottom: 24,
                 }}
               />
 
               {/* Features */}
-              <ul
-                style={{
-                  listStyle: 'none',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 12,
-                  marginBottom: 32,
-                }}
-              >
+              <ul className="list-none flex flex-col gap-3 mb-8">
                 {plan.features.map((feature, i) => (
                   <li
                     key={i}
+                    className="flex items-start gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
                     style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 10,
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '0.85rem',
                       color: plan.highlighted ? 'var(--color-blush)' : 'var(--color-text)',
-                      lineHeight: 1.5,
                     }}
                   >
                     <span
+                      className="shrink-0 mt-px"
                       style={{
                         color: plan.highlighted ? 'var(--color-rose)' : 'var(--color-mauve)',
-                        flexShrink: 0,
-                        marginTop: 1,
                       }}
                     >
                       ✓
@@ -232,27 +160,10 @@ export default function PricingSection() {
               {/* CTA */}
               <a
                 href="/criar"
+                className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.88] hover:-translate-y-px"
                 style={{
-                  display: 'block',
-                  textAlign: 'center',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  padding: '16px',
-                  borderRadius: 2,
-                  textDecoration: 'none',
-                  transition: 'opacity 0.2s, transform 0.2s',
                   background: plan.highlighted ? 'var(--color-cream)' : 'var(--color-wine)',
                   color: plan.highlighted ? 'var(--color-wine)' : 'var(--color-cream)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.opacity = '0.88'
-                  e.currentTarget.style.transform = 'translateY(-1px)'
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.opacity = '1'
-                  e.currentTarget.style.transform = 'translateY(0)'
                 }}
               >
                 {plan.cta} →
@@ -260,13 +171,9 @@ export default function PricingSection() {
 
               {/* Nota de renovação */}
               <p
+                className="font-sans text-[0.68rem] text-center mt-3 opacity-80"
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '0.68rem',
                   color: plan.highlighted ? 'var(--color-blush)' : 'var(--color-mauve)',
-                  textAlign: 'center',
-                  marginTop: 12,
-                  opacity: 0.8,
                 }}
               >
                 {plan.note}
@@ -276,25 +183,9 @@ export default function PricingSection() {
         </div>
 
         {/* Garantia */}
-        <div
-          style={{
-            marginTop: 48,
-            textAlign: 'center',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 12,
-          }}
-        >
-          <span style={{ fontSize: '1.2rem' }}>🔒</span>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '0.78rem',
-              color: 'var(--color-mauve)',
-              lineHeight: 1.6,
-            }}
-          >
+        <div className="mt-12 text-center flex items-center justify-center gap-3">
+          <span className="text-[1.2rem]">🔒</span>
+          <p className="font-sans text-[0.78rem] text-mauve leading-[1.6]">
             Pagamento seguro via PIX ou cartão · Seus dados protegidos
           </p>
         </div>
