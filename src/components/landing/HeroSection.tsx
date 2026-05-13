@@ -27,14 +27,6 @@ export default function HeroSection() {
 
       {/* ── Coluna esquerda — texto ── */}
       <div className="flex flex-col gap-8 relative z-[1] py-16 pr-8">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-blush border border-rose rounded-full px-4 py-[6px] w-fit">
-          <span className="text-[0.6rem]">✦</span>
-          <span className="font-sans text-[0.65rem] tracking-[0.2em] uppercase text-wine">
-            Presente digital único
-          </span>
-        </div>
-
         {/* Headline */}
         <h1
           className="font-serif font-light italic text-wine leading-[1.1] m-0"
@@ -86,21 +78,6 @@ export default function HeroSection() {
           </a>
         </div>
 
-        {/* Social proof */}
-        <div className="flex items-center gap-3 pt-2">
-          <div className="flex">
-            {['#c49a8a', '#d4a898', '#e8c4b8', '#c49a8a', '#b08070'].map((color, i) => (
-              <div
-                key={i}
-                className="w-8 h-8 rounded-full border-2 border-cream"
-                style={{ background: color, marginLeft: i > 0 ? -8 : 0 }}
-              />
-            ))}
-          </div>
-          <p className="font-sans text-[0.78rem] text-mauve m-0">
-            Mais de <strong className="text-wine">500 casais</strong> já têm a sua página
-          </p>
-        </div>
       </div>
 
       {/* ── Coluna direita — preview mockup ── */}
