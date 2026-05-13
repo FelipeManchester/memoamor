@@ -23,13 +23,23 @@ function extractVideoId(url: string): string | null {
 
 declare global {
   interface Window {
-    YT: any
+    YT: {
+      Player: new (el: HTMLDivElement, options: object) => YTPlayer
+      PlayerState: { PLAYING: number }
+    }
     onYouTubeIframeAPIReady: () => void
   }
 }
 
+interface YTPlayer {
+  playVideo: () => void
+  pauseVideo: () => void
+  setVolume: (v: number) => void
+  destroy: () => void
+}
+
 export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: PlayerBarProps) {
-  const playerRef = useRef<any>(null)
+  const playerRef = useRef<YTPlayer | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(70)

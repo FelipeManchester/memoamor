@@ -84,7 +84,7 @@ export default function TemplatesSection() {
             gap: 24,
           }}
         >
-          {templates.map((template, i) => (
+          {templates.map((template) => (
             <a
               key={template.id}
               href={`/demo?template=${template.id}`}

@@ -1,11 +1,9 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
-// ── Server-side (Route Handlers, Server Components) ──
-// Use em Server Components e API Routes
 export async function createServerSupabaseClient() {
   const cookieStore = await cookies()
-
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -19,19 +17,14 @@ export async function createServerSupabaseClient() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
             )
-          } catch {
-            // Server Component — cookies só podem ser lidos
-          }
+          } catch {}
         },
       },
     },
   )
 }
 
-// ── Admin client (service role) ───────────────
-// Use APENAS em Route Handlers seguros — nunca expor no cliente
 export function createAdminClient() {
-  const { createClient } = require('@supabase/supabase-js')
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
