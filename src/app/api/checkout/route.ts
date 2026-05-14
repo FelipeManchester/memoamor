@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
         methods: ['PIX', 'CARD'],
         externalId: slug,
         returnUrl: `${baseUrl}/criar?cancelado=true`,
-        completionUrl: `${baseUrl}/sucesso?slug=${slug}`,
+        completionUrl: `${baseUrl}/sucesso?payment=success&slug=${slug}`,
         metadata: { slug, email, planId },
       }),
     })
