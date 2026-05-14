@@ -28,8 +28,11 @@ export default function StepFive() {
           className="font-serif font-light italic text-wine"
           style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)' }}
         >
-          Escolha o tema da sua página
+          Qual o clima da história de vocês?
         </h1>
+        <p className="font-sans text-[0.85rem] text-text-muted mt-2">
+          Cada tema tem animações próprias. O conteúdo é o mesmo.
+        </p>
       </div>
 
       {/* Seletor de templates */}
@@ -126,7 +129,7 @@ export default function StepFive() {
           onClick={() => setStep(6)}
           className="font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 bg-wine text-cream cursor-pointer"
         >
-          Revisar →
+          Revisar e finalizar →
         </button>
       </div>
     </div>

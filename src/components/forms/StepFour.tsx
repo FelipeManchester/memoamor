@@ -68,7 +68,7 @@ export default function StepFour() {
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 4 de 5
+          Passo 4 de 6
         </p>
         <h1
           className="font-serif font-light italic text-wine"
@@ -77,7 +77,7 @@ export default function StepFour() {
           Qual é a música de vocês?
         </h1>
         <p className="font-sans text-[0.85rem] text-text-muted mt-2">
-          Cole o link de um vídeo do YouTube. Você pode pular essa etapa.
+          Cola o link do YouTube. Vamos tocar quando alguém abrir a página.
         </p>
       </div>
 
@@ -108,6 +108,11 @@ export default function StepFour() {
         {status === 'error' && (
           <p className="font-sans text-[0.8rem]" style={{ color: '#c0392b' }}>
             Vídeo não encontrado. Verifique o link.
+          </p>
+        )}
+        {status === 'idle' && !data.youtubeUrl && (
+          <p className="font-sans text-[0.8rem] text-mauve">
+            Não tem música ainda? Sem problema — você pode pular esse passo.
           </p>
         )}
       </div>
@@ -143,7 +148,7 @@ export default function StepFour() {
         </button>
         <div className="flex gap-3">
           <button onClick={() => setStep(5)} className="btn-ghost">
-            Pular
+            Pular esta etapa
           </button>
           <button
             onClick={() => setStep(5)}

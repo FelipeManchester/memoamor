@@ -11,7 +11,6 @@ export default function StepOne() {
   const isPremium = data.plan === 'premium'
   const [slugStatus, setSlugStatus] = useState<SlugStatus>('idle')
 
-  // Debounced slug availability check (premium + custom slug only)
   useEffect(() => {
     if (!isPremium || !data.pageTitle) {
       setSlugStatus('idle')
@@ -49,7 +48,7 @@ export default function StepOne() {
     <div className="flex flex-col gap-8">
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 1 de 5
+          Passo 1 de 6
         </p>
         <h1
           className="font-serif font-light italic text-wine"
@@ -62,8 +61,11 @@ export default function StepOne() {
       {/* Nomes */}
       <div className="flex gap-4">
         <div className="flex-1 flex flex-col gap-2">
-          <label className="form-label">Nome 1 *</label>
+          <label htmlFor="nameA" className="form-label">
+            Seu nome <span aria-label="obrigatório">*</span>
+          </label>
           <input
+            id="nameA"
             className="form-input"
             type="text"
             placeholder="Ana"
@@ -73,8 +75,11 @@ export default function StepOne() {
           />
         </div>
         <div className="flex-1 flex flex-col gap-2">
-          <label className="form-label">Nome 2 *</label>
+          <label htmlFor="nameB" className="form-label">
+            Nome do(a) parceiro(a) <span aria-label="obrigatório">*</span>
+          </label>
           <input
+            id="nameB"
             className="form-input"
             type="text"
             placeholder="Pedro"
@@ -87,8 +92,11 @@ export default function StepOne() {
 
       {/* Data */}
       <div className="flex flex-col gap-2">
-        <label className="form-label">Desde quando estão juntos? *</label>
+        <label htmlFor="startDate" className="form-label">
+          Desde quando vocês estão juntos? <span aria-label="obrigatório">*</span>
+        </label>
         <input
+          id="startDate"
           className="form-input"
           type="date"
           max={new Date().toISOString().split('T')[0]}
@@ -99,8 +107,9 @@ export default function StepOne() {
 
       {/* Frase da página */}
       <div className="flex flex-col gap-2">
-        <label className="form-label">Frase da página</label>
+        <label htmlFor="closingQuote" className="form-label">Frase da página</label>
         <textarea
+          id="closingQuote"
           className="form-input resize-none"
           rows={3}
           maxLength={200}
@@ -123,7 +132,7 @@ export default function StepOne() {
                 key={phrase}
                 type="button"
                 onClick={() => updateField('closingQuote', phrase)}
-                className="text-left py-2 px-3 rounded-sm text-[0.78rem] text-text-muted transition-all duration-150 cursor-pointer border"
+                className="text-left py-2 px-3 rounded-sm text-[0.78rem] transition-all duration-150 cursor-pointer border"
                 style={{
                   background: (data.closingQuote ?? '') === phrase ? 'var(--color-blush)' : 'white',
                   borderColor:
@@ -141,12 +150,12 @@ export default function StepOne() {
 
       {/* Endereço da página */}
       <div className="flex flex-col gap-2">
-        <label className="form-label">
+        <label htmlFor="pageTitle" className="form-label">
           Endereço da página
           {isPremium ? (
             <span className="text-mauve ml-1.5">(opcional)</span>
           ) : (
-            <span className="text-mauve ml-1.5">(gerado automaticamente)</span>
+            <span className="text-mauve ml-1.5">(apenas na versão premium)</span>
           )}
         </label>
 
@@ -155,6 +164,7 @@ export default function StepOne() {
             memoamor.app/p/
           </span>
           <input
+            id="pageTitle"
             className={cn(
               'form-input rounded-l-none rounded-r-xs flex-1',
               !isPremium && 'bg-blush text-mauve cursor-not-allowed opacity-70',
@@ -168,10 +178,11 @@ export default function StepOne() {
                 'border-[#16a34a] focus:border-[#16a34a]',
             )}
             type="text"
-            placeholder={isPremium ? 'nome1-e-nome2' : 'gerado-automaticamente'}
+            placeholder={isPremium ? 'ana-e-pedro' : 'gerado-automaticamente'}
             maxLength={40}
             disabled={!isPremium}
             value={isPremium ? data.pageTitle : ''}
+            aria-describedby="pageTitle-helper"
             onChange={(e) =>
               isPremium &&
               updateField('pageTitle', e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))
@@ -179,26 +190,29 @@ export default function StepOne() {
           />
         </div>
 
-        {/* Status messages */}
         {!isPremium && (
-          <p className="text-[0.72rem] text-mauve">
-            Um endereço aleatório será gerado no momento do pagamento.
+          <p id="pageTitle-helper" className="text-[0.72rem] text-mauve">
+            Um endereço único será gerado automaticamente após o pagamento.
           </p>
         )}
         {isPremium && !data.pageTitle && (
-          <p className="text-[0.72rem] text-mauve">Se deixar em branco, geramos automaticamente.</p>
+          <p id="pageTitle-helper" className="text-[0.72rem] text-mauve">
+            Se deixar em branco, geramos automaticamente.
+          </p>
         )}
         {isPremium && data.pageTitle && slugStatus === 'checking' && (
-          <p className="text-[0.72rem] text-mauve">Verificando disponibilidade…</p>
+          <p id="pageTitle-helper" className="text-[0.72rem] text-mauve">
+            Verificando disponibilidade…
+          </p>
         )}
         {isPremium && data.pageTitle && slugStatus === 'available' && (
-          <p className="text-[0.72rem]" style={{ color: '#16a34a' }}>
-            Link disponível!
+          <p id="pageTitle-helper" className="text-[0.72rem]" style={{ color: '#16a34a' }}>
+            ✓ Link disponível!
           </p>
         )}
         {isPremium && data.pageTitle && slugStatus === 'taken' && (
-          <p className="text-[0.72rem]" style={{ color: '#c0392b' }}>
-            Esse link está em uso.
+          <p id="pageTitle-helper" className="text-[0.72rem]" style={{ color: '#c0392b' }}>
+            Esse link já está em uso. Tente outro ♡
           </p>
         )}
       </div>

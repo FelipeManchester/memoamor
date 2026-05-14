@@ -92,10 +92,10 @@ export default function StepSix() {
           className="font-serif font-light italic text-wine"
           style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)' }}
         >
-          Revise e confirme
+          Tudo certo?
         </h1>
         <p className="font-sans text-[0.82rem] text-text-muted mt-1">
-          Confira tudo antes de ir para o pagamento.
+          Dá uma última olhada. Você ainda pode editar tudo agora — e por mais 24h depois do pagamento ♡
         </p>
       </div>
 
@@ -310,7 +310,7 @@ export default function StepSix() {
         >
           {isSubmitting
             ? 'Processando...'
-            : `Criar página · R$ ${(plan.priceInCents / 100).toFixed(2).replace('.', ',')}`}
+            : `Pagar R$ ${(plan.priceInCents / 100).toFixed(2).replace('.', ',')} e criar a página ♡`}
         </button>
       </div>
     </div>
