@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 }
 import { createAdminClient } from '@/lib/supabase/server'
 import ResetFormOnSuccess from '@/components/page-builder/ResetFormOnSuccess'
+import PetalConfetti from '@/components/ui/PetalConfetti'
 import CopyLinkButton from './CopyLinkButton'
 import FaqItem from './FaqItem'
 
@@ -83,6 +84,7 @@ export default async function SucessoPage(props: {
   return (
     <>
       <ResetFormOnSuccess />
+      <PetalConfetti />
 
       <div
         style={{

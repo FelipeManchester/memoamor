@@ -6,14 +6,10 @@ export default function FaqItem({ question, answer }: { question: string; answer
   const [open, setOpen] = useState(false)
 
   return (
-    <div
-      style={{
-        borderBottom: '1px solid var(--color-blush)',
-        paddingBottom: open ? 16 : 0,
-      }}
-    >
+    <div style={{ borderBottom: '1px solid var(--color-blush)' }}>
       <button
         onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
         style={{
           width: '100%',
           display: 'flex',
@@ -37,31 +33,50 @@ export default function FaqItem({ question, answer }: { question: string; answer
         >
           {question}
         </span>
-        <span
+        {/* Chevron */}
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
           style={{
-            color: 'var(--color-mauve)',
-            fontSize: '1rem',
-            transition: 'transform 0.2s',
-            transform: open ? 'rotate(45deg)' : 'none',
             flexShrink: 0,
+            color: 'var(--color-mauve)',
+            transition: 'transform 250ms ease-in-out',
+            transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
           }}
         >
-          +
-        </span>
+          <path d="M6 9l6 6 6-6" />
+        </svg>
       </button>
-      {open && (
-        <p
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '0.88rem',
-            lineHeight: 1.8,
-            color: 'var(--color-text-muted)',
-            margin: '0 0 4px',
-          }}
-        >
-          {answer}
-        </p>
-      )}
+
+      {/* Grid-template-rows technique */}
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateRows: open ? '1fr' : '0fr',
+          transition: 'grid-template-rows 250ms ease-in-out',
+        }}
+      >
+        <div style={{ overflow: 'hidden' }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-sans)',
+              fontSize: '0.88rem',
+              lineHeight: 1.8,
+              color: 'var(--color-text-muted)',
+              margin: '0 0 16px',
+            }}
+          >
+            {answer}
+          </p>
+        </div>
+      </div>
     </div>
   )
 }

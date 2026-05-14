@@ -87,6 +87,7 @@ export default function FaqSection() {
               {/* Pergunta */}
               <button
                 onClick={() => toggle(i)}
+                aria-expanded={openIndex === i}
                 className="w-full flex justify-between items-center py-5 bg-transparent border-none cursor-pointer text-left gap-4"
               >
                 <span
@@ -95,22 +96,34 @@ export default function FaqSection() {
                 >
                   {faq.question}
                 </span>
-                <span
-                  className="font-serif text-[1.4rem] text-mauve shrink-0 inline-block leading-none transition-transform duration-300"
-                  style={{ transform: openIndex === i ? 'rotate(45deg)' : 'rotate(0)' }}
+                {/* Chevron */}
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0 text-mauve transition-transform duration-[250ms] ease-in-out"
+                  style={{ transform: openIndex === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                  aria-hidden="true"
                 >
-                  +
-                </span>
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
               </button>
 
-              {/* Resposta */}
+              {/* Resposta — grid-template-rows technique */}
               <div
-                className="overflow-hidden transition-[max-height] duration-[400ms] ease-[ease]"
-                style={{ maxHeight: openIndex === i ? 300 : 0 }}
+                className="grid transition-[grid-template-rows] duration-[250ms] ease-in-out"
+                style={{ gridTemplateRows: openIndex === i ? '1fr' : '0fr' }}
               >
-                <p className="font-sans text-[0.88rem] text-text-muted leading-[1.8] pb-5">
-                  {faq.answer}
-                </p>
+                <div className="overflow-hidden">
+                  <p className="font-sans text-[0.88rem] text-text-muted leading-[1.8] pb-5">
+                    {faq.answer}
+                  </p>
+                </div>
               </div>
             </div>
           ))}

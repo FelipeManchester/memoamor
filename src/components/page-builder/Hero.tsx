@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { MemoryPage } from '@/types'
 
 interface TimeElapsed {
@@ -40,16 +40,64 @@ interface HeroProps {
   page: MemoryPage
 }
 
-export default function Hero({ page }: HeroProps) {
-  const [time, setTime] = useState<TimeElapsed>({ years: 0, months: 0, days: 0, hours: 0, minutes: 0 })
+const ZERO: TimeElapsed = { years: 0, months: 0, days: 0, hours: 0, minutes: 0 }
 
+export default function Hero({ page }: HeroProps) {
+  const [displayTime, setDisplayTime] = useState<TimeElapsed>(ZERO)
+  const targetRef = useRef<TimeElapsed>(ZERO)
+  const animatedRef = useRef(false)
+  const counterRef = useRef<HTMLDivElement>(null)
+
+  // Keep target updated every minute after animation completes
   useEffect(() => {
-    setTime(calcTimeElapsed(page.startDate))
+    targetRef.current = calcTimeElapsed(page.startDate)
     const interval = setInterval(() => {
-      setTime(calcTimeElapsed(page.startDate))
+      targetRef.current = calcTimeElapsed(page.startDate)
+      if (animatedRef.current) setDisplayTime({ ...targetRef.current })
     }, 60_000)
     return () => clearInterval(interval)
   }, [page.startDate])
+
+  // Count-up on viewport entry
+  useEffect(() => {
+    const el = counterRef.current
+    if (!el) return
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animatedRef.current) {
+          animatedRef.current = true
+          const target = targetRef.current
+
+          if (reduced) {
+            setDisplayTime({ ...target })
+            return
+          }
+
+          const duration = 1500
+          const startTime = performance.now()
+          function tick(now: number) {
+            const t = Math.min((now - startTime) / duration, 1)
+            const eased = 1 - Math.pow(1 - t, 3)
+            setDisplayTime({
+              years: Math.round(eased * target.years),
+              months: Math.round(eased * target.months),
+              days: Math.round(eased * target.days),
+              hours: Math.round(eased * target.hours),
+              minutes: Math.round(eased * target.minutes),
+            })
+            if (t < 1) requestAnimationFrame(tick)
+          }
+          requestAnimationFrame(tick)
+        }
+      },
+      { threshold: 0.3 },
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   const startFormatted = new Date(page.startDate + 'T12:00:00').toLocaleDateString('pt-BR', {
     day: '2-digit',
@@ -68,9 +116,7 @@ export default function Hero({ page }: HeroProps) {
       />
 
       {/* Eyebrow */}
-      <p
-        className="reveal font-sans text-[0.68rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-5 relative"
-      >
+      <p className="reveal font-sans text-[0.68rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-5 relative">
         Uma história de amor
       </p>
 
@@ -100,14 +146,14 @@ export default function Hero({ page }: HeroProps) {
       </p>
 
       {/* Contador */}
-      <div className="reveal flex flex-col items-center mt-12">
+      <div ref={counterRef} className="reveal flex flex-col items-center mt-12">
         <div className="flex flex-col items-center" style={{ gap: 'clamp(16px, 3vw, 28px)' }}>
           {/* Row 1: anos, meses, dias */}
           <div className="flex items-start" style={{ gap: 'clamp(24px, 5vw, 56px)' }}>
             {[
-              { value: time.years, label: 'anos' },
-              { value: time.months, label: 'meses' },
-              { value: time.days, label: 'dias' },
+              { value: displayTime.years, label: 'anos' },
+              { value: displayTime.months, label: 'meses' },
+              { value: displayTime.days, label: 'dias' },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <span
@@ -126,8 +172,8 @@ export default function Hero({ page }: HeroProps) {
           {/* Row 2: horas, minutos */}
           <div className="flex items-start" style={{ gap: 'clamp(24px, 5vw, 56px)' }}>
             {[
-              { value: time.hours, label: 'horas' },
-              { value: String(time.minutes).padStart(2, '0'), label: 'min' },
+              { value: displayTime.hours, label: 'horas' },
+              { value: String(displayTime.minutes).padStart(2, '0'), label: 'min' },
             ].map((item, i) => (
               <div key={i} className="text-center">
                 <span

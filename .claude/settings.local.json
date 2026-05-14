@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm run *)",
-      "Bash(Select-String gsap *)"
+      "Bash(Select-String gsap *)",
+      "Skill(frontend-design)"
     ]
   }
 }
