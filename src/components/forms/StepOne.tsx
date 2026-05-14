@@ -6,10 +6,30 @@ import { cn } from '@/lib/utils'
 
 type SlugStatus = 'idle' | 'checking' | 'available' | 'taken'
 
+function toSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+}
+
 export default function StepOne() {
   const { data, updateField, setStep } = useCreateFormStore()
   const isPremium = data.plan === 'premium'
   const [slugStatus, setSlugStatus] = useState<SlugStatus>('idle')
+  const [slugUserEdited, setSlugUserEdited] = useState(false)
+
+  // Auto-fill slug from names when user hasn't manually edited
+  useEffect(() => {
+    if (!isPremium || slugUserEdited) return
+    const a = toSlug(data.nameA)
+    const b = toSlug(data.nameB)
+    if (!a && !b) return
+    const auto = a && b ? `${a}-e-${b}` : a || b
+    updateField('pageTitle', auto)
+  }, [data.nameA, data.nameB, isPremium, slugUserEdited])
 
   useEffect(() => {
     if (!isPremium || !data.pageTitle) {
@@ -140,10 +160,11 @@ export default function StepOne() {
             disabled={!isPremium}
             value={isPremium ? data.pageTitle : ''}
             aria-describedby="pageTitle-helper"
-            onChange={(e) =>
-              isPremium &&
+            onChange={(e) => {
+              if (!isPremium) return
+              setSlugUserEdited(true)
               updateField('pageTitle', e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))
-            }
+            }}
           />
         </div>
 

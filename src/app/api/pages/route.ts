@@ -16,7 +16,9 @@ export async function POST(req: NextRequest) {
     const supabase = createAdminClient()
 
     const isEssential = body.plan === 'essential'
-    const baseSlug = isEssential ? '' : generateBaseSlug(body.nameA, body.nameB, body.startDate)
+    const baseSlug = isEssential
+      ? ''
+      : body.pageTitle || generateBaseSlug(body.nameA, body.nameB, body.startDate)
     let slug = isEssential ? generateRandomSlug() : baseSlug
     let inserted = false
     let attempts = 0

@@ -58,7 +58,7 @@ export async function generateMetadata({
   }
 }
 
-import PetalBackground from '@/components/backgrounds/PetalBackground'
+import BackgroundRenderer from '@/components/backgrounds/BackgroundRenderer'
 import ScrollAnimations from '@/components/gsap/ScrollAnimations'
 
 import Hero from '@/components/page-builder/Hero'
@@ -132,7 +132,7 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
     <>
       {/* Aqui vamos montar os componentes um por um */}
       <ScrollAnimations />
-      <PetalBackground />
+      <BackgroundRenderer template={page.template} />
       <main className="relative z-[1]">
         <Hero page={page} />
 
