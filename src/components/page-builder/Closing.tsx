@@ -8,10 +8,7 @@ export default function Closing({ page }: ClosingProps) {
   const startYear = new Date(page.startDate + 'T12:00:00').getFullYear()
 
   return (
-    <section
-      className="text-center relative"
-      style={{ padding: 'clamp(80px, 14vw, 160px) 24px' }}
-    >
+    <section className="text-center relative" style={{ padding: 'clamp(80px, 14vw, 160px) 24px' }}>
       <h2
         className="reveal font-serif italic font-light text-wine leading-[1.15] mb-5"
         style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
@@ -34,7 +31,6 @@ export default function Closing({ page }: ClosingProps) {
           <a
             href="https://memoamor.app"
             target="_blank"
-            rel="noopener noreferrer"
             className="font-sans text-[0.62rem] tracking-[0.25em] uppercase text-rose no-underline opacity-70 transition-opacity duration-200"
           >
             Feito com Memoamor

@@ -7,6 +7,8 @@ interface TimeElapsed {
   years: number
   months: number
   days: number
+  hours: number
+  minutes: number
 }
 
 function calcTimeElapsed(startDate: string): TimeElapsed {
@@ -16,7 +18,11 @@ function calcTimeElapsed(startDate: string): TimeElapsed {
   let years = now.getFullYear() - start.getFullYear()
   let months = now.getMonth() - start.getMonth()
   let days = now.getDate() - start.getDate()
+  let hours = now.getHours() - start.getHours()
+  let minutes = now.getMinutes() - start.getMinutes()
 
+  if (minutes < 0) { hours--; minutes += 60 }
+  if (hours < 0) { days--; hours += 24 }
   if (days < 0) {
     months--
     const prev = new Date(now.getFullYear(), now.getMonth(), 0)
@@ -27,7 +33,7 @@ function calcTimeElapsed(startDate: string): TimeElapsed {
     months += 12
   }
 
-  return { years, months, days }
+  return { years, months, days, hours, minutes }
 }
 
 interface HeroProps {
@@ -35,7 +41,7 @@ interface HeroProps {
 }
 
 export default function Hero({ page }: HeroProps) {
-  const [time, setTime] = useState<TimeElapsed>({ years: 0, months: 0, days: 0 })
+  const [time, setTime] = useState<TimeElapsed>({ years: 0, months: 0, days: 0, hours: 0, minutes: 0 })
 
   useEffect(() => {
     setTime(calcTimeElapsed(page.startDate))
@@ -94,27 +100,52 @@ export default function Hero({ page }: HeroProps) {
       </p>
 
       {/* Contador */}
-      <div
-        className="reveal flex items-start mt-12"
-        style={{ gap: 'clamp(24px, 5vw, 56px)' }}
-      >
-        {[
-          { value: time.years, label: 'anos' },
-          { value: time.months, label: 'meses' },
-          { value: time.days, label: 'dias' },
-        ].map((item, i) => (
-          <div key={i} className="text-center">
-            <span
-              className="block font-serif font-light text-wine leading-none"
-              style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
-            >
-              {item.value}
-            </span>
-            <span className="block text-[0.62rem] font-medium tracking-[0.2em] uppercase text-text-muted mt-1">
-              {item.label}
-            </span>
+      <div className="reveal flex flex-col items-center mt-12">
+        <div className="flex flex-col items-center" style={{ gap: 'clamp(16px, 3vw, 28px)' }}>
+          {/* Row 1: anos, meses, dias */}
+          <div className="flex items-start" style={{ gap: 'clamp(24px, 5vw, 56px)' }}>
+            {[
+              { value: time.years, label: 'anos' },
+              { value: time.months, label: 'meses' },
+              { value: time.days, label: 'dias' },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <span
+                  className="block font-serif font-light text-wine leading-none"
+                  style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+                >
+                  {item.value}
+                </span>
+                <span className="block text-[0.62rem] font-medium tracking-[0.2em] uppercase text-text-muted mt-1">
+                  {item.label}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
+
+          {/* Row 2: horas, minutos */}
+          <div className="flex items-start" style={{ gap: 'clamp(24px, 5vw, 56px)' }}>
+            {[
+              { value: time.hours, label: 'horas' },
+              { value: String(time.minutes).padStart(2, '0'), label: 'min' },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <span
+                  className="block font-serif font-light text-wine leading-none"
+                  style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+                >
+                  {item.value}
+                </span>
+                <span className="block text-[0.62rem] font-medium tracking-[0.2em] uppercase text-text-muted mt-1">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="text-[0.58rem] font-medium tracking-[0.3em] uppercase text-mauve mt-4">
+          E contando...
+        </p>
       </div>
 
       {/* Scroll CTA */}

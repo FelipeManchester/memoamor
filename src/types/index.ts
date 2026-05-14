@@ -48,6 +48,7 @@ export interface MemoryPage {
   pageTitle: string | null
 
   // Conteúdo
+  closingQuote: string | null
   youtubeUrl: string | null
   memories: Memory[]
   gallery: string[]       // array de paths no Supabase Storage
@@ -77,6 +78,9 @@ export interface CreateFormData {
   nameB: string
   startDate: string
   pageTitle: string
+
+  // Passo 1 (cont.)
+  closingQuote: string
 
   // Passo 2
   memories: MemoryFormItem[]

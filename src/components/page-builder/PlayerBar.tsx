@@ -78,16 +78,15 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
       videoId,
       playerVars: { autoplay: 0, controls: 0, rel: 0 },
       events: {
-        onReady: (e: any) => e.target.setVolume(volume),
+        onReady: (e: any) => {
+          e.target.setVolume(volume)
+          onPlayReady?.(() => playerRef.current?.playVideo())
+        },
         onStateChange: (e: any) => {
           setIsPlaying(e.data === window.YT.PlayerState.PLAYING)
         },
       },
     })
-
-    if (onPlayReady) {
-      onPlayReady(() => playerRef.current?.playVideo())
-    }
 
     return () => {
       playerRef.current?.destroy()

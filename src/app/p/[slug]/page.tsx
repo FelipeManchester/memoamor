@@ -49,6 +49,7 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
       nameB: data.name_b,
       startDate: data.start_date,
       pageTitle: data.page_title,
+      closingQuote: data.closing_quote ?? null,
       youtubeUrl: data.youtube_url,
       memories: (data.memories ?? []).map((m: any) => ({
         id: m.id,
@@ -96,8 +97,8 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
         </section>
 
         <QuoteBlock
-          text="Amar é encontrar na felicidade do outro a própria felicidade."
-          author="Gottfried Leibniz"
+          text={page.closingQuote ?? 'Amar é encontrar na felicidade do outro a própria felicidade.'}
+          author={page.closingQuote ? undefined : 'Gottfried Leibniz'}
         />
 
         <Gallery photos={page.gallery} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL!} />

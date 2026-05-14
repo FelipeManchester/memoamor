@@ -2,31 +2,61 @@
 
 function IconPen() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-wine)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
-      <line x1="5" y1="20.5" x2="19" y2="20.5" strokeOpacity="0.3"/>
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-wine)"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+      <line x1="5" y1="20.5" x2="19" y2="20.5" strokeOpacity="0.3" />
     </svg>
   )
 }
 
 function IconSparkle() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-wine)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-wine)"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       {/* Large star */}
-      <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
-      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12" />
+      <circle cx="12" cy="12" r="3" />
     </svg>
   )
 }
 
 function IconShare() {
   return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-wine)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="18" cy="5" r="2.5"/>
-      <circle cx="6" cy="12" r="2.5"/>
-      <circle cx="18" cy="19" r="2.5"/>
-      <line x1="8.41" y1="10.89" x2="15.59" y2="6.11"/>
-      <line x1="8.41" y1="13.11" x2="15.59" y2="17.89"/>
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="var(--color-wine)"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="18" cy="5" r="2.5" />
+      <circle cx="6" cy="12" r="2.5" />
+      <circle cx="18" cy="19" r="2.5" />
+      <line x1="8.41" y1="10.89" x2="15.59" y2="6.11" />
+      <line x1="8.41" y1="13.11" x2="15.59" y2="17.89" />
     </svg>
   )
 }
@@ -72,10 +102,7 @@ export default function HowItWorksSection() {
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
         {/* Cabeçalho */}
-        <div
-          className="text-center"
-          style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}
-        >
+        <div className="text-center" style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}>
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Simples assim
           </p>
@@ -98,7 +125,8 @@ export default function HowItWorksSection() {
             style={{
               left: 'calc(16.66% + 24px)',
               right: 'calc(16.66% + 24px)',
-              background: 'linear-gradient(90deg, var(--color-rose), var(--color-mauve), var(--color-rose))',
+              background:
+                'linear-gradient(90deg, var(--color-rose), var(--color-mauve), var(--color-rose))',
             }}
           />
 
@@ -134,15 +162,12 @@ export default function HowItWorksSection() {
         </div>
 
         {/* CTA abaixo dos steps */}
-        <div
-          className="text-center"
-          style={{ marginTop: 'clamp(48px, 6vw, 72px)' }}
-        >
+        <div className="text-center" style={{ marginTop: 'clamp(48px, 6vw, 72px)' }}>
           <a
             href="/criar"
             className="font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 px-10 bg-wine text-cream no-underline rounded-sm inline-block transition-all duration-200 hover:opacity-[0.88] hover:-translate-y-0.5"
           >
-            Começar agora — R$ 39 →
+            Começar agora →
           </a>
           <p className="font-sans text-[0.72rem] text-mauve mt-3">
             Pagamento único · Página no ar por 1 ano

@@ -66,7 +66,6 @@ export default function Navbar() {
 
             <a
               href="/demo"
-              target="_blank"
               className="font-sans text-[0.72rem] font-medium tracking-[0.15em] uppercase text-text-muted no-underline transition-colors duration-200 hover:text-wine"
             >
               Ver exemplo
@@ -130,7 +129,6 @@ export default function Navbar() {
             ))}
             <a
               href="/demo"
-              target="_blank"
               onClick={() => setMenuOpen(false)}
               className="font-sans text-[0.78rem] font-medium tracking-[0.15em] uppercase text-text-muted no-underline"
             >

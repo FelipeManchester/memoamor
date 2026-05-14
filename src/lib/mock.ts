@@ -12,7 +12,7 @@ export const mockPage: MemoryPage = {
   startDate: '2016-05-07',
   pageTitle: null,
 
-  youtubeUrl: 'https://www.youtube.com/watch?v=450p7goxZqg',
+  youtubeUrl: 'https://www.youtube.com/watch?v=yKNxeF4KMsY',
   memories: [
     {
       id: '1',

@@ -90,7 +90,7 @@ export default function CtaSection() {
         </a>
 
         <p className="font-sans text-[0.72rem] text-rose mt-4 opacity-70">
-          A partir de R$ 39 · Pagamento único
+          A partir de R$ 19,90 · Pagamento único
         </p>
       </div>
     </section>

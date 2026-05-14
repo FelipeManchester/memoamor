@@ -37,9 +37,7 @@ export default function StepOne() {
   }, [data.pageTitle, isPremium])
 
   const slugOk =
-    !isPremium ||
-    !data.pageTitle ||
-    (slugStatus === 'available' && data.pageTitle.length >= 3)
+    !isPremium || !data.pageTitle || (slugStatus === 'available' && data.pageTitle.length >= 3)
 
   const canAdvance =
     data.nameA.trim().length >= 2 &&
@@ -105,6 +103,48 @@ export default function StepOne() {
         />
       </div>
 
+      {/* Frase da página */}
+      <div className="flex flex-col gap-2">
+        <label className="form-label">Frase da página</label>
+        <textarea
+          className="form-input resize-none"
+          rows={3}
+          maxLength={200}
+          value={data.closingQuote ?? ''}
+          onChange={(e) => updateField('closingQuote', e.target.value)}
+          style={{ lineHeight: 1.6 }}
+        />
+        <p className="text-[0.72rem] text-mauve">{(data.closingQuote ?? '').length}/200 caracteres</p>
+        <div className="flex flex-col gap-2">
+          <p className="text-[0.65rem] font-medium tracking-[0.15em] uppercase text-text-muted">
+            Sugestões
+          </p>
+          <div className="flex flex-col gap-2">
+            {[
+              'Amar é encontrar na felicidade do outro a própria felicidade.',
+              'Você é o lar que eu sempre quis encontrar.',
+              'O amor não se explica — apenas se sente.',
+            ].map((phrase) => (
+              <button
+                key={phrase}
+                type="button"
+                onClick={() => updateField('closingQuote', phrase)}
+                className="text-left py-2 px-3 rounded-sm text-[0.78rem] text-text-muted transition-all duration-150 cursor-pointer border"
+                style={{
+                  background: (data.closingQuote ?? '') === phrase ? 'var(--color-blush)' : 'white',
+                  borderColor:
+                    (data.closingQuote ?? '') === phrase ? 'var(--color-wine)' : 'var(--color-rose)',
+                  color:
+                    (data.closingQuote ?? '') === phrase ? 'var(--color-wine)' : 'var(--color-text-muted)',
+                }}
+              >
+                {phrase}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Endereço da página */}
       <div className="flex flex-col gap-2">
         <label className="form-label">
@@ -117,16 +157,20 @@ export default function StepOne() {
         </label>
 
         <div className="flex items-center">
-          <span className="font-sans text-[0.85rem] text-mauve bg-blush border border-rose border-r-0 py-[10px] px-3 rounded-l-[2px] whitespace-nowrap">
+          <span className="font-sans text-[0.85rem] text-mauve bg-blush border border-rose border-r-0 py-2.5 px-3 rounded-l-xs whitespace-nowrap">
             memoamor.app/p/
           </span>
           <input
             className={cn(
-              'form-input rounded-l-none rounded-r-[2px] flex-1',
+              'form-input rounded-l-none rounded-r-xs flex-1',
               !isPremium && 'bg-blush text-mauve cursor-not-allowed opacity-70',
-              isPremium && data.pageTitle && slugStatus === 'taken' &&
+              isPremium &&
+                data.pageTitle &&
+                slugStatus === 'taken' &&
                 'border-[#c0392b] focus:border-[#c0392b]',
-              isPremium && data.pageTitle && slugStatus === 'available' &&
+              isPremium &&
+                data.pageTitle &&
+                slugStatus === 'available' &&
                 'border-[#16a34a] focus:border-[#16a34a]',
             )}
             type="text"
@@ -146,8 +190,7 @@ export default function StepOne() {
           <p className="text-[0.72rem] text-mauve">
             {autoSlug ? (
               <>
-                Gerado automaticamente:{' '}
-                <span className="text-wine font-medium">{autoSlug}</span>
+                Gerado automaticamente: <span className="text-wine font-medium">{autoSlug}</span>
               </>
             ) : (
               'Gerado automaticamente a partir dos seus nomes.'
@@ -155,9 +198,7 @@ export default function StepOne() {
           </p>
         )}
         {isPremium && !data.pageTitle && (
-          <p className="text-[0.72rem] text-mauve">
-            Se deixar em branco, geramos automaticamente.
-          </p>
+          <p className="text-[0.72rem] text-mauve">Se deixar em branco, geramos automaticamente.</p>
         )}
         {isPremium && data.pageTitle && slugStatus === 'checking' && (
           <p className="text-[0.72rem] text-mauve">Verificando disponibilidade…</p>
@@ -176,10 +217,7 @@ export default function StepOne() {
 
       {/* Navegação */}
       <div className="flex justify-between items-center">
-        <button
-          onClick={() => setStep(0)}
-          className="btn-ghost"
-        >
+        <button onClick={() => setStep(0)} className="btn-ghost">
           ← Mudar plano
         </button>
         <button

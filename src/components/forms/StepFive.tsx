@@ -36,6 +36,7 @@ export default function StepFive() {
           nameB: data.nameB,
           startDate: data.startDate,
           pageTitle: data.pageTitle,
+          closingQuote: data.closingQuote,
           template: data.template,
           plan: data.plan,
           youtubeUrl: data.youtubeUrl,

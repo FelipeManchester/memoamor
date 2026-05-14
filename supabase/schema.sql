@@ -26,6 +26,7 @@ create table if not exists memory_pages (
   page_title          text,
 
   -- Conteúdo
+  closing_quote       text,
   youtube_url         text,
   memories            jsonb not null default '[]',
   gallery             jsonb not null default '[]',
