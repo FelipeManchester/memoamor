@@ -1,5 +1,4 @@
 import { Resend } from 'resend'
-import { generateQRDataUrl } from './qrcode'
 
 export async function sendDeliveryEmail({
   to,
@@ -14,7 +13,16 @@ export async function sendDeliveryEmail({
 }): Promise<void> {
   const resend = new Resend(process.env.RESEND_API_KEY)
   const pageUrl = `${process.env.NEXT_PUBLIC_APP_URL}/p/${slug}`
-  const qrDataUrl = await generateQRDataUrl(pageUrl)
+
+  // Hosted QR code URL — works in all email clients (no data: URL blocking)
+  const qrUrl =
+    `https://api.qrserver.com/v1/create-qr-code/` +
+    `?size=220x220` +
+    `&data=${encodeURIComponent(pageUrl)}` +
+    `&color=7a3f3f` +
+    `&bgcolor=faf6f1` +
+    `&margin=10` +
+    `&format=png`
 
   await resend.emails.send({
     from: process.env.RESEND_FROM_EMAIL!,
@@ -46,8 +54,8 @@ export async function sendDeliveryEmail({
             QR Code da página
           </p>
           <img
-            src="${qrDataUrl}"
-            alt="QR Code — ${pageUrl}"
+            src="${qrUrl}"
+            alt="QR Code"
             width="160"
             height="160"
             style="display:block;margin:0 auto;border-radius:4px;"
