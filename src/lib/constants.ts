@@ -28,8 +28,8 @@ export const PLANS: Plan[] = [
   {
     id: 'essential',
     name: 'Essencial',
-    priceInCents: 3900, // R$ 39,00
-    maxMemories: 3,
+    priceInCents: 1990, // R$ 19,90
+    maxMemories: 5,
     maxGalleryPhotos: 5,
     customSlug: false,
     watermark: true,
@@ -37,8 +37,8 @@ export const PLANS: Plan[] = [
   {
     id: 'premium',
     name: 'Premium',
-    priceInCents: 6900, // R$ 69,00
-    maxMemories: 6,
+    priceInCents: 2990, // R$ 29,90
+    maxMemories: 10,
     maxGalleryPhotos: 10,
     customSlug: true,
     watermark: false,
@@ -62,6 +62,6 @@ export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 // ── AbacatePay Product IDs ─────────────────────────────
 export const ABACATEPAY_PRODUCTS: Record<string, string> = {
-  essential: 'prod_YNjqaED0bSdkCmDY4UUbsy1L',
-  premium: 'prod_L31sMaKtzJN0jF5NZzfRwKXM',
+  essential: 'prod_FSkMtpELcHZUSyGbubRT4WPm',
+  premium: 'prod_NRHuKPxxS3uAeadbYwDwNb3D',
 }

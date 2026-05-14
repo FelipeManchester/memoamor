@@ -7,9 +7,11 @@ import { createClient } from '@/lib/supabase/client'
 import { nanoid } from 'nanoid'
 import type { UploadStatus } from '@/types'
 import { cn } from '@/lib/utils'
+import { PLANS } from '@/lib/constants'
 
 export default function StepTwo() {
   const { data, updateMemory, addMemory, removeMemory, setStep } = useCreateFormStore()
+  const plan = PLANS.find((p) => p.id === data.plan)!
   const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({})
 
   const canAdvance = data.memories.every(
@@ -54,7 +56,7 @@ export default function StepTwo() {
           Conte as memórias de vocês
         </h1>
         <p className="font-sans text-[0.85rem] text-text-muted mt-2">
-          Adicione de 1 a 3 memórias especiais.
+          Adicione de 1 a {plan.maxMemories} memórias especiais.
         </p>
       </div>
 
@@ -189,7 +191,7 @@ export default function StepTwo() {
       ))}
 
       {/* Botão adicionar memória */}
-      {data.memories.length < 3 && (
+      {data.memories.length < plan.maxMemories && (
         <button onClick={addMemory} className="btn-ghost">
           + Adicionar outra memória
         </button>

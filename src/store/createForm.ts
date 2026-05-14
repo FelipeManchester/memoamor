@@ -62,13 +62,13 @@ export const useCreateFormStore = create<CreateFormStore>()(
   persist(
     (set) => ({
       data: initialState,
-      currentStep: 1,
+      currentStep: 0,
 
       setStep: (step) => set({ currentStep: step }),
 
       updateField: (key, value) => set((state) => ({ data: { ...state.data, [key]: value } })),
 
-      reset: () => set({ data: initialState, currentStep: 1 }),
+      reset: () => set({ data: initialState, currentStep: 0 }),
 
       // ── Memórias ──────────────────────────────
       addMemory: () =>
@@ -126,7 +126,7 @@ export const useCreateFormStore = create<CreateFormStore>()(
       setPlan: (plan) => set((state) => ({ data: { ...state.data, plan } })),
     }),
     {
-      name: 'memoamor-create-form', // chave no localStorage
+      name: 'memoamor-create-form-v2', // v2: plano selecionado antes do passo 1
       partialize: (state) => ({
         // persiste apenas os dados — não o currentStep
         // assim sempre começa do passo onde estava

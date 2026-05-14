@@ -5,18 +5,19 @@ export default function PricingSection() {
     {
       id: 'essential',
       name: 'Essencial',
-      price: 'R$ 39',
+      price: 'R$ 19,90',
       description: 'Tudo que você precisa para surpreender',
       highlighted: false,
       features: [
-        'Página personalizada com animações',
-        'Até 3 memórias com foto e texto',
+        '1 página',
+        'Até 5 memórias',
         'Galeria com até 5 fotos',
-        'Player de música (YouTube)',
-        '3 temas visuais à escolha',
-        'Contador de tempo juntos',
-        'Link único para compartilhar',
-        'Página no ar por 1 ano',
+        'Player de música',
+        '3 temas visuais',
+        'Contador de tempo',
+        'Link único',
+        'Página no ar 1 ano',
+        "Marca d'água discreta",
       ],
       cta: 'Criar minha página',
       note: 'Renovação por R$ 9,90/ano',
@@ -24,16 +25,19 @@ export default function PricingSection() {
     {
       id: 'premium',
       name: 'Premium',
-      price: 'R$ 69',
+      price: 'R$ 29,90',
       description: 'Para quem quer o melhor',
       highlighted: true,
       features: [
-        'Tudo do plano Essencial',
-        'Até 6 memórias com foto e texto',
+        '1 página',
+        'Até 10 memórias',
         'Galeria com até 10 fotos',
+        'Player de música',
+        '3 temas visuais',
+        'Contador de tempo',
         'URL personalizada',
+        'Página no ar 1 ano',
         "Sem marca d'água",
-        'Página no ar por 1 ano',
       ],
       cta: 'Criar com Premium',
       note: 'Renovação por R$ 9,90/ano',
@@ -56,10 +60,7 @@ export default function PricingSection() {
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
         {/* Cabeçalho */}
-        <div
-          className="text-center"
-          style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}
-        >
+        <div className="text-center" style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}>
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Sem surpresas
           </p>

@@ -1,13 +1,52 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
+import { generateBaseSlug } from '@/lib/slug'
 import { cn } from '@/lib/utils'
+
+type SlugStatus = 'idle' | 'checking' | 'available' | 'taken'
 
 export default function StepOne() {
   const { data, updateField, setStep } = useCreateFormStore()
+  const isPremium = data.plan === 'premium'
+  const [slugStatus, setSlugStatus] = useState<SlugStatus>('idle')
+
+  const autoSlug =
+    data.nameA.trim() && data.nameB.trim() && data.startDate
+      ? generateBaseSlug(data.nameA, data.nameB, data.startDate)
+      : null
+
+  // Debounced slug availability check (premium + custom slug only)
+  useEffect(() => {
+    if (!isPremium || !data.pageTitle) {
+      setSlugStatus('idle')
+      return
+    }
+    setSlugStatus('checking')
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/check-slug?slug=${encodeURIComponent(data.pageTitle)}`)
+        const json = await res.json()
+        setSlugStatus(json.available ? 'available' : 'taken')
+      } catch {
+        setSlugStatus('idle')
+      }
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [data.pageTitle, isPremium])
+
+  const slugOk =
+    !isPremium ||
+    !data.pageTitle ||
+    (slugStatus === 'available' && data.pageTitle.length >= 3)
 
   const canAdvance =
-    data.nameA.trim().length >= 2 && data.nameB.trim().length >= 2 && data.startDate !== ''
+    data.nameA.trim().length >= 2 &&
+    data.nameB.trim().length >= 2 &&
+    data.startDate !== '' &&
+    slugOk &&
+    slugStatus !== 'checking'
 
   function handleAdvance() {
     if (!canAdvance) return
@@ -16,7 +55,6 @@ export default function StepOne() {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Cabeçalho do passo */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Passo 1 de 5
@@ -67,41 +105,96 @@ export default function StepOne() {
         />
       </div>
 
-      {/* Título personalizado */}
+      {/* Endereço da página */}
       <div className="flex flex-col gap-2">
         <label className="form-label">
           Endereço da página
-          <span className="text-mauve ml-1.5">(opcional)</span>
+          {isPremium ? (
+            <span className="text-mauve ml-1.5">(opcional)</span>
+          ) : (
+            <span className="text-mauve ml-1.5">(gerado automaticamente)</span>
+          )}
         </label>
-        <div className="flex items-center gap-0">
+
+        <div className="flex items-center">
           <span className="font-sans text-[0.85rem] text-mauve bg-blush border border-rose border-r-0 py-[10px] px-3 rounded-l-[2px] whitespace-nowrap">
             memoamor.app/p/
           </span>
           <input
-            className="form-input rounded-l-none rounded-r-[2px] flex-1"
+            className={cn(
+              'form-input rounded-l-none rounded-r-[2px] flex-1',
+              !isPremium && 'bg-blush text-mauve cursor-not-allowed opacity-70',
+              isPremium && data.pageTitle && slugStatus === 'taken' &&
+                'border-[#c0392b] focus:border-[#c0392b]',
+              isPremium && data.pageTitle && slugStatus === 'available' &&
+                'border-[#16a34a] focus:border-[#16a34a]',
+            )}
             type="text"
-            placeholder="ana-e-pedro"
+            placeholder={isPremium ? 'nome1-e-nome2' : (autoSlug ?? 'gerado-automaticamente')}
             maxLength={40}
-            value={data.pageTitle}
+            disabled={!isPremium}
+            value={isPremium ? data.pageTitle : ''}
             onChange={(e) =>
+              isPremium &&
               updateField('pageTitle', e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))
             }
           />
         </div>
-        <p className="text-[0.72rem] text-mauve">Se deixar em branco, geramos automaticamente.</p>
+
+        {/* Status messages */}
+        {!isPremium && (
+          <p className="text-[0.72rem] text-mauve">
+            {autoSlug ? (
+              <>
+                Gerado automaticamente:{' '}
+                <span className="text-wine font-medium">{autoSlug}</span>
+              </>
+            ) : (
+              'Gerado automaticamente a partir dos seus nomes.'
+            )}
+          </p>
+        )}
+        {isPremium && !data.pageTitle && (
+          <p className="text-[0.72rem] text-mauve">
+            Se deixar em branco, geramos automaticamente.
+          </p>
+        )}
+        {isPremium && data.pageTitle && slugStatus === 'checking' && (
+          <p className="text-[0.72rem] text-mauve">Verificando disponibilidade…</p>
+        )}
+        {isPremium && data.pageTitle && slugStatus === 'available' && (
+          <p className="text-[0.72rem]" style={{ color: '#16a34a' }}>
+            Link disponível!
+          </p>
+        )}
+        {isPremium && data.pageTitle && slugStatus === 'taken' && (
+          <p className="text-[0.72rem]" style={{ color: '#c0392b' }}>
+            Esse link está em uso.
+          </p>
+        )}
       </div>
 
-      {/* Botão avançar */}
-      <button
-        onClick={handleAdvance}
-        disabled={!canAdvance}
-        className={cn(
-          'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 self-end',
-          canAdvance ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
-        )}
-      >
-        Continuar →
-      </button>
+      {/* Navegação */}
+      <div className="flex justify-between items-center">
+        <button
+          onClick={() => setStep(0)}
+          className="btn-ghost"
+        >
+          ← Mudar plano
+        </button>
+        <button
+          onClick={handleAdvance}
+          disabled={!canAdvance}
+          className={cn(
+            'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200',
+            canAdvance
+              ? 'bg-wine text-cream cursor-pointer'
+              : 'bg-blush text-mauve cursor-not-allowed',
+          )}
+        >
+          Continuar →
+        </button>
+      </div>
     </div>
   )
 }

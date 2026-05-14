@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -38,9 +39,14 @@ const FAQS = [
 ]
 
 export default async function SucessoPage(props: {
-  searchParams: Promise<{ slug?: string }>
+  searchParams: Promise<{ slug?: string; payment?: string }>
 }) {
   const searchParams = await props.searchParams
+
+  if (searchParams.payment !== 'success') {
+    redirect('/')
+  }
+
   const slug = searchParams.slug ?? ''
 
   let nameA = ''

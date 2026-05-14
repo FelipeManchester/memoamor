@@ -7,20 +7,21 @@ import { createClient } from '@/lib/supabase/client'
 import { nanoid } from 'nanoid'
 import type { GalleryItem } from '@/types'
 import { cn } from '@/lib/utils'
-
-const MAX_PHOTOS = 5
+import { PLANS } from '@/lib/constants'
 
 export default function StepThree() {
   const { data, addGalleryItem, removeGalleryItem, updateGalleryItem, setStep } =
     useCreateFormStore()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const plan = PLANS.find((p) => p.id === data.plan)!
+  const maxPhotos = plan.maxGalleryPhotos
 
   const canAdvance = data.gallery.every(
     (g) => g.uploadStatus === 'done' || g.uploadStatus === 'idle',
   )
 
   async function handleFilesSelect(files: FileList) {
-    const remaining = MAX_PHOTOS - data.gallery.length
+    const remaining = maxPhotos - data.gallery.length
     const selected = Array.from(files).slice(0, remaining)
 
     for (const file of selected) {
@@ -67,7 +68,7 @@ export default function StepThree() {
           Adicione fotos à galeria
         </h1>
         <p className="font-sans text-[0.85rem] text-text-muted mt-2">
-          Até {MAX_PHOTOS} fotos. Você pode pular essa etapa.
+          Até {maxPhotos} fotos. Você pode pular essa etapa.
         </p>
       </div>
 
@@ -106,7 +107,7 @@ export default function StepThree() {
         ))}
 
         {/* Slot para adicionar mais fotos */}
-        {data.gallery.length < MAX_PHOTOS && (
+        {data.gallery.length < maxPhotos && (
           <button
             onClick={() => fileInputRef.current?.click()}
             className="aspect-square border border-dashed border-rose rounded-sm bg-transparent cursor-pointer text-mauve font-sans text-[1.5rem] flex items-center justify-center"
