@@ -129,8 +129,7 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
   }
 
   return (
-    <>
-      {/* Aqui vamos montar os componentes um por um */}
+    <div data-template={page.template}>
       <ScrollAnimations />
       <BackgroundRenderer template={page.template} />
       <main className="relative z-[1]">
@@ -159,9 +158,14 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
         <Gallery photos={page.gallery} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL!} />
 
         <Closing page={page} />
-        <MemoryPageClient nameA={page.nameA} nameB={page.nameB} youtubeUrl={page.youtubeUrl} />
+        <MemoryPageClient
+          nameA={page.nameA}
+          nameB={page.nameB}
+          youtubeUrl={page.youtubeUrl}
+          template={page.template}
+        />
       </main>
       {payment === 'success' && <ResetFormOnSuccess />}
-    </>
+    </div>
   )
 }
