@@ -7,7 +7,7 @@ import type { PlanId } from '@/types'
 const PLAN_FEATURES: Record<PlanId, string[]> = {
   essential: [
     '1 página',
-    'Até 5 memórias',
+    'Até 3 memórias',
     'Galeria com até 5 fotos',
     'Player de música',
     '1 tema visual (Pétalas)',
@@ -18,7 +18,7 @@ const PLAN_FEATURES: Record<PlanId, string[]> = {
   ],
   premium: [
     '1 página',
-    'Até 10 memórias',
+    'Até 6 memórias',
     'Galeria com até 10 fotos',
     'Player de música',
     '3 temas visuais',

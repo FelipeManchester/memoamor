@@ -10,7 +10,7 @@ export default function PricingSection() {
       highlighted: false,
       features: [
         '1 página',
-        'Até 5 memórias',
+        'Até 3 memórias',
         'Galeria com até 5 fotos',
         'Player de música',
         '3 temas visuais',
@@ -30,7 +30,7 @@ export default function PricingSection() {
       highlighted: true,
       features: [
         '1 página',
-        'Até 10 memórias',
+        'Até 6 memórias',
         'Galeria com até 10 fotos',
         'Player de música',
         '3 temas visuais',

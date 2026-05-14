@@ -44,7 +44,7 @@ export const PLANS: Plan[] = [
     id: 'essential',
     name: 'Essencial',
     priceInCents: 1990, // R$ 19,90
-    maxMemories: 5,
+    maxMemories: 3,
     maxGalleryPhotos: 5,
     customSlug: false,
     watermark: true,
@@ -53,7 +53,7 @@ export const PLANS: Plan[] = [
     id: 'premium',
     name: 'Premium',
     priceInCents: 2990, // R$ 29,90
-    maxMemories: 10,
+    maxMemories: 6,
     maxGalleryPhotos: 10,
     customSlug: true,
     watermark: false,
