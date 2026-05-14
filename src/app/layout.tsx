@@ -1,22 +1,39 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
 
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'
+const OG_TITLE = 'Memoamor — A história de vocês, em uma página'
+const OG_DESCRIPTION =
+  'Crie uma página de memórias personalizada para comemorar a história de vocês. Fotos, músicas e animações. Compartilhe com um link.'
+
 export const metadata: Metadata = {
   title: {
-    default: 'Memoamor — A história de vocês, em uma página',
+    default: OG_TITLE,
     template: '%s | Memoamor',
   },
-  description:
-    'Crie uma página de memórias personalizada para comemorar a história de vocês. Fotos, textos, música e animações. Compartilhe com um link.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'),
+  description: OG_DESCRIPTION,
+  metadataBase: new URL(APP_URL),
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: 'https://memoamor.app',
+    url: '/',
     siteName: 'Memoamor',
-    title: 'Memoamor — A história de vocês, em uma página',
-    description:
-      'Crie uma página de memórias personalizada para comemorar a história de vocês.',
+    title: OG_TITLE,
+    description: OG_DESCRIPTION,
+    images: [
+      {
+        url: '/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'Memoamor — A história de vocês, em uma página',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: OG_TITLE,
+    description: OG_DESCRIPTION,
+    images: ['/api/og'],
   },
 }
 

@@ -1,18 +1,14 @@
 'use client'
 
-import { useState } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
-import { TEMPLATES, PLANS } from '@/lib/constants'
+import { TEMPLATES } from '@/lib/constants'
 import { generateBaseSlug } from '@/lib/slug'
 import type { TemplateId } from '@/types'
 import { cn } from '@/lib/utils'
 
 export default function StepFive() {
-  const { data, setTemplate, updateField, setStep } = useCreateFormStore()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { data, setTemplate, setStep } = useCreateFormStore()
 
-  const plan = PLANS.find((p) => p.id === data.plan)!
   const isEssential = data.plan === 'essential'
 
   const previewSlug = isEssential
@@ -21,68 +17,12 @@ export default function StepFive() {
     ? data.pageTitle || generateBaseSlug(data.nameA, data.nameB, data.startDate)
     : 'sua-pagina'
 
-  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.customerEmail)
-  const canSubmit = emailValid && !isSubmitting
-
-  async function handleSubmit() {
-    if (!canSubmit) return
-    setIsSubmitting(true)
-    setError(null)
-
-    try {
-      const pagesRes = await fetch('/api/pages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nameA: data.nameA,
-          nameB: data.nameB,
-          startDate: data.startDate,
-          pageTitle: data.pageTitle,
-          closingQuote: data.closingQuote,
-          template: data.template,
-          plan: data.plan,
-          youtubeUrl: data.youtubeUrl,
-          youtubeTitle: data.youtubeTitle,
-          memories: data.memories,
-          gallery: data.gallery,
-          customerEmail: data.customerEmail,
-        }),
-      })
-
-      const pagesJson = await pagesRes.json()
-      if (pagesJson.error) throw new Error(pagesJson.error)
-
-      const { slug } = pagesJson.data
-
-      const checkoutRes = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          slug,
-          email: data.customerEmail,
-          planId: data.plan,
-        }),
-      })
-
-      console.log('[checkout status]', checkoutRes.status)
-      const checkoutJson = await checkoutRes.json()
-      console.log('[checkout response]', checkoutJson)
-      console.log('[checkout response]', checkoutJson)
-      if (checkoutJson.error) throw new Error(checkoutJson.error)
-
-      window.location.href = checkoutJson.data.checkoutUrl
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Algo deu errado. Tente novamente.')
-      setIsSubmitting(false)
-    }
-  }
-
   return (
     <div className="flex flex-col gap-8">
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 5 de 5
+          Passo 5 de 6
         </p>
         <h1
           className="font-serif font-light italic text-wine"
@@ -177,50 +117,16 @@ export default function StepFive() {
         </div>
       </div>
 
-      {/* E-mail */}
-      <div className="flex flex-col gap-2">
-        <label className="form-label">Seu e-mail *</label>
-        <input
-          className="form-input"
-          style={{
-            borderColor: data.customerEmail && !emailValid ? '#c0392b' : 'var(--color-rose)',
-          }}
-          type="email"
-          placeholder="seuemail@email.com"
-          value={data.customerEmail}
-          onChange={(e) => updateField('customerEmail', e.target.value)}
-        />
-        <p className="text-[0.72rem] text-text-muted">
-          Você receberá o link e um <strong>QR Code</strong> por e-mail após o pagamento — é só mostrar para quem você quer surpreender.
-        </p>
-      </div>
-
-      {/* Erro */}
-      {error && (
-        <p
-          className="font-sans text-[0.8rem] py-3 px-4 rounded-sm border"
-          style={{ color: '#c0392b', background: '#fdf0f0', borderColor: '#f5c6c6' }}
-        >
-          {error}
-        </p>
-      )}
-
       {/* Navegação */}
       <div className="flex justify-between items-center">
         <button onClick={() => setStep(4)} className="btn-ghost">
           ← Voltar
         </button>
         <button
-          onClick={handleSubmit}
-          disabled={!canSubmit}
-          className={cn(
-            'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 flex items-center gap-2',
-            canSubmit ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
-          )}
+          onClick={() => setStep(6)}
+          className="font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 bg-wine text-cream cursor-pointer"
         >
-          {isSubmitting
-            ? 'Processando...'
-            : `Criar página · R$ ${(plan.priceInCents / 100).toFixed(2).replace('.', ',')}`}
+          Revisar →
         </button>
       </div>
     </div>

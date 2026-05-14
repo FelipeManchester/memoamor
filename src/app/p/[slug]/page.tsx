@@ -1,7 +1,61 @@
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import { createAdminClient } from '@/lib/supabase/server'
 import { mockPage } from '@/lib/mock'
 import type { MemoryPage } from '@/types'
+
+function formatDatePtBR(dateStr: string): string {
+  const [year, month, day] = dateStr.split('-').map(Number)
+  const months = [
+    'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro',
+  ]
+  return `${day} de ${months[month - 1]} de ${year}`
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+
+  const supabase = createAdminClient()
+  const { data } = await supabase
+    .from('memory_pages')
+    .select('name_a, name_b, start_date, status')
+    .eq('slug', slug)
+    .single()
+
+  if (!data || data.status !== 'active') {
+    return { title: 'Página não encontrada' }
+  }
+
+  const title = `${data.name_a} & ${data.name_b} — Memoamor`
+  const description = `A história de ${data.name_a} e ${data.name_b}, desde ${formatDatePtBR(data.start_date)}. Uma página de memórias especial, criada com amor.`
+  const ogImage = `/api/og?slug=${slug}`
+  const pageUrl = `/p/${slug}`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      type: 'website',
+      locale: 'pt_BR',
+      url: pageUrl,
+      siteName: 'Memoamor',
+      title,
+      description,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  }
+}
 
 import PetalBackground from '@/components/backgrounds/PetalBackground'
 import ScrollAnimations from '@/components/gsap/ScrollAnimations'

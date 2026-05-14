@@ -9,8 +9,9 @@ import StepTwo from '@/components/forms/StepTwo'
 import StepThree from '@/components/forms/StepThree'
 import StepFour from '@/components/forms/StepFour'
 import StepFive from '@/components/forms/StepFive'
+import StepSix from '@/components/forms/StepSix'
 
-const STEPS = ['O casal', 'Memórias', 'Galeria', 'Música', 'Tema']
+const STEPS = ['O casal', 'Memórias', 'Galeria', 'Música', 'Tema', 'Revisão']
 
 export default function CriarPage() {
   const currentStep = useCreateFormStore((s) => s.currentStep)
@@ -79,6 +80,7 @@ export default function CriarPage() {
           {currentStep === 3 && <StepThree />}
           {currentStep === 4 && <StepFour />}
           {currentStep === 5 && <StepFive />}
+          {currentStep === 6 && <StepSix />}
         </div>
       </div>
     </main>
