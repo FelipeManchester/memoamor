@@ -29,6 +29,11 @@ const faqs = [
       'Sim. As fotos são armazenadas em servidores seguros e só são acessíveis através do link da sua página. Não compartilhamos seus dados com terceiros.',
   },
   {
+    question: 'Como funciona o QR Code?',
+    answer:
+      'Após o pagamento, você recebe um e-mail com o link da página e um QR Code exclusivo. É só abrir o e-mail, mostrar o QR Code para quem você quer surpreender e pedir para apontar a câmera do celular — a página abre instantaneamente, sem precisar digitar nada.',
+  },
+  {
     question: 'Posso criar mais de uma página?',
     answer:
       'Sim! Cada criação é independente. Você pode criar quantas páginas quiser — para datas diferentes, casais diferentes ou como presente para amigos.',
@@ -58,7 +63,7 @@ export default function FaqSection() {
           className="text-center"
           style={{ marginBottom: 'clamp(48px, 6vw, 64px)' }}
         >
-          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Dúvidas frequentes
           </p>
           <h2

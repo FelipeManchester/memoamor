@@ -68,14 +68,6 @@ export default function HeroSection() {
           >
             Criar minha página ♡
           </Link>
-
-          <a
-            href="/demo"
-            target="_blank"
-            className="font-sans text-[0.78rem] tracking-[0.15em] uppercase text-mauve no-underline flex items-center gap-2 transition-all duration-200 hover:gap-3"
-          >
-            Ver exemplo ao vivo →
-          </a>
         </div>
 
       </div>

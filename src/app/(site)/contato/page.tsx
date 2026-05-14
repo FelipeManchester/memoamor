@@ -39,7 +39,7 @@ export default function ContatoPage() {
           >
             Memoamor
           </a>
-          <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-3">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-3">
             Fale conosco
           </p>
           <h1
@@ -138,7 +138,7 @@ export default function ContatoPage() {
 
         {/* Contato direto */}
         <div className="mt-10 pt-8 border-t border-blush text-center">
-          <p className="font-sans text-[0.78rem] text-mauve">
+          <p className="font-sans text-[0.78rem] text-text-muted">
             Prefere e-mail direto?{' '}
             <a href="mailto:contato@memoamor.app" className="text-wine no-underline">
               contato@memoamor.app

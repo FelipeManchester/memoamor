@@ -27,6 +27,7 @@ export default function TemplatesSection() {
 
   return (
     <section
+      id="templates"
       className="bg-light relative overflow-hidden"
       style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
@@ -36,7 +37,7 @@ export default function TemplatesSection() {
           className="text-center"
           style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}
         >
-          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Três temas exclusivos
           </p>
           <h2
@@ -60,8 +61,6 @@ export default function TemplatesSection() {
             <a
               key={template.id}
               href={`/demo?template=${template.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
               className="no-underline block rounded-lg overflow-hidden border border-rose bg-white transition-[transform,box-shadow] duration-300 cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(122,63,63,0.12)]"
             >
               {/* Preview visual do tema */}
@@ -80,7 +79,7 @@ export default function TemplatesSection() {
 
                 {/* Badge "Ver ao vivo" */}
                 <div className="absolute bottom-3 right-3 bg-white/90 rounded-full py-1 px-3 font-sans text-[0.6rem] tracking-[0.15em] uppercase text-wine">
-                  Ver ao vivo ↗
+                  Ver ao vivo →
                 </div>
               </div>
 

@@ -42,6 +42,7 @@ export default function PricingSection() {
 
   return (
     <section
+      id="precos"
       className="relative overflow-hidden"
       style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
@@ -59,7 +60,7 @@ export default function PricingSection() {
           className="text-center"
           style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}
         >
-          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Sem surpresas
           </p>
           <h2

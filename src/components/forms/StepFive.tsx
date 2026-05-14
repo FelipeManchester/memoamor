@@ -78,7 +78,7 @@ export default function StepFive() {
     <div className="flex flex-col gap-8">
       {/* Cabeçalho */}
       <div>
-        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Passo 5 de 5
         </p>
         <h1
@@ -103,7 +103,7 @@ export default function StepFive() {
           >
             <div>
               <p className="font-sans text-[0.85rem] text-text mb-0.5">{template.name}</p>
-              <p className="font-sans text-[0.72rem] text-mauve">{template.description}</p>
+              <p className="font-sans text-[0.72rem] text-text-muted">{template.description}</p>
             </div>
             {data.template === template.id && <span className="text-wine">✓</span>}
           </button>
@@ -112,7 +112,7 @@ export default function StepFive() {
 
       {/* Resumo */}
       <div className="border border-rose rounded flex flex-col gap-[10px] p-5 bg-white">
-        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Resumo
         </p>
 
@@ -167,8 +167,8 @@ export default function StepFive() {
           value={data.customerEmail}
           onChange={(e) => updateField('customerEmail', e.target.value)}
         />
-        <p className="text-[0.72rem] text-mauve">
-          Você receberá o link da página por e-mail após o pagamento.
+        <p className="text-[0.72rem] text-text-muted">
+          Você receberá o link e um <strong>QR Code</strong> por e-mail após o pagamento — é só mostrar para quem você quer surpreender.
         </p>
       </div>
 

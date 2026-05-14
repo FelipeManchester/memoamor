@@ -44,7 +44,7 @@ export default function StepTwo() {
     <div className="flex flex-col gap-8">
       {/* Cabeçalho */}
       <div>
-        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Passo 2 de 5
         </p>
         <h1
@@ -53,7 +53,7 @@ export default function StepTwo() {
         >
           Conte as memórias de vocês
         </h1>
-        <p className="font-sans text-[0.85rem] text-mauve mt-2">
+        <p className="font-sans text-[0.85rem] text-text-muted mt-2">
           Adicione de 1 a 3 memórias especiais.
         </p>
       </div>
@@ -66,7 +66,7 @@ export default function StepTwo() {
         >
           {/* Cabeçalho do card */}
           <div className="flex justify-between items-center">
-            <span className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve">
+            <span className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
               Memória {i + 1}
             </span>
             {data.memories.length > 1 && (

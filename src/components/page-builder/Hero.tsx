@@ -63,7 +63,7 @@ export default function Hero({ page }: HeroProps) {
 
       {/* Eyebrow */}
       <p
-        className="reveal font-sans text-[0.68rem] tracking-[0.35em] uppercase text-mauve mb-5 relative"
+        className="reveal font-sans text-[0.68rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-5 relative"
       >
         Uma história de amor
       </p>
@@ -89,7 +89,7 @@ export default function Hero({ page }: HeroProps) {
       />
 
       {/* Data */}
-      <p className="reveal text-[0.82rem] tracking-[0.15em] text-mauve uppercase">
+      <p className="reveal text-[0.82rem] font-medium tracking-[0.15em] text-text-muted uppercase">
         {startFormatted}
       </p>
 
@@ -110,7 +110,7 @@ export default function Hero({ page }: HeroProps) {
             >
               {item.value}
             </span>
-            <span className="block text-[0.62rem] tracking-[0.3em] uppercase text-mauve mt-1">
+            <span className="block text-[0.62rem] font-medium tracking-[0.2em] uppercase text-text-muted mt-1">
               {item.label}
             </span>
           </div>

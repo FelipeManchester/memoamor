@@ -67,7 +67,7 @@ export default function StepFour() {
     <div className="flex flex-col gap-8">
       {/* Cabeçalho */}
       <div>
-        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Passo 4 de 5
         </p>
         <h1
@@ -76,7 +76,7 @@ export default function StepFour() {
         >
           Qual é a música de vocês?
         </h1>
-        <p className="font-sans text-[0.85rem] text-mauve mt-2">
+        <p className="font-sans text-[0.85rem] text-text-muted mt-2">
           Cole o link de um vídeo do YouTube. Você pode pular essa etapa.
         </p>
       </div>

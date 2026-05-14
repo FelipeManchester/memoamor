@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { mockPage } from '@/lib/mock'
 import BackgroundRenderer from '@/components/backgrounds/BackgroundRenderer'
 import ScrollAnimations from '@/components/gsap/ScrollAnimations'
@@ -12,14 +13,20 @@ import Closing from '@/components/page-builder/Closing'
 import MemoryPageClient from '@/components/page-builder/MemoryPageClient'
 import type { TemplateId } from '@/types'
 
+const VALID_TEMPLATES: TemplateId[] = ['petals', 'hearts', 'constellations']
+
 const templates: { id: TemplateId; name: string }[] = [
   { id: 'petals', name: 'Pétalas' },
   { id: 'hearts', name: 'Corações' },
   { id: 'constellations', name: 'Constelações' },
 ]
 
-export default function DemoPage() {
-  const [template, setTemplate] = useState<TemplateId>('petals')
+function DemoContent() {
+  const searchParams = useSearchParams()
+  const param = searchParams.get('template') as TemplateId
+  const initial: TemplateId = VALID_TEMPLATES.includes(param) ? param : 'petals'
+
+  const [template, setTemplate] = useState<TemplateId>(initial)
   const [opened, setOpened] = useState(false)
   const page = { ...mockPage, template }
 
@@ -73,6 +80,25 @@ export default function DemoPage() {
           ))}
         </div>
       )}
+
+      {/* Logo */}
+      <a
+        href="/"
+        style={{
+          position: 'fixed',
+          top: 20,
+          left: 24,
+          zIndex: 1500,
+          fontFamily: 'var(--font-serif)',
+          fontSize: '1.4rem',
+          fontStyle: 'italic',
+          fontWeight: 300,
+          color: 'var(--color-wine)',
+          textDecoration: 'none',
+        }}
+      >
+        Memoamor
+      </a>
 
       {/* Botão CTA fixo */}
       <a
@@ -135,5 +161,13 @@ export default function DemoPage() {
         onOpen={handleOpen}
       />
     </>
+  )
+}
+
+export default function DemoPage() {
+  return (
+    <Suspense>
+      <DemoContent />
+    </Suspense>
   )
 }

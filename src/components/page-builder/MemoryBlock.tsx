@@ -72,7 +72,7 @@ export default function MemoryBlock({ memory, flip = false, supabaseUrl }: Memor
         style={{ direction: 'ltr' }}
       >
         {memory.dateLabel && (
-          <p className="font-sans text-[0.65rem] tracking-[0.35em] uppercase text-mauve">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
             {memory.dateLabel}
           </p>
         )}

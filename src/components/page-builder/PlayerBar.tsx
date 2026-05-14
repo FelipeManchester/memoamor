@@ -42,10 +42,19 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
   const playerRef = useRef<YTPlayer | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(70)
+  const [volume, setVolume] = useState(30)
   const [apiReady, setApiReady] = useState(false)
+  const [fetchedTitle, setFetchedTitle] = useState<string | null>(null)
 
   const videoId = youtubeUrl ? extractVideoId(youtubeUrl) : null
+
+  useEffect(() => {
+    if (!videoId) return
+    fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
+      .then((r) => r.json())
+      .then((d) => setFetchedTitle(d.title ?? null))
+      .catch(() => {})
+  }, [videoId])
 
   useEffect(() => {
     if (!videoId) return
@@ -112,11 +121,11 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
 
       {/* Info da música */}
       <div className="flex-1 min-w-0">
-        <p className="font-sans text-[0.55rem] tracking-[0.3em] uppercase text-mauve mb-0.5">
+        <p className="font-sans text-[0.6rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-0.5">
           ♪ tocando agora
         </p>
         <p className="font-serif text-base italic text-wine whitespace-nowrap overflow-hidden text-ellipsis">
-          {songTitle ?? 'Nossa música'}
+          {songTitle ?? fetchedTitle ?? 'Nossa música'}
         </p>
       </div>
 

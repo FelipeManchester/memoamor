@@ -21,7 +21,7 @@ export default function PrivacidadePage() {
           >
             Memoamor
           </Link>
-          <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-3">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-3">
             Última atualização: maio de 2026
           </p>
           <h1

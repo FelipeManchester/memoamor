@@ -18,7 +18,7 @@ export default function StepOne() {
     <div className="flex flex-col gap-8">
       {/* Cabeçalho do passo */}
       <div>
-        <p className="font-sans text-[0.65rem] tracking-[0.3em] uppercase text-mauve mb-2">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Passo 1 de 5
         </p>
         <h1

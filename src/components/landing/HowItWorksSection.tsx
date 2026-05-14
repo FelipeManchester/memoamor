@@ -1,5 +1,36 @@
 'use client'
 
+function IconPen() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-wine)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+      <line x1="5" y1="20.5" x2="19" y2="20.5" strokeOpacity="0.3"/>
+    </svg>
+  )
+}
+
+function IconSparkle() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-wine)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {/* Large star */}
+      <path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+      <circle cx="12" cy="12" r="3"/>
+    </svg>
+  )
+}
+
+function IconShare() {
+  return (
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-wine)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="18" cy="5" r="2.5"/>
+      <circle cx="6" cy="12" r="2.5"/>
+      <circle cx="18" cy="19" r="2.5"/>
+      <line x1="8.41" y1="10.89" x2="15.59" y2="6.11"/>
+      <line x1="8.41" y1="13.11" x2="15.59" y2="17.89"/>
+    </svg>
+  )
+}
+
 export default function HowItWorksSection() {
   const steps = [
     {
@@ -7,26 +38,27 @@ export default function HowItWorksSection() {
       title: 'Conte a história',
       description:
         'Preencha os nomes, a data especial e adicione as memórias que marcaram vocês. Fotos, textos e a música de vocês.',
-      icon: '✍️',
+      icon: <IconPen />,
     },
     {
       number: '02',
       title: 'Escolha o tema',
       description:
         'Selecione entre três temas visuais exclusivos — Pétalas, Corações ou Constelações. Cada um com animações únicas.',
-      icon: '✨',
+      icon: <IconSparkle />,
     },
     {
       number: '03',
       title: 'Compartilhe o link',
       description:
-        'Receba o link da sua página por e-mail e compartilhe com quem você ama. Funciona em qualquer celular ou computador.',
-      icon: '♡',
+        'Receba o link e um QR Code por e-mail. Mostre o código para quem você ama — é só apontar a câmera.',
+      icon: <IconShare />,
     },
   ]
 
   return (
     <section
+      id="como-funciona"
       className="relative overflow-hidden"
       style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
@@ -44,7 +76,7 @@ export default function HowItWorksSection() {
           className="text-center"
           style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}
         >
-          <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-mauve mb-4">
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Simples assim
           </p>
           <h2
@@ -72,13 +104,13 @@ export default function HowItWorksSection() {
 
           {steps.map((step, i) => (
             <div key={i} className="flex flex-col items-center text-center gap-5">
-              {/* Número com círculo */}
+              {/* Ícone com círculo */}
               <div className="relative">
                 <div
                   className="w-[72px] h-[72px] rounded-full bg-white border border-rose flex items-center justify-center relative z-[1]"
                   style={{ boxShadow: '0 4px 20px rgba(122, 63, 63, 0.08)' }}
                 >
-                  <span className="text-[1.8rem]">{step.icon}</span>
+                  {step.icon}
                 </div>
                 {/* Número pequeno */}
                 <div className="absolute -top-1.5 -right-1.5 w-[22px] h-[22px] rounded-full bg-wine flex items-center justify-center z-[2]">

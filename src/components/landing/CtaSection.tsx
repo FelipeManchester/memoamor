@@ -67,7 +67,7 @@ export default function CtaSection() {
       </svg>
 
       <div className="max-w-[600px] mx-auto px-5 relative z-[1]">
-        <p className="font-sans text-[0.65rem] tracking-[0.4em] uppercase text-rose mb-6 opacity-80">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-rose mb-6">
           Comece agora
         </p>
 

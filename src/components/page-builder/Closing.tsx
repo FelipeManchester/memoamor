@@ -21,7 +21,7 @@ export default function Closing({ page }: ClosingProps) {
         com você.
       </h2>
 
-      <p className="reveal font-sans text-[0.82rem] tracking-[0.15em] uppercase text-mauve mb-10">
+      <p className="reveal font-sans text-[0.82rem] font-medium tracking-[0.15em] uppercase text-text-muted mb-10">
         {page.nameA} & {page.nameB} · {startYear}
       </p>
 
