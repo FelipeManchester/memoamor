@@ -35,7 +35,7 @@ function DemoContent() {
   }
 
   return (
-    <>
+    <div data-template={template}>
       <BackgroundRenderer template={template} />
       <ScrollAnimations />
 
@@ -50,7 +50,7 @@ function DemoContent() {
             zIndex: 1500,
             display: 'flex',
             gap: 8,
-            background: 'rgba(250, 246, 241, 0.88)',
+            background: 'var(--selector-bg, rgba(250, 246, 241, 0.88))',
             backdropFilter: 'blur(12px)',
             borderRadius: 100,
             padding: '6px 8px',
@@ -71,7 +71,7 @@ function DemoContent() {
                 border: 'none',
                 cursor: 'pointer',
                 transition: 'all 0.2s',
-                background: template === t.id ? 'var(--color-wine)' : 'transparent',
+                background: template === t.id ? 'var(--btn-primary-bg, var(--color-wine))' : 'transparent',
                 color: template === t.id ? 'var(--color-cream)' : 'var(--color-mauve)',
               }}
             >
@@ -114,7 +114,7 @@ function DemoContent() {
           textTransform: 'uppercase',
           padding: '12px 20px',
           borderRadius: 2,
-          background: 'var(--color-wine)',
+          background: 'var(--btn-primary-bg, var(--color-wine))',
           color: 'var(--color-cream)',
           textDecoration: 'none',
           transition: 'opacity 0.2s',
@@ -158,9 +158,10 @@ function DemoContent() {
         nameA={page.nameA}
         nameB={page.nameB}
         youtubeUrl={page.youtubeUrl}
+        template={template}
         onOpen={handleOpen}
       />
-    </>
+    </div>
   )
 }
 

@@ -10,9 +10,9 @@ const PLAN_FEATURES: Record<PlanId, string[]> = {
     'Até 5 memórias',
     'Galeria com até 5 fotos',
     'Player de música',
-    '3 temas visuais',
+    '1 tema visual (Pétalas)',
     'Contador de tempo',
-    'Link único',
+    'Link único gerado automaticamente',
     'Página no ar 1 ano',
     "Marca d'água discreta",
   ],
@@ -30,12 +30,13 @@ const PLAN_FEATURES: Record<PlanId, string[]> = {
 }
 
 export default function PlanSelector() {
-  const { data, setPlan, updateField, setStep } = useCreateFormStore()
+  const { data, setPlan, setTemplate, updateField, setStep } = useCreateFormStore()
 
   function selectPlan(planId: PlanId) {
     setPlan(planId)
     if (planId === 'essential') {
       updateField('pageTitle', '')
+      setTemplate('petals')
     }
   }
 

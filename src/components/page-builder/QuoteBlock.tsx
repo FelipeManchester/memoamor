@@ -8,15 +8,15 @@ export default function QuoteBlock({ text, author }: QuoteBlockProps) {
     <section
       className="text-center relative overflow-hidden"
       style={{
-        background: 'linear-gradient(135deg, var(--color-blush) 0%, var(--color-cream) 100%)',
+        background: 'var(--quote-bg, linear-gradient(135deg, var(--color-blush) 0%, var(--color-cream) 100%))',
         padding: 'clamp(60px, 10vw, 120px) clamp(20px, 10vw, 140px)',
       }}
     >
       {/* Aspas decorativas */}
       <span
         aria-hidden="true"
-        className="font-serif text-rose absolute pointer-events-none select-none opacity-20 leading-none"
-        style={{ fontSize: '16rem', top: -60, left: 20 }}
+        className="font-serif absolute pointer-events-none select-none leading-none"
+        style={{ fontSize: '16rem', top: -60, left: 20, color: 'var(--quote-mark-color, rgba(232, 196, 184, 0.2))' }}
       >
         &ldquo;
       </span>

@@ -13,11 +13,13 @@ export default function StepFive() {
   const [error, setError] = useState<string | null>(null)
 
   const plan = PLANS.find((p) => p.id === data.plan)!
+  const isEssential = data.plan === 'essential'
 
-  const previewSlug =
-    data.nameA && data.nameB && data.startDate
-      ? data.pageTitle || generateBaseSlug(data.nameA, data.nameB, data.startDate)
-      : 'sua-pagina'
+  const previewSlug = isEssential
+    ? null
+    : data.nameA && data.nameB && data.startDate
+    ? data.pageTitle || generateBaseSlug(data.nameA, data.nameB, data.startDate)
+    : 'sua-pagina'
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.customerEmail)
   const canSubmit = emailValid && !isSubmitting
@@ -92,23 +94,38 @@ export default function StepFive() {
 
       {/* Seletor de templates */}
       <div className="flex flex-col gap-3">
-        {TEMPLATES.map((template) => (
-          <button
-            key={template.id}
-            onClick={() => setTemplate(template.id as TemplateId)}
-            className="flex items-center justify-between py-4 px-5 rounded-sm transition-all duration-200 cursor-pointer text-left"
-            style={{
-              border: `1px solid ${data.template === template.id ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-              background: data.template === template.id ? 'var(--color-blush)' : 'white',
-            }}
-          >
-            <div>
-              <p className="font-sans text-[0.85rem] text-text mb-0.5">{template.name}</p>
-              <p className="font-sans text-[0.72rem] text-text-muted">{template.description}</p>
-            </div>
-            {data.template === template.id && <span className="text-wine">✓</span>}
-          </button>
-        ))}
+        {TEMPLATES.map((template) => {
+          const isSelected = data.template === template.id
+          const isLocked = isEssential && template.id !== 'petals'
+          return (
+            <button
+              key={template.id}
+              onClick={() => !isLocked && setTemplate(template.id as TemplateId)}
+              className="flex items-center justify-between py-4 px-5 rounded-sm transition-all duration-200 text-left"
+              style={{
+                border: `1px solid ${isSelected ? 'var(--color-wine)' : 'var(--color-rose)'}`,
+                background: isLocked ? '#faf8f6' : isSelected ? 'var(--color-blush)' : 'white',
+                cursor: isLocked ? 'not-allowed' : 'pointer',
+                opacity: isLocked ? 0.65 : 1,
+              }}
+            >
+              <div>
+                <p className="font-sans text-[0.85rem] text-text mb-0.5">{template.name}</p>
+                <p className="font-sans text-[0.72rem] text-text-muted">{template.description}</p>
+              </div>
+              {isLocked ? (
+                <span
+                  className="font-sans text-[0.6rem] tracking-[0.12em] uppercase px-2 py-1 rounded-full shrink-0"
+                  style={{ background: 'var(--color-blush)', color: 'var(--color-mauve)' }}
+                >
+                  Premium
+                </span>
+              ) : isSelected ? (
+                <span className="text-wine">✓</span>
+              ) : null}
+            </button>
+          )
+        })}
       </div>
 
       {/* Resumo */}
@@ -149,8 +166,13 @@ export default function StepFive() {
         {/* URL da página */}
         <div className="mt-2 pt-3 border-t border-blush">
           <p className="font-sans text-[0.72rem] text-mauve mb-1">Sua página ficará em:</p>
-          <p className="font-sans text-[0.82rem] text-wine">
-            memoamor.app/p/{previewSlug}
+          <p className="font-sans text-[0.82rem]">
+            <span className="text-wine">memoamor.app/p/</span>
+            {isEssential ? (
+              <span className="text-mauve italic">gerado automaticamente</span>
+            ) : (
+              <span className="text-wine">{previewSlug}</span>
+            )}
           </p>
         </div>
       </div>

@@ -110,7 +110,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
     <div
       className="fixed bottom-0 left-0 right-0 h-[72px] border-t border-rose flex items-center px-6 gap-5 z-[1000]"
       style={{
-        background: 'rgba(250, 246, 241, 0.88)',
+        background: 'var(--player-bg, rgba(250, 246, 241, 0.88))',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
       }}

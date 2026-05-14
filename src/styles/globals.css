@@ -124,6 +124,46 @@
 }
 
 /* ─────────────────────────────────────────────
+   Dark template themes — override tokens for
+   hearts & constellations dark backgrounds
+   ───────────────────────────────────────────── */
+[data-template="hearts"] {
+  --color-wine: #fcd8e8;
+  --color-mauve: #e8a8c8;
+  --color-text-muted: #c888aa;
+  --color-text: #f0e0ea;
+  --color-rose: #8a305c;
+  --color-light: #280818;
+  --hero-overlay: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(200, 30, 90, 0.2) 0%, transparent 70%);
+  --quote-bg: linear-gradient(135deg, #2e0a1b 0%, #1a0510 100%);
+  --quote-mark-color: rgba(220, 80, 130, 0.22);
+  --selector-bg: rgba(42, 8, 24, 0.92);
+  --player-bg: rgba(42, 8, 24, 0.92);
+  --btn-primary-bg: #c01850;
+  --overlay-bg: #1a0710;
+  --overlay-flush-bg: #2e0a1b;
+  --overlay-btn-bg: #c888aa;
+}
+
+[data-template="constellations"] {
+  --color-wine: #e8d8ff;
+  --color-mauve: #c4a0e0;
+  --color-text-muted: #a080c8;
+  --color-text: #e0d8f8;
+  --color-rose: #6040b0;
+  --color-light: #0e0920;
+  --hero-overlay: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(100, 50, 220, 0.15) 0%, transparent 70%);
+  --quote-bg: linear-gradient(135deg, #120a28 0%, #07051a 100%);
+  --quote-mark-color: rgba(160, 120, 240, 0.22);
+  --selector-bg: rgba(14, 8, 38, 0.92);
+  --player-bg: rgba(14, 8, 38, 0.92);
+  --btn-primary-bg: #4428a0;
+  --overlay-bg: #07040f;
+  --overlay-flush-bg: #120a28;
+  --overlay-btn-bg: #a080c8;
+}
+
+/* ─────────────────────────────────────────────
    Acessibilidade — respeita preferência de movimento
    ───────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

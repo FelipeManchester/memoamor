@@ -8,6 +8,7 @@ interface MemoryBlockProps {
 }
 
 function getImageUrl(path: string, supabaseUrl: string): string {
+  if (path.startsWith('/')) return path
   return `${supabaseUrl}/storage/v1/object/public/pages/${path}`
 }
 
@@ -39,12 +40,13 @@ export default function MemoryBlock({ memory, flip = false, supabaseUrl }: Memor
               alt={memory.title}
               width={600}
               height={750}
-              className="w-full h-auto aspect-[4/5] object-cover block"
+              quality={100}
+              className="w-full h-auto aspect-4/5 object-cover block"
             />
           </div>
         ) : (
           <div
-            className="w-full aspect-[4/5] rounded-sm flex items-center justify-center"
+            className="w-full aspect-4/5 rounded-sm flex items-center justify-center"
             style={{
               background: 'linear-gradient(135deg, var(--color-blush), var(--color-rose))',
             }}
@@ -84,10 +86,7 @@ export default function MemoryBlock({ memory, flip = false, supabaseUrl }: Memor
           {memory.title}
         </h2>
 
-        <p
-          className="text-[0.95rem] leading-[1.9] text-text-muted"
-          style={{ maxWidth: '42ch' }}
-        >
+        <p className="text-[0.95rem] leading-[1.9] text-text-muted" style={{ maxWidth: '42ch' }}>
           {memory.body}
         </p>
       </div>

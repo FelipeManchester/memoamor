@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
-import { generateBaseSlug, generateSlugWithSuffix } from '@/lib/slug'
+import { generateBaseSlug, generateSlugWithSuffix, generateRandomSlug } from '@/lib/slug'
 import { addMinutes, addDays } from 'date-fns'
 import { SLUG_RESERVATION_MINUTES, PAGE_DURATION_DAYS } from '@/lib/constants'
 import type { CreateFormData, ApiResponse, CreatePageResponse } from '@/types'
@@ -15,12 +15,13 @@ export async function POST(req: NextRequest) {
     const body: CreateFormData = await req.json()
     const supabase = createAdminClient()
 
-    const baseSlug = generateBaseSlug(body.nameA, body.nameB, body.startDate)
-    let slug = baseSlug
+    const isEssential = body.plan === 'essential'
+    const baseSlug = isEssential ? '' : generateBaseSlug(body.nameA, body.nameB, body.startDate)
+    let slug = isEssential ? generateRandomSlug() : baseSlug
     let inserted = false
     let attempts = 0
 
-    // Tenta inserir — em colisão, adiciona sufixo (máx. 5 tentativas)
+    // Tenta inserir — em colisão, gera novo slug (máx. 5 tentativas)
     while (!inserted && attempts < 5) {
       const now = new Date()
       const reservedUntil = addMinutes(now, SLUG_RESERVATION_MINUTES).toISOString()
@@ -53,8 +54,8 @@ export async function POST(req: NextRequest) {
       if (!error) {
         inserted = true
       } else if (error.code === '23505') {
-        // Unique violation — tenta com sufixo
-        slug = generateSlugWithSuffix(baseSlug)
+        // Unique violation — gera novo slug
+        slug = isEssential ? generateRandomSlug() : generateSlugWithSuffix(baseSlug)
         attempts++
       } else {
         throw error

@@ -1,5 +1,7 @@
 import SlugifyLib from 'slugify'
-import { nanoid } from 'nanoid'
+import { nanoid, customAlphabet } from 'nanoid'
+
+const randomAlpha = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 8)
 
 // ─────────────────────────────────────────────
 // Gera slug base a partir dos nomes e ano
@@ -24,6 +26,14 @@ export function generateBaseSlug(nameA: string, nameB: string, startDate: string
 export function generateSlugWithSuffix(base: string): string {
   const suffix = nanoid(4).toLowerCase()
   return `${base}-${suffix}`
+}
+
+// ─────────────────────────────────────────────
+// Gera slug aleatório para plano Essencial
+// Ex: "k7m2x9pq"
+// ─────────────────────────────────────────────
+export function generateRandomSlug(): string {
+  return randomAlpha()
 }
 
 // ─────────────────────────────────────────────

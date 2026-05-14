@@ -2,45 +2,59 @@
 
 import { useRef } from 'react'
 import gsap from 'gsap'
+import type { TemplateId } from '@/types'
 
 interface OverlayProps {
   nameA: string
   nameB: string
+  template?: TemplateId
   onOpen: () => void
 }
 
-const PALETTE = ['#7a3f3f', '#cc8877', '#e8c4b8', '#c49a8a', '#f2ddd5', '#7a3f3f', '#b56060']
+const BTN_BG: Record<TemplateId, string> = {
+  petals: 'var(--color-wine)',
+  hearts: '#c888aa',
+  constellations: '#a080c8',
+}
+
+const PALETTES: Record<TemplateId, string[]> = {
+  petals: ['#7a3f3f', '#cc8877', '#e8c4b8', '#c49a8a', '#f2ddd5', '#7a3f3f', '#b56060'],
+  hearts: ['#c01850', '#e0305c', '#ff4d7a', '#8d0e35', '#ff608a', '#c91f4a', '#ff3366'],
+  constellations: ['#9060e0', '#c4a0e0', '#7040b0', '#e8d8ff', '#b090f0', '#8050d0', '#d0b8ff'],
+}
 
 // Deterministic heart layout — no Math.random() to avoid hydration mismatch
 const HEARTS = Array.from({ length: 30 }, (_, i) => ({
   id: i,
-  // Golden-ratio spread across viewport width
   left: ((i * 3.33) % 92) + 3,
-  // Varying sizes: small (10px) to large (56px)
   size: 10 + (i * 17 % 48),
-  color: PALETTE[i % PALETTE.length],
   opacity: 0.28 + (i % 6) * 0.12,
-  // Horizontal drift as they rise
   driftX: ((i % 9) - 4) * 16,
-  // Duration: larger hearts rise slower (feel heavier)
   duration: 0.72 + (i % 7) * 0.09,
-  // End rotation
   rotate: ((i % 7) - 3) * 14,
 }))
 
-// Standard heart SVG path
 const HEART_PATH =
   'M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151 1.018 5.719 4.955 1.566-3.937 4.406-4.955 5.719-4.955 2.213 0 5.281 1.4 5.281 5.191 0 4.105-5.374 8.863-11 14.402z'
 
-export default function Overlay({ nameA, nameB, onOpen }: OverlayProps) {
+export default function Overlay({ nameA, nameB, template = 'petals', onOpen }: OverlayProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const heartsRef = useRef<HTMLDivElement>(null)
   const fired = useRef(false)
 
+  const palette = PALETTES[template]
+
   function handleOpen() {
     if (fired.current) return
     fired.current = true
+
+    const container = containerRef.current
+    if (!container) return
+
+    // Read the template-specific flush color from the inherited CSS variable
+    const flushColor =
+      getComputedStyle(container).getPropertyValue('--overlay-flush-bg').trim() || '#f5e6df'
 
     const tl = gsap.timeline({ onComplete: onOpen })
     const heartEls = heartsRef.current ? Array.from(heartsRef.current.children) : []
@@ -78,23 +92,16 @@ export default function Overlay({ nameA, nameB, onOpen }: OverlayProps) {
       0.05
     )
 
-    // ── Background blushes, then the whole overlay fades ─
-    tl.to(
-      containerRef.current,
-      { backgroundColor: '#f5e6df', duration: 0.5, ease: 'power1.inOut' },
-      0.12
-    )
-    tl.to(
-      containerRef.current,
-      { opacity: 0, duration: 0.32, ease: 'power2.in' },
-      0.82
-    )
+    // ── Background flushes to template tone, then fades ──
+    tl.to(container, { backgroundColor: flushColor, duration: 0.5, ease: 'power1.inOut' }, 0.12)
+    tl.to(container, { opacity: 0, duration: 0.32, ease: 'power2.in' }, 0.82)
   }
 
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[1400] bg-cream flex items-center justify-center text-center"
+      className="fixed inset-0 z-[1400] flex items-center justify-center text-center"
+      style={{ backgroundColor: 'var(--overlay-bg, var(--color-cream))' }}
     >
       {/* ── Heart particles — start below viewport, animate upward ── */}
       <div ref={heartsRef} className="absolute inset-0 pointer-events-none">
@@ -104,7 +111,7 @@ export default function Overlay({ nameA, nameB, onOpen }: OverlayProps) {
             width={h.size}
             height={h.size}
             viewBox="0 0 24 24"
-            fill={h.color}
+            fill={palette[h.id % palette.length]}
             className="absolute"
             style={{
               left: `${h.left}%`,
@@ -176,8 +183,8 @@ export default function Overlay({ nameA, nameB, onOpen }: OverlayProps) {
 
         <button
           onClick={handleOpen}
-          className="font-sans text-[0.72rem] tracking-[0.3em] uppercase text-cream bg-wine border-none py-4 px-10 rounded-sm cursor-pointer transition-all duration-200 opacity-0 hover:opacity-[0.85] hover:-translate-y-0.5"
-          style={{ animation: 'fadeUp 0.9s ease forwards', animationDelay: '0.9s' }}
+          className="font-sans text-[0.72rem] tracking-[0.3em] uppercase text-cream border-none py-4 px-10 rounded-sm cursor-pointer transition-all duration-200 opacity-0 hover:opacity-[0.85] hover:-translate-y-0.5"
+          style={{ backgroundColor: BTN_BG[template], animation: 'fadeUp 0.9s ease forwards', animationDelay: '0.9s' }}
         >
           Abrir memórias ♡
         </button>

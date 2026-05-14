@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
-import { generateBaseSlug } from '@/lib/slug'
 import { cn } from '@/lib/utils'
 
 type SlugStatus = 'idle' | 'checking' | 'available' | 'taken'
@@ -11,11 +10,6 @@ export default function StepOne() {
   const { data, updateField, setStep } = useCreateFormStore()
   const isPremium = data.plan === 'premium'
   const [slugStatus, setSlugStatus] = useState<SlugStatus>('idle')
-
-  const autoSlug =
-    data.nameA.trim() && data.nameB.trim() && data.startDate
-      ? generateBaseSlug(data.nameA, data.nameB, data.startDate)
-      : null
 
   // Debounced slug availability check (premium + custom slug only)
   useEffect(() => {
@@ -174,7 +168,7 @@ export default function StepOne() {
                 'border-[#16a34a] focus:border-[#16a34a]',
             )}
             type="text"
-            placeholder={isPremium ? 'nome1-e-nome2' : (autoSlug ?? 'gerado-automaticamente')}
+            placeholder={isPremium ? 'nome1-e-nome2' : 'gerado-automaticamente'}
             maxLength={40}
             disabled={!isPremium}
             value={isPremium ? data.pageTitle : ''}
@@ -188,13 +182,7 @@ export default function StepOne() {
         {/* Status messages */}
         {!isPremium && (
           <p className="text-[0.72rem] text-mauve">
-            {autoSlug ? (
-              <>
-                Gerado automaticamente: <span className="text-wine font-medium">{autoSlug}</span>
-              </>
-            ) : (
-              'Gerado automaticamente a partir dos seus nomes.'
-            )}
+            Um endereço aleatório será gerado no momento do pagamento.
           </p>
         )}
         {isPremium && !data.pageTitle && (

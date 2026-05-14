@@ -63,7 +63,7 @@ export default function Hero({ page }: HeroProps) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 60% at 50% 0%, #f0d4ca44 0%, transparent 70%)',
+          background: 'var(--hero-overlay, radial-gradient(ellipse 70% 60% at 50% 0%, #f0d4ca44 0%, transparent 70%))',
         }}
       />
 

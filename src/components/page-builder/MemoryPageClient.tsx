@@ -3,11 +3,13 @@
 import { useState, useRef } from 'react'
 import Overlay from './Overlay'
 import PlayerBar from './PlayerBar'
+import type { TemplateId } from '@/types'
 
 interface MemoryPageClientProps {
   nameA: string
   nameB: string
   youtubeUrl: string | null
+  template?: TemplateId
   onOpen?: () => void
 }
 
@@ -15,6 +17,7 @@ export default function MemoryPageClient({
   nameA,
   nameB,
   youtubeUrl,
+  template,
   onOpen,
 }: MemoryPageClientProps) {
   const [opened, setOpened] = useState(false)
@@ -44,7 +47,7 @@ export default function MemoryPageClient({
 
   return (
     <>
-      {!opened && <Overlay nameA={nameA} nameB={nameB} onOpen={handleOpen} />}
+      {!opened && <Overlay nameA={nameA} nameB={nameB} template={template} onOpen={handleOpen} />}
       <PlayerBar youtubeUrl={youtubeUrl} onPlayReady={handlePlayReady} />
     </>
   )
