@@ -25,7 +25,7 @@ export default function ScrollAnimations() {
           ease: 'power3.out',
           scrollTrigger: {
             trigger: el,
-            start: 'top 88%',
+            start: 'top 95%',
           },
         }
 
@@ -50,6 +50,10 @@ export default function ScrollAnimations() {
           },
         })
       })
+
+      // Recalcula posições após fontes/imagens carregarem
+      requestAnimationFrame(() => ScrollTrigger.refresh())
+      window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
     }
 
     init()

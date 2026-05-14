@@ -37,12 +37,14 @@ export default function MemoryPageClient({
     setOpened(true)
     onOpen?.()
     if (playRef.current) {
-      // Player já está pronto — toca imediatamente
       playRef.current()
     } else {
-      // Player ainda não está pronto — marca intenção pendente
       pendingPlay.current = true
     }
+    // Overlay removed from DOM — recalculate ScrollTrigger positions
+    import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+      ScrollTrigger.refresh()
+    })
   }
 
   return (

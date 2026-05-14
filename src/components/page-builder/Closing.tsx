@@ -23,7 +23,9 @@ export default function Closing({ page }: ClosingProps) {
       </p>
 
       {/* Coração animado */}
-      <span className="reveal inline-block text-[1.8rem] animate-heartbeat text-wine">♡</span>
+      <div className="reveal inline-block">
+        <span className="inline-block text-[1.8rem] animate-heartbeat text-wine">♡</span>
+      </div>
 
       {/* Marca d'água — apenas plano Essencial */}
       {page.plan === 'essential' && (
