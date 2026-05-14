@@ -105,49 +105,6 @@ export default function StepOne() {
         />
       </div>
 
-      {/* Frase da página */}
-      <div className="flex flex-col gap-2">
-        <label htmlFor="closingQuote" className="form-label">Frase da página</label>
-        <textarea
-          id="closingQuote"
-          className="form-input resize-none"
-          rows={3}
-          maxLength={200}
-          value={data.closingQuote ?? ''}
-          onChange={(e) => updateField('closingQuote', e.target.value)}
-          style={{ lineHeight: 1.6 }}
-        />
-        <p className="text-[0.72rem] text-mauve">{(data.closingQuote ?? '').length}/200 caracteres</p>
-        <div className="flex flex-col gap-2">
-          <p className="text-[0.65rem] font-medium tracking-[0.15em] uppercase text-text-muted">
-            Sugestões
-          </p>
-          <div className="flex flex-col gap-2">
-            {[
-              'Amar é encontrar na felicidade do outro a própria felicidade.',
-              'Você é o lar que eu sempre quis encontrar.',
-              'O amor não se explica — apenas se sente.',
-            ].map((phrase) => (
-              <button
-                key={phrase}
-                type="button"
-                onClick={() => updateField('closingQuote', phrase)}
-                className="text-left py-2 px-3 rounded-sm text-[0.78rem] transition-all duration-150 cursor-pointer border"
-                style={{
-                  background: (data.closingQuote ?? '') === phrase ? 'var(--color-blush)' : 'white',
-                  borderColor:
-                    (data.closingQuote ?? '') === phrase ? 'var(--color-wine)' : 'var(--color-rose)',
-                  color:
-                    (data.closingQuote ?? '') === phrase ? 'var(--color-wine)' : 'var(--color-text-muted)',
-                }}
-              >
-                {phrase}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Endereço da página */}
       <div className="flex flex-col gap-2">
         <label htmlFor="pageTitle" className="form-label">

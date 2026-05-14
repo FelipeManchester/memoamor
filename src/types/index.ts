@@ -79,9 +79,6 @@ export interface CreateFormData {
   startDate: string
   pageTitle: string
 
-  // Passo 1 (cont.)
-  closingQuote: string
-
   // Passo 2
   memories: MemoryFormItem[]
 

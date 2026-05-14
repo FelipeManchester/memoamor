@@ -21,6 +21,21 @@ export const TEMPLATES: Template[] = [
   },
 ]
 
+export const TEMPLATE_QUOTES: Record<string, { text: string; author: string }> = {
+  petals: {
+    text: 'Amar é encontrar na felicidade do outro a própria felicidade.',
+    author: 'Gottfried Leibniz',
+  },
+  hearts: {
+    text: 'Amar não é olhar um para o outro, mas olhar juntos na mesma direção.',
+    author: 'Antoine de Saint-Exupéry',
+  },
+  constellations: {
+    text: 'Nós nos amávamos com um amor que era mais que amor.',
+    author: 'Edgar Allan Poe',
+  },
+}
+
 // ─────────────────────────────────────────────
 // Planos disponíveis
 // ─────────────────────────────────────────────

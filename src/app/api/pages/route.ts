@@ -36,7 +36,6 @@ export async function POST(req: NextRequest) {
         name_b: body.nameB,
         start_date: body.startDate,
         page_title: body.pageTitle || null,
-        closing_quote: body.closingQuote || null,
         youtube_url: body.youtubeUrl || null,
         memories: body.memories.map((m) => ({
           id: m.id,

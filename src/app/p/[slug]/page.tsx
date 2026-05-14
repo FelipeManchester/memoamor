@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { createAdminClient } from '@/lib/supabase/server'
 import { mockPage } from '@/lib/mock'
 import type { MemoryPage } from '@/types'
+import { TEMPLATE_QUOTES } from '@/lib/constants'
 
 function formatDatePtBR(dateStr: string): string {
   const [year, month, day] = dateStr.split('-').map(Number)
@@ -151,8 +152,8 @@ export default async function MemoryPageRoute({ params, searchParams }: PageProp
         </section>
 
         <QuoteBlock
-          text={page.closingQuote ?? 'Amar é encontrar na felicidade do outro a própria felicidade.'}
-          author={page.closingQuote ? undefined : 'Gottfried Leibniz'}
+          text={TEMPLATE_QUOTES[page.template]?.text ?? TEMPLATE_QUOTES.petals.text}
+          author={TEMPLATE_QUOTES[page.template]?.author ?? TEMPLATE_QUOTES.petals.author}
         />
 
         <Gallery photos={page.gallery} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL!} />

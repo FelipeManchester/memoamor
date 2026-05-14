@@ -17,14 +17,11 @@ const initialMemory = (): MemoryFormItem => ({
   uploadStatus: 'idle',
 })
 
-const DEFAULT_CLOSING_QUOTE = 'Amar é encontrar na felicidade do outro a própria felicidade.'
-
 const initialState: CreateFormData = {
   nameA: '',
   nameB: '',
   startDate: '',
   pageTitle: '',
-  closingQuote: DEFAULT_CLOSING_QUOTE,
   memories: [initialMemory()],
   gallery: [],
   youtubeUrl: '',

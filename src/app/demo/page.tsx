@@ -12,6 +12,7 @@ import Gallery from '@/components/page-builder/Gallery'
 import Closing from '@/components/page-builder/Closing'
 import MemoryPageClient from '@/components/page-builder/MemoryPageClient'
 import type { TemplateId } from '@/types'
+import { TEMPLATE_QUOTES } from '@/lib/constants'
 
 const VALID_TEMPLATES: TemplateId[] = ['petals', 'hearts', 'constellations']
 
@@ -145,8 +146,8 @@ function DemoContent() {
         </section>
 
         <QuoteBlock
-          text="Amar é encontrar na felicidade do outro a própria felicidade."
-          author="Gottfried Leibniz"
+          text={TEMPLATE_QUOTES[template]?.text ?? TEMPLATE_QUOTES.petals.text}
+          author={TEMPLATE_QUOTES[template]?.author ?? TEMPLATE_QUOTES.petals.author}
         />
 
         <Gallery photos={page.gallery} supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL!} />

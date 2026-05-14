@@ -45,7 +45,6 @@ export default function StepSix() {
           nameB: data.nameB,
           startDate: data.startDate,
           pageTitle: data.pageTitle,
-          closingQuote: data.closingQuote,
           template: data.template,
           plan: data.plan,
           youtubeUrl: data.youtubeUrl,
@@ -119,12 +118,6 @@ export default function StepSix() {
         </p>
 
         <p className="font-sans text-[0.8rem] text-text-muted">Desde {formattedDate}</p>
-
-        {data.closingQuote && (
-          <p className="font-sans text-[0.78rem] text-text leading-[1.6] italic line-clamp-2 border-l-2 border-rose pl-3">
-            {data.closingQuote}
-          </p>
-        )}
 
         <p className="font-sans text-[0.75rem]">
           <span className="text-mauve">memoamor.app/p/</span>
