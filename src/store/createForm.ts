@@ -27,6 +27,7 @@ const initialState: CreateFormData = {
   youtubeUrl: '',
   youtubeTitle: null,
   template: 'petals',
+  closingQuote: 'Para sempre, com você.',
   plan: 'essential',
   customerEmail: '',
 }

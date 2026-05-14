@@ -46,6 +46,7 @@ export default function StepSix() {
           startDate: data.startDate,
           pageTitle: data.pageTitle,
           template: data.template,
+          closingQuote: data.closingQuote,
           plan: data.plan,
           youtubeUrl: data.youtubeUrl,
           youtubeTitle: data.youtubeTitle,
@@ -242,6 +243,22 @@ export default function StepSix() {
           <div className="flex items-center gap-3">
             <span className="font-sans text-[0.72rem] text-mauve w-14 shrink-0">Tema</span>
             <span className="font-sans text-[0.8rem] text-text">{templateName}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setStep(5)}
+            className="font-sans text-[0.68rem] text-mauve underline cursor-pointer shrink-0 ml-3"
+          >
+            Editar
+          </button>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="font-sans text-[0.72rem] text-mauve w-14 shrink-0">Frase</span>
+            <span className="font-sans text-[0.8rem] text-text italic truncate">
+              {data.closingQuote || 'Para sempre, com você.'}
+            </span>
           </div>
           <button
             type="button"

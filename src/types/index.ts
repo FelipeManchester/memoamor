@@ -91,6 +91,7 @@ export interface CreateFormData {
 
   // Passo 5
   template: TemplateId
+  closingQuote: string
   plan: PlanId
   customerEmail: string
 }

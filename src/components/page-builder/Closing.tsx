@@ -13,9 +13,7 @@ export default function Closing({ page }: ClosingProps) {
         className="reveal font-serif italic font-light text-wine leading-[1.15] mb-5"
         style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)' }}
       >
-        Para sempre,
-        <br />
-        com você.
+        {page.closingQuote || 'Para sempre, com você.'}
       </h2>
 
       <p className="reveal font-sans text-[0.82rem] font-medium tracking-[0.15em] uppercase text-text-muted mb-10">

@@ -6,8 +6,16 @@ import { generateBaseSlug } from '@/lib/slug'
 import type { TemplateId } from '@/types'
 import { cn } from '@/lib/utils'
 
+const CLOSING_EXAMPLES = [
+  'Juntos para sempre, amor.',
+  'Você é minha história preferida.',
+  'Pra sempre ao seu lado.',
+  'Meu lugar favorito é perto de você.',
+  'Todo dia, com mais amor.',
+]
+
 export default function StepFive() {
-  const { data, setTemplate, setStep } = useCreateFormStore()
+  const { data, setTemplate, updateField, setStep } = useCreateFormStore()
 
   const isEssential = data.plan === 'essential'
 
@@ -69,6 +77,40 @@ export default function StepFive() {
             </button>
           )
         })}
+      </div>
+
+      {/* Frase final */}
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between gap-3">
+          <label htmlFor="closingQuote" className="form-label">
+            Frase final da página
+          </label>
+          <button
+            type="button"
+            onClick={() => {
+              const random = CLOSING_EXAMPLES[Math.floor(Math.random() * CLOSING_EXAMPLES.length)]
+              updateField('closingQuote', random)
+            }}
+            className="font-sans text-[0.7rem] text-mauve cursor-pointer underline decoration-dotted shrink-0"
+          >
+            Ver sugestões →
+          </button>
+        </div>
+        <input
+          id="closingQuote"
+          className="form-input"
+          type="text"
+          placeholder="Para sempre, com você."
+          maxLength={50}
+          value={data.closingQuote}
+          onChange={(e) => updateField('closingQuote', e.target.value)}
+        />
+        <div className="flex justify-between items-center">
+          <p className="text-[0.72rem] text-mauve">
+            Aparece no final da página, antes do coração ♡
+          </p>
+          <span className="text-[0.7rem] text-mauve">{data.closingQuote.length}/50</span>
+        </div>
       </div>
 
       {/* Resumo */}
