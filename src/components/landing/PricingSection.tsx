@@ -1,65 +1,59 @@
 'use client'
 
-export default function PricingSection() {
-  const plans = [
-    {
-      id: 'essential',
-      name: 'Essencial',
-      price: 'R$ 19,90',
-      description: 'O básico bem feito',
-      highlighted: false,
-      features: [
-        '1 página',
-        'Até 3 memórias',
-        'Galeria com até 5 fotos',
-        'Player de música',
-        '1 tema visual',
-        'Contador de tempo',
-        'Link único',
-        'Página no ar 1 ano',
-        "Marca d'água discreta",
-      ],
-      cta: 'Criar minha página',
-      note: 'Renovação por R$ 9,90/ano',
-    },
-    {
-      id: 'premium',
-      name: 'Premium',
-      price: 'R$ 29,90',
-      description: 'Pra surpreender de verdade',
-      highlighted: true,
-      features: [
-        '1 página',
-        'Até 6 memórias',
-        'Galeria com até 10 fotos',
-        'Player de música',
-        '3 temas visuais',
-        'Contador de tempo',
-        'URL personalizada',
-        'Página no ar 1 ano',
-        "Sem marca d'água",
-      ],
-      cta: 'Quero a Premium',
-      note: 'Renovação por R$ 9,90/ano',
-    },
-  ]
+type Feature = {
+  text: string
+  upgrade?: string // shown as a small badge on premium
+}
 
+const essentialFeatures: Feature[] = [
+  { text: '1 página' },
+  { text: 'Até 3 memórias' },
+  { text: 'Galeria com até 5 fotos' },
+  { text: 'Player de música' },
+  { text: '1 tema visual' },
+  { text: 'Contador de tempo' },
+  { text: 'Link único' },
+  { text: 'Página no ar 1 ano' },
+  { text: "Marca d'água discreta" },
+]
+
+const premiumFeatures: Feature[] = [
+  { text: '1 página' },
+  { text: 'Até 6 memórias',         upgrade: '2×' },
+  { text: 'Galeria com até 10 fotos', upgrade: '2×' },
+  { text: 'Player de música' },
+  { text: '3 temas visuais',         upgrade: 'novo' },
+  { text: 'Contador de tempo' },
+  { text: 'URL personalizada',       upgrade: 'exclusivo' },
+  { text: 'Página no ar 1 ano' },
+  { text: "Sem marca d'água",        upgrade: 'exclusivo' },
+]
+
+const HIGHLIGHTS = [
+  { label: '2× memórias' },
+  { label: '2× fotos' },
+  { label: 'URL própria' },
+  { label: "Sem logo" },
+]
+
+export default function PricingSection() {
   return (
     <section
       id="precos"
       className="relative overflow-hidden"
       style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
     >
-      {/* Fundo decorativo */}
+      {/* Background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 60% at 50% 100%, #f0d4ca33 0%, transparent 70%)',
+          background:
+            'radial-gradient(ellipse 70% 60% at 50% 100%, #f0d4ca33 0%, transparent 70%)',
         }}
       />
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
-        {/* Cabeçalho */}
+        {/* Header */}
         <div className="text-center" style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}>
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Sem surpresas
@@ -78,113 +72,196 @@ export default function PricingSection() {
           </p>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start max-w-3xl mx-auto">
-          {plans.map((plan) => (
-            <div
-              key={plan.id}
-              className="rounded-lg relative overflow-hidden"
-              style={{
-                border: plan.highlighted
-                  ? '2px solid var(--color-wine)'
-                  : '1px solid var(--color-rose)',
-                background: plan.highlighted ? 'var(--color-wine)' : 'white',
-                padding: 'clamp(28px, 4vw, 40px)',
-              }}
-            >
-              {/* Badge mais popular */}
-              {plan.highlighted && (
-                <div className="absolute top-5 right-5 bg-rose rounded-full px-3 py-1 font-sans text-[0.6rem] tracking-[0.15em] uppercase text-wine">
-                  Mais popular
-                </div>
-              )}
+        {/* Cards — premium elevated via margin hack on md+ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-end max-w-3xl mx-auto">
 
-              {/* Nome e preço */}
-              <p
-                className="font-sans text-[0.7rem] tracking-[0.25em] uppercase mb-3"
-                style={{ color: plan.highlighted ? 'var(--color-rose)' : 'var(--color-mauve)' }}
+          {/* ── Essencial ── */}
+          <div
+            className="rounded-l-lg rounded-r-none max-md:rounded-lg relative"
+            style={{
+              border: '1px solid var(--color-rose)',
+              background: 'white',
+              padding: 'clamp(28px, 4vw, 40px)',
+            }}
+          >
+            <p className="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-mauve mb-3">
+              Essencial
+            </p>
+
+            <div className="flex items-baseline gap-1 mb-1">
+              <span
+                className="font-serif font-light leading-none text-wine"
+                style={{ fontSize: 'clamp(2.5rem, 5vw, 3.2rem)' }}
               >
-                {plan.name}
-              </p>
+                R$ 19,90
+              </span>
+            </div>
 
-              <div className="flex items-baseline gap-1 mb-2">
+            <p className="font-sans text-[0.82rem] text-text-muted mb-7 leading-[1.6]">
+              O básico bem feito
+            </p>
+
+            <div className="h-px mb-6 bg-blush" />
+
+            <ul className="list-none flex flex-col gap-3 mb-8">
+              {essentialFeatures.map((f, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5] text-text"
+                >
+                  <span className="shrink-0 text-mauve">✓</span>
+                  {f.text}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="/criar"
+              className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.88] hover:-translate-y-px"
+              style={{ background: 'var(--color-wine)', color: 'var(--color-cream)' }}
+            >
+              Criar minha página →
+            </a>
+
+            <p className="font-sans text-[0.68rem] text-center mt-3 text-mauve opacity-70">
+              Renovação por R$ 9,90/ano
+            </p>
+          </div>
+
+          {/* ── Premium ── */}
+          <div
+            className="rounded-lg relative overflow-hidden"
+            style={{
+              background: 'var(--color-wine)',
+              padding: 'clamp(28px, 4vw, 44px)',
+              boxShadow: '0 24px 64px rgba(122, 63, 63, 0.35), 0 4px 16px rgba(122, 63, 63, 0.2)',
+              marginBottom: '-1px', // align bottom edge with essencial card bottom border
+            }}
+          >
+            {/* Popular badge */}
+            <div
+              className="absolute top-5 right-5 rounded-full px-3 py-1 font-sans text-[0.6rem] tracking-[0.15em] uppercase"
+              style={{ background: 'rgba(242, 221, 213, 0.18)', color: 'var(--color-blush)' }}
+            >
+              Mais popular
+            </div>
+
+            <p
+              className="font-sans text-[0.7rem] tracking-[0.25em] uppercase mb-3"
+              style={{ color: 'var(--color-rose)' }}
+            >
+              Premium
+            </p>
+
+            {/* Price + delta */}
+            <div className="mb-1">
+              <span
+                className="font-serif font-light leading-none"
+                style={{
+                  fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
+                  color: 'var(--color-cream)',
+                }}
+              >
+                R$ 29,90
+              </span>
+            </div>
+
+            {/* Value framing */}
+            <p
+              className="font-sans text-[0.72rem] mb-2 leading-[1.5]"
+              style={{ color: 'var(--color-rose)' }}
+            >
+              apenas +R$ 10 em relação ao Essencial
+            </p>
+
+            <p
+              className="font-sans text-[0.82rem] mb-5 leading-[1.6]"
+              style={{ color: 'var(--color-blush)' }}
+            >
+              Pra surpreender de verdade
+            </p>
+
+            {/* What you gain — highlight pills */}
+            <div className="flex flex-wrap gap-2 mb-6">
+              {HIGHLIGHTS.map((h) => (
                 <span
-                  className="font-serif font-light leading-none"
+                  key={h.label}
+                  className="font-sans text-[0.62rem] tracking-[0.08em] px-2.5 py-1 rounded-full"
                   style={{
-                    fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-                    color: plan.highlighted ? 'var(--color-cream)' : 'var(--color-wine)',
+                    background: 'rgba(242, 221, 213, 0.14)',
+                    color: 'var(--color-blush)',
+                    border: '1px solid rgba(242, 221, 213, 0.22)',
                   }}
                 >
-                  {plan.price}
+                  {h.label}
                 </span>
-              </div>
+              ))}
+            </div>
 
-              <p
-                className="font-sans text-[0.82rem] mb-7 leading-[1.6]"
-                style={{
-                  color: plan.highlighted ? 'var(--color-blush)' : 'var(--color-text-muted)',
-                }}
-              >
-                {plan.description}
-              </p>
+            <div
+              className="h-px mb-6"
+              style={{ background: 'rgba(242, 221, 213, 0.18)' }}
+            />
 
-              {/* Divisor */}
-              <div
-                className="h-px mb-6"
-                style={{
-                  background: plan.highlighted ? 'rgba(242, 221, 213, 0.2)' : 'var(--color-blush)',
-                }}
-              />
-
-              {/* Features */}
-              <ul className="list-none flex flex-col gap-3 mb-8">
-                {plan.features.map((feature, i) => (
+            {/* Features */}
+            <ul className="list-none flex flex-col gap-3 mb-8">
+              {premiumFeatures.map((f, i) => {
+                const isUpgrade = !!f.upgrade
+                return (
                   <li
                     key={i}
-                    className="flex items-start gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
+                    className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
                     style={{
-                      color: plan.highlighted ? 'var(--color-blush)' : 'var(--color-text)',
+                      color: isUpgrade ? 'var(--color-cream)' : 'rgba(242, 221, 213, 0.6)',
+                      fontWeight: isUpgrade ? 400 : 300,
                     }}
                   >
                     <span
-                      className="shrink-0 mt-px"
-                      style={{
-                        color: plan.highlighted ? 'var(--color-rose)' : 'var(--color-mauve)',
-                      }}
+                      className="shrink-0"
+                      style={{ color: isUpgrade ? 'var(--color-rose)' : 'rgba(232, 196, 184, 0.5)' }}
                     >
                       ✓
                     </span>
-                    {feature}
+                    <span className="flex-1">{f.text}</span>
+                    {f.upgrade && (
+                      <span
+                        className="font-sans text-[0.58rem] tracking-[0.06em] uppercase px-1.5 py-0.5 rounded-sm shrink-0"
+                        style={{
+                          background: 'rgba(242, 221, 213, 0.18)',
+                          color: 'var(--color-rose)',
+                          border: '1px solid rgba(242, 221, 213, 0.25)',
+                        }}
+                      >
+                        {f.upgrade}
+                      </span>
+                    )}
                   </li>
-                ))}
-              </ul>
+                )
+              })}
+            </ul>
 
-              {/* CTA */}
-              <a
-                href="/criar"
-                className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.88] hover:-translate-y-px"
-                style={{
-                  background: plan.highlighted ? 'var(--color-cream)' : 'var(--color-wine)',
-                  color: plan.highlighted ? 'var(--color-wine)' : 'var(--color-cream)',
-                }}
-              >
-                {plan.cta} →
-              </a>
+            {/* CTA */}
+            <a
+              href="/criar?plan=premium"
+              className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.92] hover:-translate-y-px"
+              style={{
+                background: 'var(--color-cream)',
+                color: 'var(--color-wine)',
+              }}
+            >
+              Quero a Premium →
+            </a>
 
-              {/* Nota de renovação */}
-              <p
-                className="font-sans text-[0.68rem] text-center mt-3 opacity-80"
-                style={{
-                  color: plan.highlighted ? 'var(--color-blush)' : 'var(--color-mauve)',
-                }}
-              >
-                {plan.note}
-              </p>
-            </div>
-          ))}
+            <p
+              className="font-sans text-[0.68rem] text-center mt-3 opacity-60"
+              style={{ color: 'var(--color-blush)' }}
+            >
+              Renovação por R$ 9,90/ano
+            </p>
+          </div>
         </div>
 
-        {/* Garantia */}
+        {/* Trust note */}
         <div className="mt-12 text-center flex items-center justify-center gap-3">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,7 +1,10 @@
 'use client'
 
+import { useEffect, useRef, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useCreateFormStore } from '@/store/createForm'
 import { cn } from '@/lib/utils'
+import type { PlanId } from '@/types'
 
 import PlanSelector from '@/components/forms/PlanSelector'
 import StepOne from '@/components/forms/StepOne'
@@ -12,12 +15,33 @@ import StepFive from '@/components/forms/StepFive'
 import StepSix from '@/components/forms/StepSix'
 
 const STEPS = ['O casal', 'Memórias', 'Galeria', 'Música', 'Tema', 'Revisão']
+const VALID_PLANS: PlanId[] = ['essential', 'premium']
+
+function PlanFromUrl() {
+  const searchParams = useSearchParams()
+  const setPlan = useCreateFormStore((s) => s.setPlan)
+  const applied = useRef(false)
+
+  useEffect(() => {
+    if (applied.current) return
+    applied.current = true
+    const plan = searchParams.get('plan') as PlanId | null
+    if (plan && VALID_PLANS.includes(plan)) {
+      setPlan(plan)
+    }
+  }, [searchParams, setPlan])
+
+  return null
+}
 
 export default function CriarPage() {
   const currentStep = useCreateFormStore((s) => s.currentStep)
 
   return (
     <main className="min-h-svh bg-cream flex flex-col">
+      <Suspense fallback={null}>
+        <PlanFromUrl />
+      </Suspense>
       {/* Header com logo e progresso */}
       <header className="py-5 px-6 border-b border-blush flex flex-col gap-4">
         <a href="/" className="font-serif text-[1.3rem] italic text-wine no-underline">
