@@ -37,16 +37,24 @@ export default function StepOne() {
       return
     }
     setSlugStatus('checking')
+    const controller = new AbortController()
     const timer = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/check-slug?slug=${encodeURIComponent(data.pageTitle)}`)
+        const res = await fetch(
+          `/api/check-slug?slug=${encodeURIComponent(data.pageTitle)}`,
+          { signal: controller.signal },
+        )
         const json = await res.json()
         setSlugStatus(json.available ? 'available' : 'taken')
-      } catch {
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') return
         setSlugStatus('idle')
       }
-    }, 500)
-    return () => clearTimeout(timer)
+    }, 600)
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
   }, [data.pageTitle, isPremium])
 
   const slugOk =
