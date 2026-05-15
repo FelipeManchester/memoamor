@@ -6,10 +6,12 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 import { createAdminClient } from '@/lib/supabase/server'
+import { PLANS } from '@/lib/constants'
 import ResetFormOnSuccess from '@/components/page-builder/ResetFormOnSuccess'
 import PetalConfetti from '@/components/ui/PetalConfetti'
 import CopyLinkButton from './CopyLinkButton'
 import FaqItem from './FaqItem'
+import PurchasePixelEvent from './PurchasePixelEvent'
 
 const FAQS = [
   {
@@ -52,18 +54,20 @@ export default async function SucessoPage(props: {
 
   let nameA = ''
   let nameB = ''
+  let dbPlan: string | null = null
 
   if (slug) {
     const supabase = createAdminClient()
     const { data } = await supabase
       .from('memory_pages')
-      .select('name_a, name_b')
+      .select('name_a, name_b, plan')
       .eq('slug', slug)
       .maybeSingle()
 
     if (data) {
       nameA = data.name_a
       nameB = data.name_b
+      dbPlan = data.plan as string | null
     }
   }
 
@@ -81,10 +85,14 @@ export default async function SucessoPage(props: {
 
   const coupleLabel = nameA && nameB ? `${nameA} & ${nameB}` : null
 
+  const planRecord = PLANS.find((p) => p.id === dbPlan)
+  const purchaseValue = planRecord ? planRecord.priceInCents / 100 : 0
+
   return (
     <>
       <ResetFormOnSuccess />
       <PetalConfetti />
+      {slug && <PurchasePixelEvent value={purchaseValue} eventId={`purchase-${slug}`} />}
 
       <div
         style={{

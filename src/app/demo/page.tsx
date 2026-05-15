@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { mockPage } from '@/lib/mock'
 import BackgroundRenderer from '@/components/backgrounds/BackgroundRenderer'
@@ -13,6 +13,7 @@ import Closing from '@/components/page-builder/Closing'
 import MemoryPageClient from '@/components/page-builder/MemoryPageClient'
 import type { TemplateId } from '@/types'
 import { TEMPLATE_QUOTES } from '@/lib/constants'
+import { fbqTrack } from '@/lib/pixel'
 
 const VALID_TEMPLATES: TemplateId[] = ['petals', 'hearts', 'constellations']
 
@@ -29,6 +30,10 @@ function DemoContent() {
 
   const [template, setTemplate] = useState<TemplateId>(initial)
   const [opened, setOpened] = useState(false)
+
+  useEffect(() => {
+    fbqTrack('ViewContent', { content_name: 'Demo Memoamor', content_category: 'demo' })
+  }, [])
   const page = { ...mockPage, template }
 
   function handleOpen() {

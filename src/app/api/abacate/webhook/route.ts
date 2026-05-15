@@ -1,6 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
 import { sendDeliveryEmail } from '@/lib/email'
+import { PLANS } from '@/lib/constants'
+
+const META_PIXEL_ID = '1685469816137988'
+
+async function hashEmail(email: string): Promise<string> {
+  const encoded = new TextEncoder().encode(email.trim().toLowerCase())
+  const buf = await crypto.subtle.digest('SHA-256', encoded)
+  return Array.from(new Uint8Array(buf))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+}
+
+async function sendMetaPurchaseEvent(slug: string, planId: string, email?: string) {
+  const accessToken = process.env.META_ACCESS_TOKEN
+  if (!accessToken) return
+
+  const plan = PLANS.find((p) => p.id === planId)
+  const value = plan ? plan.priceInCents / 100 : 0
+
+  const hashedEmail = email ? await hashEmail(email) : undefined
+
+  const payload = {
+    data: [
+      {
+        event_name: 'Purchase',
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: 'website',
+        event_id: `purchase-${slug}`,
+        event_source_url: `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'}/sucesso`,
+        user_data: {
+          ...(hashedEmail ? { em: [hashedEmail] } : {}),
+        },
+        custom_data: { value, currency: 'BRL' },
+      },
+    ],
+  }
+
+  const res = await fetch(
+    `https://graph.facebook.com/v19.0/${META_PIXEL_ID}/events?access_token=${accessToken}`,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) },
+  )
+
+  if (!res.ok) {
+    console.error('[webhook] Meta Conversions API error:', await res.text())
+  }
+}
 
 interface MemoryRow {
   id: string
@@ -106,7 +152,7 @@ export async function POST(req: NextRequest) {
         abacate_session_id: checkout?.id ?? null,
       })
       .eq('slug', slug)
-      .select('name_a, name_b, customer_email, memories, gallery')
+      .select('name_a, name_b, customer_email, memories, gallery, plan')
       .single()
 
     if (error) {
@@ -131,6 +177,12 @@ export async function POST(req: NextRequest) {
       nameA: data.name_a,
       nameB: data.name_b,
     })
+
+    try {
+      await sendMetaPurchaseEvent(slug, data.plan, customerEmail ?? data.customer_email)
+    } catch (err) {
+      console.error('[webhook] Meta Conversions API falhou:', err)
+    }
 
     console.log('[webhook] página ativada com sucesso:', slug)
     return new NextResponse('ok', { status: 200 })

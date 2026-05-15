@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
 import { TEMPLATES, PLANS } from '@/lib/constants'
+import { fbqTrack } from '@/lib/pixel'
 import { generateBaseSlug } from '@/lib/slug'
 import { cn } from '@/lib/utils'
 
@@ -74,6 +75,11 @@ export default function StepSix() {
       const checkoutJson = await checkoutRes.json()
       if (checkoutJson.error) throw new Error(checkoutJson.error)
 
+      fbqTrack('InitiateCheckout', {
+        value: plan.priceInCents / 100,
+        currency: 'BRL',
+        content_name: plan.name,
+      })
       window.location.href = checkoutJson.data.checkoutUrl
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Algo deu errado. Tente novamente.')
