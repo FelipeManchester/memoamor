@@ -115,8 +115,10 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
         WebkitBackdropFilter: 'blur(20px)',
       }}
     >
-      {/* Container oculto do player YT */}
-      <div ref={containerRef} className="hidden" />
+      {/* Container oculto do player YT — wrapper keeps display:none even after YT replaces inner div with iframe */}
+      <div aria-hidden="true" style={{ display: 'none' }}>
+        <div ref={containerRef} />
+      </div>
 
       {/* Info da música */}
       <div className="flex-1 min-w-0">

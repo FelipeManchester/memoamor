@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     template: '%s | Memoamor',
   },
   description: OG_DESCRIPTION,
+  icons: { icon: '/favicon.png' },
   metadataBase: new URL(APP_URL),
   alternates: { canonical: '/' },
   openGraph: {
