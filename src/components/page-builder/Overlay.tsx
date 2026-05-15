@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import type { TemplateId } from '@/types'
 
@@ -44,6 +44,23 @@ export default function Overlay({ nameA, nameB, template = 'petals', onOpen }: O
   const fired = useRef(false)
 
   const palette = PALETTES[template]
+
+  // Lock background scroll while overlay is mounted so the page stays at the top
+  // when "Abrir memórias" is clicked, regardless of touch/wheel attempts behind it.
+  useEffect(() => {
+    const { body, documentElement } = document
+    const prevBodyOverflow = body.style.overflow
+    const prevHtmlOverflow = documentElement.style.overflow
+
+    window.scrollTo(0, 0)
+    body.style.overflow = 'hidden'
+    documentElement.style.overflow = 'hidden'
+
+    return () => {
+      body.style.overflow = prevBodyOverflow
+      documentElement.style.overflow = prevHtmlOverflow
+    }
+  }, [])
 
   function handleOpen() {
     if (fired.current) return
