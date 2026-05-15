@@ -123,7 +123,7 @@ export default function TestimonialsSection() {
     const track = trackRef.current
     if (!track) return
     const card = track.children[idx] as HTMLElement
-    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
+    if (card) track.scrollTo({ left: card.offsetLeft, behavior: 'smooth' })
   }, [])
 
   useEffect(() => {
@@ -166,7 +166,7 @@ export default function TestimonialsSection() {
         style={{ background: 'radial-gradient(circle, rgba(122,63,63,0.07) 0%, transparent 70%)' }}
       />
 
-      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 xl:px-20">
         {/* Cabeçalho */}
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">

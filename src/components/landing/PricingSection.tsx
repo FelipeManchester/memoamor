@@ -13,7 +13,7 @@ export default function PricingSection() {
         'Até 3 memórias',
         'Galeria com até 5 fotos',
         'Player de música',
-        '3 temas visuais',
+        '1 tema visual',
         'Contador de tempo',
         'Link único',
         'Página no ar 1 ano',

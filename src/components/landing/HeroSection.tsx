@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import HeroHeartsCanvas from './HeroHeartsCanvas'
 
 export default function HeroSection() {
   const [scrollY, setScrollY] = useState(0)
@@ -14,6 +15,8 @@ export default function HeroSection() {
 
   return (
     <section className="relative overflow-hidden">
+      <HeroHeartsCanvas />
+
       {/* Gradiente de fundo */}
       <div
         className="absolute inset-0 pointer-events-none"
