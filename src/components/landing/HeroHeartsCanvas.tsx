@@ -76,7 +76,7 @@ export default function HeroHeartsCanvas() {
 
     function init() {
       resize()
-      const count = Math.max(22, Math.min(45, Math.floor((w * h) / 20000)))
+      const count = Math.max(45, Math.min(80, Math.floor((w * h) / 10000)))
       particlesRef.current = Array.from({ length: count }, () => makeParticle())
     }
 
