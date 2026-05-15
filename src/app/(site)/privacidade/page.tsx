@@ -37,17 +37,17 @@ export default function PrivacidadePage() {
           <Block title="1. Quem somos">
             O Memoamor é operado por pessoa jurídica inscrita no CNPJ 62.485.352/0001-31. Esta
             política descreve como coletamos, usamos e protegemos seus dados pessoais, em
-            conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).
+            conformidade com a Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018).
           </Block>
 
           <Block title="2. Dados que coletamos">
             Coletamos apenas os dados necessários para a prestação do serviço:
             <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[
-                'E-mail — para entrega do link da página e comunicações sobre o serviço',
-                'Fotos e textos — conteúdo inserido voluntariamente para compor a página',
-                'Dados de pagamento — processados pelo gateway AbacatePay, não armazenamos dados de cartão',
-                'Dados de acesso — logs técnicos para segurança e diagnóstico de problemas',
+                'E-mail: para entrega do link da página e comunicações sobre o serviço',
+                'Fotos e textos: conteúdo inserido voluntariamente para compor a página',
+                'Dados de pagamento: processados pelo gateway AbacatePay, não armazenamos dados de cartão',
+                'Dados de acesso: logs técnicos para segurança e diagnóstico de problemas',
               ].map((item, i) => (
                 <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
                   {item}
@@ -76,8 +76,8 @@ export default function PrivacidadePage() {
           <Block title="4. Compartilhamento de dados">
             Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais.
             Compartilhamos apenas com prestadores de serviço essenciais ao funcionamento da
-            plataforma — processador de pagamento (AbacatePay), serviço de e-mail (Resend) e
-            infraestrutura de hospedagem (Supabase e Vercel) — todos sob obrigação contratual de
+            plataforma: processador de pagamento (AbacatePay), serviço de e-mail (Resend) e
+            infraestrutura de hospedagem (Supabase e Vercel), todos sob obrigação contratual de
             confidencialidade.
           </Block>
 
@@ -89,7 +89,7 @@ export default function PrivacidadePage() {
 
           <Block title="6. Retenção de dados">
             Seus dados são mantidos pelo período necessário à prestação do serviço. Após o
-            encerramento da página — por não renovação ou solicitação de exclusão — os dados são
+            encerramento da página, por não renovação ou solicitação de exclusão, os dados são
             removidos em até 60 dias. Dados de pagamento podem ser retidos por até 5 anos para fins
             fiscais, conforme exigência legal.
           </Block>
@@ -120,7 +120,7 @@ export default function PrivacidadePage() {
           </Block>
 
           <Block title="8. Cookies">
-            O Memoamor utiliza cookies técnicos essenciais para o funcionamento do serviço — como
+            O Memoamor utiliza cookies técnicos essenciais para o funcionamento do serviço, como
             manutenção de estado do formulário. Não utilizamos cookies de rastreamento ou
             publicidade.
           </Block>

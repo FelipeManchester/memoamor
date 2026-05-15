@@ -6,22 +6,22 @@ const faqs = [
   {
     question: 'A página fica no ar para sempre?',
     answer:
-      'A página fica no ar por 1 ano a partir da data de criação. Você receberá um aviso 30 dias antes do vencimento para renovar por apenas R$ 9,90/ano. Após o vencimento, a página entra em modo pausado por 30 dias antes de ser removida — tempo suficiente para renovar sem perder nada.',
+      'A página fica no ar por 1 ano a partir da data de criação. Você receberá um aviso 30 dias antes do vencimento para renovar por apenas R$ 9,90/ano. Após o vencimento, a página entra em modo pausado por 30 dias antes de ser removida. Tempo suficiente para renovar sem perder nada.',
   },
   {
     question: 'Posso pagar com PIX?',
     answer:
-      'Sim! Aceitamos PIX e cartão de crédito. O PIX é processado instantaneamente — sua página fica no ar em segundos após a confirmação.',
+      'Sim! Aceitamos PIX e cartão de crédito. O PIX é processado instantaneamente: sua página fica no ar em segundos após a confirmação.',
   },
   {
     question: 'Posso editar a página depois de criar?',
     answer:
-      'No momento não é possível editar após a criação. Por isso o formulário tem um resumo completo antes do pagamento — você confirma tudo antes de finalizar. Em breve vamos adicionar a opção de edição.',
+      'No momento não é possível editar após a criação. Por isso o formulário tem um resumo completo antes do pagamento, você confirma tudo antes de finalizar. Em breve vamos adicionar a opção de edição.',
   },
   {
     question: 'Como o destinatário acessa a página?',
     answer:
-      'Basta abrir o link no celular ou computador — sem precisar baixar nada, criar conta ou instalar nenhum aplicativo. Funciona em qualquer browser moderno.',
+      'Basta abrir o link no celular ou computador, sem precisar baixar nada, criar conta ou instalar nenhum aplicativo. Funciona em qualquer browser moderno.',
   },
   {
     question: 'As fotos ficam seguras?',
@@ -31,17 +31,17 @@ const faqs = [
   {
     question: 'Como funciona o QR Code?',
     answer:
-      'Após o pagamento, você recebe um e-mail com o link da página e um QR Code exclusivo. É só abrir o e-mail, mostrar o QR Code para quem você quer surpreender e pedir para apontar a câmera do celular — a página abre instantaneamente, sem precisar digitar nada.',
+      'Após o pagamento, você recebe um e-mail com o link da página e um QR Code exclusivo. É só abrir o e-mail, mostrar o QR Code para quem você quer surpreender e pedir para apontar a câmera do celular. A página abre instantaneamente, sem precisar digitar nada.',
   },
   {
     question: 'Posso criar mais de uma página?',
     answer:
-      'Sim! Cada criação é independente. Você pode criar quantas páginas quiser — para datas diferentes, casais diferentes ou como presente para amigos.',
+      'Sim! Cada criação é independente. Você pode criar quantas páginas quiser: para datas diferentes, casais diferentes ou como presente para amigos.',
   },
   {
     question: 'O que acontece se eu não renovar?',
     answer:
-      'Após 1 ano, você receberá dois avisos por e-mail. Se não renovar, a página entra em modo pausado por 30 dias. Depois desse período, ela sai do ar — mas os dados ficam no sistema por mais 60 dias caso queira reativar.',
+      'Após 1 ano, você receberá dois avisos por e-mail. Se não renovar, a página entra em modo pausado por 30 dias. Depois desse período, ela sai do ar, mas os dados ficam no sistema por mais 60 dias caso queira reativar.',
   },
 ]
 

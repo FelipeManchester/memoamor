@@ -2,7 +2,7 @@
 export default function NotFound() {
   return (
     <main>
-      <p>Página não encontrada — em desenvolvimento</p>
+      <p>Página não encontrada, em desenvolvimento</p>
     </main>
   )
 }

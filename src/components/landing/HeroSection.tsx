@@ -58,7 +58,7 @@ export default function HeroSection() {
             style={{ maxWidth: '42ch' }}
           >
             Crie uma página personalizada com fotos, memórias e a música de vocês. Compartilhe com um
-            link — sem baixar nada, sem complicação.
+            link, sem baixar nada e sem complicação.
           </p>
 
           <div className="flex gap-4 items-center flex-wrap">

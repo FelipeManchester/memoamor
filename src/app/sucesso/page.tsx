@@ -15,7 +15,7 @@ const FAQS = [
   {
     question: 'Como faço para compartilhar a página?',
     answer:
-      'Copie o link acima ou mostre o QR Code para quem você quer surpreender — é só apontar a câmera do celular. O link e o QR Code também foram enviados para o seu e-mail.',
+      'Copie o link acima ou mostre o QR Code para quem você quer surpreender. É só apontar a câmera do celular. O link e o QR Code também foram enviados para o seu e-mail.',
   },
   {
     question: 'Por quanto tempo a página fica no ar?',
@@ -33,7 +33,7 @@ const FAQS = [
       'Entre em contato pelo e-mail contato@memoamor.app com o assunto "Remover página" e o link da sua página. Removemos em até 48 horas.',
   },
   {
-    question: 'Perdi o link — e agora?',
+    question: 'Perdi o link, e agora?',
     answer:
       'O link e o QR Code foram enviados para o e-mail que você cadastrou. Verifique a caixa de entrada e a pasta de spam. Se ainda não encontrar, entre em contato pelo e-mail contato@memoamor.app.',
   },
@@ -258,7 +258,7 @@ export default async function SucessoPage(props: {
                 margin: 0,
               }}
             >
-              O link e o QR Code foram enviados para o seu e-mail. Guarde-o — é a forma mais fácil de
+              O link e o QR Code foram enviados para o seu e-mail. Guarde-o: é a forma mais fácil de
               compartilhar quando quiser.
             </p>
           </div>

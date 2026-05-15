@@ -6,7 +6,7 @@ export default function PricingSection() {
       id: 'essential',
       name: 'Essencial',
       price: 'R$ 19,90',
-      description: 'Tudo que você precisa para surpreender',
+      description: 'O básico bem feito',
       highlighted: false,
       features: [
         '1 página',
@@ -26,7 +26,7 @@ export default function PricingSection() {
       id: 'premium',
       name: 'Premium',
       price: 'R$ 29,90',
-      description: 'Para quem quer o melhor',
+      description: 'Pra surpreender de verdade',
       highlighted: true,
       features: [
         '1 página',
@@ -39,7 +39,7 @@ export default function PricingSection() {
         'Página no ar 1 ano',
         "Sem marca d'água",
       ],
-      cta: 'Criar com Premium',
+      cta: 'Quero a Premium',
       note: 'Renovação por R$ 9,90/ano',
     },
   ]

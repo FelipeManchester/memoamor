@@ -10,11 +10,11 @@ import { cn } from '@/lib/utils'
 import { PLANS } from '@/lib/constants'
 
 const EXAMPLE_TEXTS = [
-  'Foi uma tarde que eu nunca vou esquecer. A gente mal se conhecia, mas algo já estava diferente — um sorriso, um olhar. Não sei explicar, mas sabia que era especial.',
+  'Foi uma tarde que eu nunca vou esquecer. A gente mal se conhecia, mas algo já estava diferente: um sorriso, um olhar. Não sei explicar, mas sabia que era especial.',
   'Era uma viagem que a gente tinha planejado há meses. Cada detalhe foi uma pequena aventura. O que ficou foi a sensação de que ao lado de você, qualquer lugar vira um lar.',
-  'Não foi um momento grandioso. Foi um dia comum, uma conversa qualquer — mas foi quando percebi que não queria mais esse mundo sem você do meu lado.',
-  'Cada vez que lembro, sinto aquela sensação de borboletas no estômago. Era simples, mas perfeito. E perfeito por ser exatamente assim — nosso.',
-  'Você me ensinou que amor é presença. Não precisa de grandes gestos. É estar lá, do jeito que só você sabe estar — e isso mudou tudo pra mim.',
+  'Não foi um momento grandioso. Foi um dia comum, uma conversa qualquer, mas foi quando percebi que não queria mais esse mundo sem você do meu lado.',
+  'Cada vez que lembro, sinto aquela sensação de borboletas no estômago. Era simples, mas perfeito. E perfeito por ser exatamente assim: nosso.',
+  'Você me ensinou que amor é presença. Não precisa de grandes gestos. É estar lá, do jeito que só você sabe estar, e isso mudou tudo pra mim.',
 ]
 
 export default function StepTwo() {

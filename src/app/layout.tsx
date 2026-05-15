@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'
-const OG_TITLE = 'Memoamor — A história de vocês, em uma página'
+const OG_TITLE = 'Memoamor: A história de vocês, em uma página'
 const OG_DESCRIPTION =
   'Crie uma página de memórias personalizada para comemorar a história de vocês. Fotos, músicas e animações. Compartilhe com um link.'
 
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: '/api/og',
         width: 1200,
         height: 630,
-        alt: 'Memoamor — A história de vocês, em uma página',
+        alt: 'Memoamor: A história de vocês, em uma página',
       },
     ],
   },

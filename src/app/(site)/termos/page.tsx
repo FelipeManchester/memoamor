@@ -56,7 +56,7 @@ export default function TermosPage() {
             O pagamento é único e não recorrente. Aceitamos PIX e cartão de crédito. Após 1 ano,
             você poderá renovar sua página pelo valor de R$ 9,90/ano. Você receberá avisos por
             e-mail 30 dias e 7 dias antes do vencimento. Após o vencimento sem renovação, a página
-            entra em modo pausado por 30 dias. Após esse período, a página é removida — mas os dados
+            entra em modo pausado por 30 dias. Após esse período, a página é removida, mas os dados
             ficam armazenados por mais 60 dias para eventual reativação.
           </Block>
 
@@ -68,7 +68,7 @@ export default function TermosPage() {
           </Block>
 
           <Block title="6. Conteúdo do usuário">
-            Você é integralmente responsável pelo conteúdo inserido na sua página — textos, fotos e
+            Você é integralmente responsável pelo conteúdo inserido na sua página: textos, fotos e
             links. É proibido inserir conteúdo que:
             <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[

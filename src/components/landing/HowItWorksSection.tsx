@@ -74,14 +74,14 @@ export default function HowItWorksSection() {
       number: '02',
       title: 'Escolha o tema',
       description:
-        'Selecione entre três temas visuais exclusivos — Pétalas, Corações ou Constelações. Cada um com animações únicas.',
+        'Selecione entre três temas visuais exclusivos: Pétalas, Corações ou Constelações. Cada um com animações únicas.',
       icon: <IconSparkle />,
     },
     {
       number: '03',
       title: 'Compartilhe o link',
       description:
-        'Receba o link e um QR Code por e-mail. Mostre o código para quem você ama — é só apontar a câmera.',
+        'Receba o link e um QR Code por e-mail. Mostre o código para quem você ama, é só apontar a câmera.',
       icon: <IconShare />,
     },
   ]

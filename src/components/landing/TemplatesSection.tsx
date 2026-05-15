@@ -51,7 +51,7 @@ export default function TemplatesSection() {
             style={{ maxWidth: '48ch' }}
           >
             Cada tema tem animações únicas que se revelam conforme o scroll. O conteúdo é sempre o
-            mesmo — só o clima muda.
+            mesmo, só o clima muda.
           </p>
         </div>
 

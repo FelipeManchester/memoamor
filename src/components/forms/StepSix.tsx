@@ -95,7 +95,7 @@ export default function StepSix() {
           Tudo certo?
         </h1>
         <p className="font-sans text-[0.82rem] text-text-muted mt-1">
-          Dá uma última olhada. Você ainda pode editar tudo agora — e por mais 24h depois do pagamento ♡
+          Dá uma última olhada. Você ainda pode editar tudo agora, e por mais 24h depois do pagamento ♡
         </p>
       </div>
 

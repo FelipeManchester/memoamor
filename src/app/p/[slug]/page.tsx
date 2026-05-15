@@ -32,7 +32,7 @@ export async function generateMetadata({
     return { title: 'Página não encontrada' }
   }
 
-  const title = `${data.name_a} & ${data.name_b} — Memoamor`
+  const title = `${data.name_a} & ${data.name_b} | Memoamor`
   const description = `A história de ${data.name_a} e ${data.name_b}, desde ${formatDatePtBR(data.start_date)}. Uma página de memórias especial, criada com amor.`
   const ogImage = `/api/og?slug=${slug}`
   const pageUrl = `/p/${slug}`

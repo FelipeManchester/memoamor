@@ -112,7 +112,7 @@ export default function StepFour() {
         )}
         {status === 'idle' && !data.youtubeUrl && (
           <p className="font-sans text-[0.8rem] text-mauve">
-            Não tem música ainda? Sem problema — você pode pular esse passo.
+            Não tem música ainda? Sem problema, pode pular esse passo.
           </p>
         )}
       </div>

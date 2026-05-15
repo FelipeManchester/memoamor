@@ -53,7 +53,7 @@ export default function PlanSelector() {
           Escolha seu plano
         </h1>
         <p className="font-sans text-[0.85rem] text-text-muted mt-2 leading-[1.7]">
-          Pagamento único — sem assinatura, sem surpresas.
+          Pagamento único, sem assinatura e sem surpresas.
         </p>
       </div>
 
