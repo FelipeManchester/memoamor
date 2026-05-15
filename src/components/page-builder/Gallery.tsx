@@ -80,18 +80,23 @@ export default function Gallery({ photos, supabaseUrl }: GalleryProps) {
           const caption = card.querySelector('.gallery-card-caption') as HTMLElement
 
           // Parallax on images — inner image moves slower than container
+          // Start shifted right, end shifted left so the subject stays centered at midpoint
           if (img) {
-            gsap.to(img, {
-              xPercent: -15,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: card,
-                containerAnimation: horizontalScroll,
-                start: 'left right',
-                end: 'right left',
-                scrub: true,
-              },
-            })
+            gsap.fromTo(
+              img,
+              { xPercent: 4 },
+              {
+                xPercent: -4,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: card,
+                  containerAnimation: horizontalScroll,
+                  start: 'left right',
+                  end: 'right left',
+                  scrub: true,
+                },
+              }
+            )
           }
 
           // Fade overlay based on distance from center
@@ -273,8 +278,8 @@ export default function Gallery({ photos, supabaseUrl }: GalleryProps) {
             key={i}
             className="gallery-card relative flex-shrink-0 rounded-lg overflow-hidden will-change-transform"
             style={{
-              width: 'clamp(260px, 72vw, 480px)',
-              height: 'clamp(340px, 65vh, 600px)',
+              width: 'clamp(300px, 86vw, 480px)',
+              height: 'clamp(380px, 65vh, 600px)',
               transformStyle: 'preserve-3d',
             }}
           >
@@ -286,8 +291,8 @@ export default function Gallery({ photos, supabaseUrl }: GalleryProps) {
                 width={800}
                 height={1000}
                 quality={90}
-                className="gallery-card-img w-[130%] h-full object-cover block will-change-transform"
-                style={{ marginLeft: '-15%' }}
+                className="gallery-card-img w-[110%] h-full object-cover object-[center_30%] block will-change-transform"
+                style={{ marginLeft: '-5%' }}
               />
             </div>
 
