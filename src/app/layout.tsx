@@ -4,7 +4,7 @@ import '@/styles/globals.css'
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'
 const OG_TITLE = 'Memoamor: A história de vocês, em uma página'
 const OG_DESCRIPTION =
-  'Crie uma página de memórias personalizada para comemorar a história de vocês. Fotos, músicas e animações. Compartilhe com um link.'
+  'Crie uma página de memórias personalizada para casais: fotos, músicas, animações e um link único para compartilhar. O presente perfeito para aniversário de namoro ou casamento.'
 
 export const metadata: Metadata = {
   title: {
@@ -13,10 +13,11 @@ export const metadata: Metadata = {
   },
   description: OG_DESCRIPTION,
   metadataBase: new URL(APP_URL),
+  alternates: { canonical: '/' },
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: '/',
+    url: APP_URL,
     siteName: 'Memoamor',
     title: OG_TITLE,
     description: OG_DESCRIPTION,

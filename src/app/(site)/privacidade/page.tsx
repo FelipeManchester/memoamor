@@ -3,7 +3,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Política de Privacidade',
-  description: 'Política de privacidade do Memoamor.',
+  description:
+    'Política de privacidade do Memoamor. Veja como coletamos, usamos e protegemos seus dados pessoais em conformidade com a LGPD (Lei nº 13.709/2018).',
+  alternates: { canonical: '/privacidade' },
 }
 
 export default function PrivacidadePage() {

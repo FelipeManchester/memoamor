@@ -3,7 +3,9 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Termos de Uso',
-  description: 'Termos de uso do Memoamor.',
+  description:
+    'Termos de uso do Memoamor. Saiba como funciona nosso serviço de páginas de memórias para casais, condições de pagamento, renovação e política de conteúdo.',
+  alternates: { canonical: '/termos' },
 }
 
 export default function TermosPage() {
