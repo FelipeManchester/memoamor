@@ -58,6 +58,8 @@ export default function StepOne() {
     }
   }, [data.pageTitle, isPremium])
 
+  const today = new Date().toISOString().split('T')[0]
+
   const slugOk =
     !isPremium || !data.pageTitle || (slugStatus === 'available' && data.pageTitle.length >= 3)
 
@@ -65,6 +67,7 @@ export default function StepOne() {
     data.nameA.trim().length >= 2 &&
     data.nameB.trim().length >= 2 &&
     data.startDate !== '' &&
+    data.startDate <= today &&
     slugOk &&
     slugStatus !== 'checking'
 
@@ -127,6 +130,7 @@ export default function StepOne() {
         <DatePicker
           value={data.startDate}
           onChange={(v) => updateField('startDate', v)}
+          max={today}
         />
       </div>
 
