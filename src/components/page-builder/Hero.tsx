@@ -21,8 +21,14 @@ function calcTimeElapsed(startDate: string): TimeElapsed {
   let hours = now.getHours() - start.getHours()
   let minutes = now.getMinutes() - start.getMinutes()
 
-  if (minutes < 0) { hours--; minutes += 60 }
-  if (hours < 0) { days--; hours += 24 }
+  if (minutes < 0) {
+    hours--
+    minutes += 60
+  }
+  if (hours < 0) {
+    days--
+    hours += 24
+  }
   if (days < 0) {
     months--
     const prev = new Date(now.getFullYear(), now.getMonth(), 0)
@@ -111,7 +117,8 @@ export default function Hero({ page }: HeroProps) {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'var(--hero-overlay, radial-gradient(ellipse 70% 60% at 50% 0%, #f0d4ca44 0%, transparent 70%))',
+          background:
+            'var(--hero-overlay, radial-gradient(ellipse 70% 60% at 50% 0%, #f0d4ca44 0%, transparent 70%))',
         }}
       />
 
@@ -158,7 +165,7 @@ export default function Hero({ page }: HeroProps) {
               <div key={i} className="text-center">
                 <span
                   className="block font-serif font-light text-wine leading-none"
-                  style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+                  style={{ fontSize: 'clamp(2.8rem, 7vw, 5rem)' }}
                 >
                   {item.value}
                 </span>
@@ -170,7 +177,7 @@ export default function Hero({ page }: HeroProps) {
           </div>
 
           {/* Row 2: horas, minutos */}
-          <div className="flex items-start" style={{ gap: 'clamp(24px, 5vw, 56px)' }}>
+          <div className="flex items-start" style={{ gap: 'clamp(1.5rem, 5vw, 3.5rem)' }}>
             {[
               { value: displayTime.hours, label: 'horas' },
               { value: String(displayTime.minutes).padStart(2, '0'), label: 'min' },
@@ -178,7 +185,7 @@ export default function Hero({ page }: HeroProps) {
               <div key={i} className="text-center">
                 <span
                   className="block font-serif font-light text-wine leading-none"
-                  style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}
+                  style={{ fontSize: 'clamp(2.25rem, 7vw, 3.5rem)' }}
                 >
                   {item.value}
                 </span>
