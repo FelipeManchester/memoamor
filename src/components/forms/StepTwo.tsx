@@ -147,6 +147,71 @@ export default function StepTwo() {
             )}
           </div>
 
+          {/* Upload de foto */}
+          <div className="flex flex-col gap-2">
+            <label className="form-label">
+              Foto
+              <span className="text-mauve ml-1.5">(opcional)</span>
+            </label>
+
+            {memory.imagePreview ? (
+              <div className="relative inline-block">
+                <img
+                  src={memory.imagePreview}
+                  alt="Preview"
+                  className="w-[120px] h-[120px] object-cover rounded-sm"
+                />
+                <span
+                  className="absolute bottom-1 left-1 text-white text-[0.6rem] py-0.5 px-1.5 rounded-sm"
+                  style={{ background: getStatusBadgeColor(memory.uploadStatus) }}
+                >
+                  {getStatusLabel(memory.uploadStatus)}
+                </span>
+                {memory.uploadStatus === 'done' && (
+                  <button
+                    onClick={() =>
+                      updateMemory(memory.id, {
+                        imagePath: null,
+                        imagePreview: null,
+                        uploadStatus: 'idle',
+                      })
+                    }
+                    className="absolute -top-2 -right-2 bg-wine text-white border-none rounded-full w-5 h-5 cursor-pointer text-[0.65rem] flex items-center justify-center"
+                    aria-label="Remover foto"
+                  >
+                    ✕
+                  </button>
+                )}
+                {memory.uploadStatus === 'error' && (
+                  <button
+                    onClick={() => fileInputRefs.current[memory.id]?.click()}
+                    className="btn-ghost mt-2"
+                  >
+                    Tentar novamente
+                  </button>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => fileInputRefs.current[memory.id]?.click()}
+                className="border border-dashed border-rose rounded-sm py-5 px-6 bg-transparent cursor-pointer text-mauve font-sans text-[0.8rem] w-full"
+              >
+                + Adicionar foto
+              </button>
+            )}
+
+            <input
+              ref={(el) => { fileInputRefs.current[memory.id] = el }}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0]
+                if (file) handleImageSelect(memory.id, file)
+              }}
+            />
+          </div>
+
           {/* Época */}
           <div className="flex flex-col gap-2">
             <label htmlFor={`dateLabel-${memory.id}`} className="form-label">
@@ -219,71 +284,6 @@ export default function StepTwo() {
               </span>
               <span className="text-[0.7rem] text-mauve">{memory.body.length}/300</span>
             </div>
-          </div>
-
-          {/* Upload de foto */}
-          <div className="flex flex-col gap-2">
-            <label className="form-label">
-              Foto
-              <span className="text-mauve ml-1.5">(opcional)</span>
-            </label>
-
-            {memory.imagePreview ? (
-              <div className="relative inline-block">
-                <img
-                  src={memory.imagePreview}
-                  alt="Preview"
-                  className="w-[120px] h-[120px] object-cover rounded-sm"
-                />
-                <span
-                  className="absolute bottom-1 left-1 text-white text-[0.6rem] py-0.5 px-1.5 rounded-sm"
-                  style={{ background: getStatusBadgeColor(memory.uploadStatus) }}
-                >
-                  {getStatusLabel(memory.uploadStatus)}
-                </span>
-                {memory.uploadStatus === 'done' && (
-                  <button
-                    onClick={() =>
-                      updateMemory(memory.id, {
-                        imagePath: null,
-                        imagePreview: null,
-                        uploadStatus: 'idle',
-                      })
-                    }
-                    className="absolute -top-2 -right-2 bg-wine text-white border-none rounded-full w-5 h-5 cursor-pointer text-[0.65rem] flex items-center justify-center"
-                    aria-label="Remover foto"
-                  >
-                    ✕
-                  </button>
-                )}
-                {memory.uploadStatus === 'error' && (
-                  <button
-                    onClick={() => fileInputRefs.current[memory.id]?.click()}
-                    className="btn-ghost mt-2"
-                  >
-                    Tentar novamente
-                  </button>
-                )}
-              </div>
-            ) : (
-              <button
-                onClick={() => fileInputRefs.current[memory.id]?.click()}
-                className="border border-dashed border-rose rounded-sm py-5 px-6 bg-transparent cursor-pointer text-mauve font-sans text-[0.8rem] w-full"
-              >
-                + Adicionar foto
-              </button>
-            )}
-
-            <input
-              ref={(el) => { fileInputRefs.current[memory.id] = el }}
-              type="file"
-              accept="image/jpeg,image/png,image/webp"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0]
-                if (file) handleImageSelect(memory.id, file)
-              }}
-            />
           </div>
         </div>
       ))}

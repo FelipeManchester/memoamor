@@ -31,7 +31,7 @@ export async function sendDeliveryEmail({
     html: `
       <div style="font-family: Georgia, serif; max-width: 520px; margin: 0 auto; color: #3d2b2b;">
         <h1 style="font-size: 24px; font-weight: 300; color: #7a3f3f;">
-          Tudo pronto, ${nameA}!
+          Tudo pronto!
         </h1>
         <p style="font-size: 16px; line-height: 1.8; color: #6b4a4a;">
           A página de memórias de <strong>${nameA} e ${nameB}</strong> está no ar.

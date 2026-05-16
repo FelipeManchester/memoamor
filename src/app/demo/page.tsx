@@ -48,9 +48,9 @@ function DemoContent() {
       {/* Seletor de template */}
       {opened && (
         <div
+          className="top-[80px] sm:top-5"
           style={{
             position: 'fixed',
-            top: 20,
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 1500,

@@ -64,9 +64,30 @@ export async function POST(req: NextRequest) {
       if (!error) {
         inserted = true
       } else if (error.code === '23505') {
-        // Unique violation — gera novo slug
-        slug = isEssential ? generateRandomSlug() : generateSlugWithSuffix(baseSlug)
-        attempts++
+        if (isEssential) {
+          slug = generateRandomSlug()
+          attempts++
+        } else {
+          // Verifica se o bloqueio é um pending_payment com reserva expirada
+          const { data: blocker } = await supabase
+            .from('memory_pages')
+            .select('status, reserved_until')
+            .eq('slug', slug)
+            .maybeSingle()
+
+          const isExpiredPending =
+            blocker?.status === 'pending_payment' &&
+            blocker.reserved_until &&
+            new Date(blocker.reserved_until) < new Date()
+
+          if (isExpiredPending) {
+            // Remove o registro expirado e tenta de novo com o mesmo slug
+            await supabase.from('memory_pages').delete().eq('slug', slug)
+          } else {
+            slug = generateSlugWithSuffix(baseSlug)
+          }
+          attempts++
+        }
       } else {
         throw error
       }
