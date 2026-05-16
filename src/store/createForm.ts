@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import type { CreateFormData, MemoryFormItem, GalleryItem, TemplateId, PlanId } from '@/types'
 import { nanoid } from 'nanoid'
 import { persist } from 'zustand/middleware'
+import { generateRandomSlug } from '@/lib/slug'
 
 // ─────────────────────────────────────────────
 // Estado inicial do formulário de criação
@@ -28,8 +29,9 @@ const initialState: CreateFormData = {
   youtubeTitle: null,
   template: 'petals',
   closingQuote: 'Para sempre, com você.',
-  plan: 'essential',
+  plan: 'premium',
   customerEmail: '',
+  reservedSlug: generateRandomSlug(),
 }
 
 // ─────────────────────────────────────────────
@@ -124,7 +126,15 @@ export const useCreateFormStore = create<CreateFormStore>()(
       // ── Template e plano ──────────────────────
       setTemplate: (template) => set((state) => ({ data: { ...state.data, template } })),
 
-      setPlan: (plan) => set((state) => ({ data: { ...state.data, plan } })),
+      setPlan: (plan) =>
+        set((state) => ({
+          data: {
+            ...state.data,
+            plan,
+            reservedSlug:
+              plan === 'essential' ? generateRandomSlug() : state.data.reservedSlug,
+          },
+        })),
     }),
     {
       name: 'memoamor-create-form-v2',
@@ -132,6 +142,7 @@ export const useCreateFormStore = create<CreateFormStore>()(
       migrate: (persisted: any) => {
         persisted.data ??= {}
         persisted.data.closingQuote ??= 'Para sempre, com você.'
+        persisted.data.reservedSlug ??= generateRandomSlug()
         return persisted
       },
       partialize: (state) => ({

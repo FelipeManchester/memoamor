@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
 import { cn } from '@/lib/utils'
+import DatePicker from './DatePicker'
 
 type SlugStatus = 'idle' | 'checking' | 'available' | 'taken'
 
@@ -120,16 +121,12 @@ export default function StepOne() {
 
       {/* Data */}
       <div className="flex flex-col gap-2">
-        <label htmlFor="startDate" className="form-label">
+        <label className="form-label">
           Desde quando vocês estão juntos? <span aria-label="obrigatório">*</span>
         </label>
-        <input
-          id="startDate"
-          className="form-input"
-          type="date"
-          max={new Date().toISOString().split('T')[0]}
+        <DatePicker
           value={data.startDate}
-          onChange={(e) => updateField('startDate', e.target.value)}
+          onChange={(v) => updateField('startDate', v)}
         />
       </div>
 
@@ -163,10 +160,10 @@ export default function StepOne() {
                 'border-[#16a34a] focus:border-[#16a34a]',
             )}
             type="text"
-            placeholder={isPremium ? 'ana-e-pedro' : 'gerado-automaticamente'}
+            placeholder={isPremium ? 'ana-e-pedro' : ''}
             maxLength={40}
             disabled={!isPremium}
-            value={isPremium ? data.pageTitle : ''}
+            value={isPremium ? data.pageTitle : (data.reservedSlug ?? '')}
             aria-describedby="pageTitle-helper"
             onChange={(e) => {
               if (!isPremium) return
@@ -178,7 +175,7 @@ export default function StepOne() {
 
         {!isPremium && (
           <p id="pageTitle-helper" className="text-[0.72rem] text-mauve">
-            Um endereço único será gerado automaticamente após o pagamento.
+            Este será o seu endereço único. Gerado automaticamente.
           </p>
         )}
         {isPremium && !data.pageTitle && (

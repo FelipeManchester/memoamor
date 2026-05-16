@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
 import { processImage, createLocalPreview } from '@/lib/image'
 import { createClient } from '@/lib/supabase/client'
@@ -22,6 +22,17 @@ export default function StepTwo() {
   const plan = PLANS.find((p) => p.id === data.plan)!
   const fileInputRefs = useRef<Record<string, HTMLInputElement | null>>({})
   const [examplesForMemory, setExamplesForMemory] = useState<string | null>(null)
+
+  // Restore previews from Supabase public URL for images uploaded in a previous session
+  useEffect(() => {
+    const supabase = createClient()
+    data.memories.forEach((m) => {
+      if (m.imagePath && (!m.imagePreview || m.imagePreview.startsWith('blob:'))) {
+        const { data: urlData } = supabase.storage.from('pages').getPublicUrl(m.imagePath)
+        updateMemory(m.id, { imagePreview: urlData.publicUrl, uploadStatus: 'done' })
+      }
+    })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const canAdvance = data.memories.every(
     (m) =>
@@ -45,7 +56,8 @@ export default function StepTwo() {
 
       if (error) throw error
 
-      updateMemory(memoryId, { imagePath: path, uploadStatus: 'done' })
+      const { data: urlData } = supabase.storage.from('pages').getPublicUrl(path)
+      updateMemory(memoryId, { imagePath: path, imagePreview: urlData.publicUrl, uploadStatus: 'done' })
     } catch {
       updateMemory(memoryId, { uploadStatus: 'error', imagePreview: null })
     }

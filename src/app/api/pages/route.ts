@@ -13,13 +13,21 @@ import type { CreateFormData, ApiResponse, CreatePageResponse } from '@/types'
 export async function POST(req: NextRequest) {
   try {
     const body: CreateFormData = await req.json()
+
+    if (!body.nameA || !body.nameB || !body.startDate) {
+      return NextResponse.json<ApiResponse>(
+        { data: null, error: 'Dados obrigatórios ausentes.' },
+        { status: 400 },
+      )
+    }
+
     const supabase = createAdminClient()
 
     const isEssential = body.plan === 'essential'
     const baseSlug = isEssential
       ? ''
       : body.pageTitle || generateBaseSlug(body.nameA, body.nameB, body.startDate)
-    let slug = isEssential ? generateRandomSlug() : baseSlug
+    let slug = isEssential ? (body.reservedSlug || generateRandomSlug()) : baseSlug
     let inserted = false
     let attempts = 0
 

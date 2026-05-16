@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
 import { processImage, createLocalPreview } from '@/lib/image'
 import { createClient } from '@/lib/supabase/client'
@@ -16,6 +16,17 @@ export default function StepThree() {
   const plan = PLANS.find((p) => p.id === data.plan)!
   const maxPhotos = plan.maxGalleryPhotos
   const [isDragging, setIsDragging] = useState(false)
+
+  // Restore previews from Supabase public URL for photos uploaded in a previous session
+  useEffect(() => {
+    const supabase = createClient()
+    data.gallery.forEach((g) => {
+      if (g.path && (!g.preview || g.preview.startsWith('blob:'))) {
+        const { data: urlData } = supabase.storage.from('pages').getPublicUrl(g.path)
+        updateGalleryItem(g.id, { preview: urlData.publicUrl, uploadStatus: 'done' })
+      }
+    })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const canAdvance = data.gallery.every(
     (g) => g.uploadStatus === 'done' || g.uploadStatus === 'idle',
@@ -48,7 +59,8 @@ export default function StepThree() {
 
         if (error) throw error
 
-        updateGalleryItem(id, { path, uploadStatus: 'done' })
+        const { data: urlData } = supabase.storage.from('pages').getPublicUrl(path)
+        updateGalleryItem(id, { path, preview: urlData.publicUrl, uploadStatus: 'done' })
       } catch {
         updateGalleryItem(id, { uploadStatus: 'error' })
       }

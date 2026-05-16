@@ -16,8 +16,9 @@ export default function StepSix() {
   const plan = PLANS.find((p) => p.id === data.plan)!
   const templateName = TEMPLATES.find((t) => t.id === data.template)?.name ?? '—'
 
-  const previewSlug =
-    !isEssential && data.nameA && data.nameB && data.startDate
+  const previewSlug = isEssential
+    ? data.reservedSlug
+    : data.nameA && data.nameB && data.startDate
       ? data.pageTitle || generateBaseSlug(data.nameA, data.nameB, data.startDate)
       : null
 
@@ -54,6 +55,7 @@ export default function StepSix() {
           memories: data.memories,
           gallery: data.gallery,
           customerEmail: data.customerEmail,
+          reservedSlug: data.reservedSlug,
         }),
       })
 

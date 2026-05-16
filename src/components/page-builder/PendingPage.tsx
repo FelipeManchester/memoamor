@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -11,6 +11,7 @@ interface PendingPageProps {
 
 export default function PendingPage({ slug, template }: PendingPageProps) {
   const router = useRouter()
+  const [showRefresh, setShowRefresh] = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
@@ -29,10 +30,12 @@ export default function PendingPage({ slug, template }: PendingPageProps) {
     }, 2000)
 
     const timeout = setTimeout(() => clearInterval(interval), 3 * 60 * 1000)
+    const refreshDelay = setTimeout(() => setShowRefresh(true), 30_000)
 
     return () => {
       clearInterval(interval)
       clearTimeout(timeout)
+      clearTimeout(refreshDelay)
     }
   }, [slug, router])
 
@@ -85,6 +88,16 @@ export default function PendingPage({ slug, template }: PendingPageProps) {
           />
         ))}
       </div>
+
+      {showRefresh && (
+        <button
+          onClick={() => router.refresh()}
+          className="font-sans text-[0.75rem] underline decoration-dotted cursor-pointer mt-4"
+          style={{ color: mutedColor, background: 'none', border: 'none' }}
+        >
+          Está demorando? Clique para recarregar
+        </button>
+      )}
     </div>
   )
 }

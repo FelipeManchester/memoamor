@@ -94,6 +94,7 @@ export interface CreateFormData {
   closingQuote: string
   plan: PlanId
   customerEmail: string
+  reservedSlug: string | null
 }
 
 export interface MemoryFormItem {

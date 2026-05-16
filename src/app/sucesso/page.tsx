@@ -156,7 +156,7 @@ export default async function SucessoPage(props: {
                 margin: 0,
               }}
             >
-              Obrigado pela compra. Sua página está no ar e ficará disponível por{' '}
+              Pagamento recebido! A página estará disponível em instantes e ficará no ar por{' '}
               <strong style={{ color: 'var(--color-text)' }}>1 ano</strong>.
             </p>
           </div>

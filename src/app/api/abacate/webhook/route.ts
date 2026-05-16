@@ -171,12 +171,16 @@ export async function POST(req: NextRequest) {
       console.error('[webhook] erro na migração:', err)
     }
 
-    await sendDeliveryEmail({
-      to: customerEmail ?? data.customer_email,
-      slug,
-      nameA: data.name_a,
-      nameB: data.name_b,
-    })
+    try {
+      await sendDeliveryEmail({
+        to: customerEmail ?? data.customer_email,
+        slug,
+        nameA: data.name_a,
+        nameB: data.name_b,
+      })
+    } catch (emailErr) {
+      console.error('[webhook] erro ao enviar email:', emailErr)
+    }
 
     try {
       await sendMetaPurchaseEvent(slug, data.plan, customerEmail ?? data.customer_email)
