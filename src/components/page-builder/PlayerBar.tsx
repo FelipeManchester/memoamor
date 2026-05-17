@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 interface PlayerBarProps {
   youtubeUrl: string | null
   songTitle?: string | null
-  onPlayReady?: (playFn: () => void) => void
+  onPlayReady?: (playFn: () => boolean) => void
   showTapToPlay?: boolean
   onTapToPlay?: () => void
 }
@@ -32,8 +32,8 @@ interface YTPlayer {
 
 interface YTWindow {
   YT?: {
-    Player: new (el: HTMLIFrameElement, options: object) => YTPlayer
-    PlayerState: { PLAYING: number }
+    Player: new (el: HTMLIFrameElement | string, options: object) => YTPlayer
+    PlayerState?: { PLAYING: number }
   }
   onYouTubeIframeAPIReady?: () => void
 }
@@ -47,6 +47,7 @@ export default function PlayerBar({
 }: PlayerBarProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const playerRef = useRef<YTPlayer | null>(null)
+  const readyRef = useRef(false)
   const volumeRef = useRef(30)
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(30)
@@ -63,53 +64,73 @@ export default function PlayerBar({
       .catch(() => {})
   }, [videoId])
 
-  // Load IFrame API script early so it's ready when the user taps
+  // Create the YouTube player up front. iOS only allows audio when
+  // playVideo() is called synchronously inside a user gesture, on a
+  // player that already exists — so the player must be built before
+  // the user taps, not on tap.
   useEffect(() => {
     if (!videoId) return
-    if (!document.getElementById('yt-iframe-api')) {
-      const tag = document.createElement('script')
-      tag.id = 'yt-iframe-api'
-      tag.src = 'https://www.youtube.com/iframe_api'
-      document.head.appendChild(tag)
+
+    let cancelled = false
+
+    function createPlayer() {
+      const yt = (window as unknown as YTWindow).YT
+      const iframe = iframeRef.current
+      if (!yt?.Player || !iframe || cancelled || playerRef.current) return
+
+      iframe.src =
+        `https://www.youtube.com/embed/${videoId}` +
+        `?controls=0&rel=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`
+
+      playerRef.current = new yt.Player(iframe, {
+        events: {
+          onReady: () => {
+            readyRef.current = true
+            playerRef.current?.setVolume(volumeRef.current)
+          },
+          onStateChange: (e: { data: number }) => {
+            const playing = (window as unknown as YTWindow).YT?.PlayerState?.PLAYING ?? 1
+            setIsPlaying(e.data === playing)
+          },
+        },
+      })
+    }
+
+    const w = window as unknown as YTWindow
+    if (w.YT?.Player) {
+      createPlayer()
+    } else {
+      if (!document.getElementById('yt-iframe-api')) {
+        const tag = document.createElement('script')
+        tag.id = 'yt-iframe-api'
+        tag.src = 'https://www.youtube.com/iframe_api'
+        document.head.appendChild(tag)
+      }
+      const prev = w.onYouTubeIframeAPIReady
+      w.onYouTubeIframeAPIReady = () => {
+        prev?.()
+        createPlayer()
+      }
+    }
+
+    return () => {
+      cancelled = true
     }
   }, [videoId])
 
-  // Provide the play trigger to the parent immediately —
-  // no waiting for the player to be ready.
+  // Play trigger handed to the parent. Returns true if playback was
+  // started synchronously (iOS-safe); false means the player is not
+  // ready yet and the caller should show the tap-to-play fallback.
   useEffect(() => {
     if (!videoId) return
 
     onPlayReady?.(() => {
-      const iframe = iframeRef.current
-      if (!iframe) return
+      const player = playerRef.current
+      if (!player || !readyRef.current) return false
 
-      // Setting src within a user gesture is what iOS requires for audio.
-      // postMessage (the IFrame API path) is not treated as a gesture by iOS.
-      iframe.src =
-        `https://www.youtube.com/embed/${videoId}` +
-        `?autoplay=1&controls=0&rel=0&playsinline=1&enablejsapi=1&mute=0`
-
+      player.playVideo()
       setIsPlaying(true)
-
-      // After the iframe loads, wire up IFrame API for pause/volume control.
-      iframe.addEventListener(
-        'load',
-        () => {
-          const yt = (window as unknown as YTWindow).YT
-          if (!yt?.Player) return
-
-          playerRef.current = new yt.Player(iframe, {
-            events: {
-              onStateChange: (e: { data: number }) => {
-                const playing = (window as unknown as YTWindow).YT?.PlayerState.PLAYING ?? 1
-                setIsPlaying(e.data === playing)
-              },
-            },
-          })
-          playerRef.current.setVolume(volumeRef.current)
-        },
-        { once: true },
-      )
+      return true
     })
   }, [videoId]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -155,9 +176,11 @@ export default function PlayerBar({
       )}
 
       <div className="flex items-center h-[72px] px-4 sm:px-6 gap-3 sm:gap-4 w-full">
-        {/* Hidden YouTube iframe — src is set on user tap, not on mount */}
+        {/* Hidden YouTube iframe — player is built on mount so playVideo()
+            can run synchronously inside the open-button tap (iOS audio). */}
         <iframe
           ref={iframeRef}
+          id="yt-player-iframe"
           aria-hidden="true"
           allow="autoplay; encrypted-media"
           style={{ display: 'none' }}

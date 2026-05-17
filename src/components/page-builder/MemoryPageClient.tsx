@@ -22,9 +22,9 @@ export default function MemoryPageClient({
 }: MemoryPageClientProps) {
   const [opened, setOpened] = useState(false)
   const [showTapToPlay, setShowTapToPlay] = useState(false)
-  const playRef = useRef<(() => void) | null>(null)
+  const playRef = useRef<(() => boolean) | null>(null)
 
-  function handlePlayReady(fn: () => void) {
+  function handlePlayReady(fn: () => boolean) {
     playRef.current = fn
   }
 
@@ -32,13 +32,10 @@ export default function MemoryPageClient({
     setOpened(true)
     onOpen?.()
 
-    if (playRef.current) {
-      // Call directly inside the tap handler — iOS requires this to allow audio
-      playRef.current()
-    } else {
-      // Extremely rare: user tapped before first effect ran in PlayerBar
-      setShowTapToPlay(true)
-    }
+    // Call directly inside the tap handler — iOS requires this to allow audio.
+    // Falls back to the tap-to-play banner if the player is not ready yet.
+    const played = playRef.current?.() ?? false
+    if (!played) setShowTapToPlay(true)
 
     import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
       ScrollTrigger.refresh()
@@ -46,8 +43,8 @@ export default function MemoryPageClient({
   }
 
   function handleTapToPlay() {
-    setShowTapToPlay(false)
-    playRef.current?.()
+    const played = playRef.current?.() ?? false
+    if (played) setShowTapToPlay(false)
   }
 
   return (
