@@ -66,6 +66,10 @@ export default function Overlay({ nameA, nameB, template = 'petals', onOpen }: O
     if (fired.current) return
     fired.current = true
 
+    // Simulate a click on the play button synchronously inside this user gesture
+    // so iOS counts it as user-initiated audio (playVideo must run in the same call stack).
+    ;(document.getElementById('player-play-btn') as HTMLButtonElement | null)?.click()
+
     const container = containerRef.current
     if (!container) return
 

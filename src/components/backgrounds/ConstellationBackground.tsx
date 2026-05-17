@@ -59,10 +59,12 @@ export default function ConstellationBackground() {
     const starEls: StarEl[] = []
     const lineEls: SVGLineElement[] = []
 
-    // Defs
-    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
+    const ns = 'http://www.w3.org/2000/svg'
 
-    const bgGrad = document.createElementNS('http://www.w3.org/2000/svg', 'radialGradient')
+    // Defs
+    const defs = document.createElementNS(ns, 'defs')
+
+    const bgGrad = document.createElementNS(ns, 'radialGradient')
     bgGrad.setAttribute('id', 'spaceBg')
     bgGrad.setAttribute('cx', '40%')
     bgGrad.setAttribute('cy', '35%')
@@ -72,27 +74,27 @@ export default function ConstellationBackground() {
       ['45%', '#0a051c'],
       ['100%', '#04020e'],
     ].forEach(([offset, color]) => {
-      const stop = document.createElementNS('http://www.w3.org/2000/svg', 'stop')
+      const stop = document.createElementNS(ns, 'stop')
       stop.setAttribute('offset', offset)
       stop.setAttribute('stop-color', color)
       bgGrad.appendChild(stop)
     })
-
     defs.appendChild(bgGrad)
+
     svg.appendChild(defs)
 
     // Background
-    const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    const bgRect = document.createElementNS(ns, 'rect')
     bgRect.setAttribute('width', '100')
     bgRect.setAttribute('height', '100')
     bgRect.setAttribute('fill', 'url(#spaceBg)')
     svg.appendChild(bgRect)
 
     // Line pool
-    const lineGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+    const lineGroup = document.createElementNS(ns, 'g')
     svg.appendChild(lineGroup)
     for (let i = 0; i < LINE_POOL; i++) {
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+      const line = document.createElementNS(ns, 'line')
       line.setAttribute('stroke', '#b090e0')
       line.setAttribute('stroke-width', '0.09')
       line.setAttribute('opacity', '0')
@@ -103,19 +105,19 @@ export default function ConstellationBackground() {
     const stars = Array.from({ length: STAR_COUNT }, makeStar)
 
     // Stars rendered as glow + core circles in a group
-    const starGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+    const starGroup = document.createElementNS(ns, 'g')
     svg.appendChild(starGroup)
 
     stars.forEach((star) => {
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+      const g = document.createElementNS(ns, 'g')
       g.setAttribute('transform', `translate(${star.x}, ${star.y})`)
 
-      const glowEl = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+      const glowEl = document.createElementNS(ns, 'circle')
       glowEl.setAttribute('r', String(star.size * 3.5))
       glowEl.setAttribute('fill', star.color)
       glowEl.setAttribute('opacity', '0.09')
 
-      const coreEl = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+      const coreEl = document.createElementNS(ns, 'circle')
       coreEl.setAttribute('r', String(star.size))
       coreEl.setAttribute('fill', star.color)
       coreEl.setAttribute('opacity', String(star.baseOpacity))
@@ -162,7 +164,7 @@ export default function ConstellationBackground() {
 
       function launchShootingStar() {
         if (!mounted) return
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line')
+        const line = document.createElementNS(ns, 'line')
         const sx = 5 + Math.random() * 80
         const sy = 5 + Math.random() * 40
         const angle = (18 + Math.random() * 30) * (Math.PI / 180)

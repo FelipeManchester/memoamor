@@ -199,6 +199,7 @@ export default function PlayerBar({
 
         {/* Play/pause */}
         <button
+          id="player-play-btn"
           onClick={togglePlay}
           aria-label={isPlaying ? 'Pausar' : 'Tocar'}
           className="shrink-0 bg-transparent border-none cursor-pointer text-wine p-2 rounded-full flex items-center justify-center transition-[background] duration-200"
