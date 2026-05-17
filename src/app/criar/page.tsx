@@ -11,10 +11,9 @@ import StepOne from '@/components/forms/StepOne'
 import StepTwo from '@/components/forms/StepTwo'
 import StepThree from '@/components/forms/StepThree'
 import StepFour from '@/components/forms/StepFour'
-import StepFive from '@/components/forms/StepFive'
 import StepSix from '@/components/forms/StepSix'
 
-const STEPS = ['O casal', 'Memórias', 'Galeria', 'Música', 'Tema', 'Revisão']
+const STEPS = ['O casal', 'Memórias', 'Galeria', 'Música & Tema', 'Revisão']
 const VALID_PLANS: PlanId[] = ['essential', 'premium']
 
 function PlanFromUrl() {
@@ -44,9 +43,16 @@ export default function CriarPage() {
       </Suspense>
       {/* Header com logo e progresso */}
       <header className="py-5 px-6 border-b border-blush flex flex-col gap-4">
-        <a href="/" className="font-serif text-[1.3rem] italic text-wine no-underline">
-          Memoamor
-        </a>
+        <div className="flex items-center justify-between">
+          <a href="/" className="font-serif text-[1.3rem] italic text-wine no-underline">
+            Memoamor
+          </a>
+          {currentStep > 1 && (
+            <span className="font-sans text-[0.65rem] text-mauve">
+              ✓ Salvo automaticamente
+            </span>
+          )}
+        </div>
 
         {/* Barra de progresso — oculta na seleção de plano */}
         {currentStep > 0 && (
@@ -103,8 +109,7 @@ export default function CriarPage() {
           {currentStep === 2 && <StepTwo />}
           {currentStep === 3 && <StepThree />}
           {currentStep === 4 && <StepFour />}
-          {currentStep === 5 && <StepFive />}
-          {currentStep === 6 && <StepSix />}
+          {currentStep === 5 && <StepSix />}
         </div>
       </div>
     </main>

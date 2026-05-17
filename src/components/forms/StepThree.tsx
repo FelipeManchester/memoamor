@@ -89,7 +89,7 @@ export default function StepThree() {
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 3 de 6
+          Passo 3 de 5
         </p>
         <h1
           className="font-serif font-light italic text-wine"
@@ -98,7 +98,7 @@ export default function StepThree() {
           Suas fotos preferidas
         </h1>
         <p className="font-sans text-[0.85rem] text-text-muted mt-2">
-          Até {maxPhotos} foto{maxPhotos > 1 ? 's' : ''}. PNG, JPG, WebP, HEIC. Você pode pular essa etapa.
+          Opcional, mas as fotos tornam a página muito mais especial. Até {maxPhotos} foto{maxPhotos > 1 ? 's' : ''}. PNG, JPG, WebP, HEIC.
         </p>
       </div>
 

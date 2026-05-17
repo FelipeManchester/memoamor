@@ -37,7 +37,7 @@ export default function StepTwo() {
   const canAdvance = data.memories.every(
     (m) =>
       m.title.trim().length >= 2 &&
-      m.body.trim().length >= 20 &&
+      m.body.trim().length >= 10 &&
       m.uploadStatus !== 'processing' &&
       m.uploadStatus !== 'uploading',
   )
@@ -116,7 +116,7 @@ export default function StepTwo() {
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 2 de 6
+          Passo 2 de 5
         </p>
         <h1
           className="font-serif font-light italic text-wine"
@@ -212,27 +212,6 @@ export default function StepTwo() {
             />
           </div>
 
-          {/* Época */}
-          <div className="flex flex-col gap-2">
-            <label htmlFor={`dateLabel-${memory.id}`} className="form-label">
-              Quando foi?
-              <span className="text-mauve ml-1.5">(opcional)</span>
-            </label>
-            <input
-              id={`dateLabel-${memory.id}`}
-              className="form-input"
-              type="text"
-              placeholder="Maio · 2016"
-              maxLength={30}
-              value={memory.dateLabel}
-              aria-describedby={`dateLabel-helper-${memory.id}`}
-              onChange={(e) => updateMemory(memory.id, { dateLabel: e.target.value })}
-            />
-            <p id={`dateLabel-helper-${memory.id}`} className="text-[0.72rem] text-mauve">
-              Pode ser uma data específica ou só um período
-            </p>
-          </div>
-
           {/* Título */}
           <div className="flex flex-col gap-2">
             <label htmlFor={`title-${memory.id}`} className="form-label">
@@ -266,7 +245,7 @@ export default function StepTwo() {
             <textarea
               id={`body-${memory.id}`}
               className="form-input min-h-[100px] resize-y"
-              placeholder="O que esse momento significou..."
+              placeholder="Foi o dia em que percebi que queria você pra sempre..."
               maxLength={300}
               value={memory.body}
               aria-describedby={`body-helper-${memory.id}`}
@@ -277,10 +256,10 @@ export default function StepTwo() {
                 id={`body-helper-${memory.id}`}
                 className="text-[0.7rem]"
                 style={{
-                  color: memory.body.length >= 20 ? '#4a7a4a' : 'var(--color-mauve)',
+                  color: memory.body.length >= 10 ? '#4a7a4a' : 'var(--color-mauve)',
                 }}
               >
-                {memory.body.length >= 20 ? '✓ Ótimo!' : 'Mín. 20 caracteres'}
+                {memory.body.length >= 10 ? '✓ Ótimo!' : 'Mín. 10 caracteres'}
               </span>
               <span className="text-[0.7rem] text-mauve">{memory.body.length}/300</span>
             </div>
@@ -296,20 +275,27 @@ export default function StepTwo() {
       )}
 
       {/* Navegação */}
-      <div className="flex justify-between">
-        <button onClick={() => setStep(1)} className="btn-ghost">
-          ← Voltar
-        </button>
-        <button
-          onClick={() => setStep(3)}
-          disabled={!canAdvance}
-          className={cn(
-            'btn-primary',
-            canAdvance ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
-          )}
-        >
-          Continuar →
-        </button>
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between">
+          <button onClick={() => setStep(1)} className="btn-ghost">
+            ← Voltar
+          </button>
+          <button
+            onClick={() => setStep(3)}
+            disabled={!canAdvance}
+            className={cn(
+              'btn-primary',
+              canAdvance ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
+            )}
+          >
+            Continuar →
+          </button>
+        </div>
+        {canAdvance && (
+          <p className="font-sans text-[0.72rem] text-mauve text-center italic">
+            A página de vocês está tomando forma ♡
+          </p>
+        )}
       </div>
     </div>
   )

@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
+import { TEMPLATES } from '@/lib/constants'
+import type { TemplateId } from '@/types'
 import { cn } from '@/lib/utils'
 
 const SUGGESTED_SONGS = [
@@ -17,9 +19,17 @@ const SUGGESTED_SONGS = [
   },
   {
     url: 'https://www.youtube.com/watch?v=450p7goxZqg',
-    title: 'John Legend',
-    artist: 'All of Me',
+    title: 'All of Me',
+    artist: 'John Legend',
   },
+]
+
+const CLOSING_EXAMPLES = [
+  'Juntos para sempre, amor.',
+  'Você é minha história preferida.',
+  'Pra sempre ao seu lado.',
+  'Meu lugar favorito é perto de você.',
+  'Todo dia, com mais amor.',
 ]
 
 function extractVideoId(url: string): string | null {
@@ -35,20 +45,18 @@ function extractVideoId(url: string): string | null {
   return null
 }
 
-declare global {
-  interface Window {
-    YT: {
-      Player: new (el: HTMLDivElement, options: object) => YTPlayer
-      PlayerState: { PLAYING: number }
-    }
-    onYouTubeIframeAPIReady: () => void
-  }
-}
-
 interface YTPlayer {
   playVideo: () => void
   pauseVideo: () => void
   destroy: () => void
+}
+
+interface YTWindow {
+  YT: {
+    Player: new (el: HTMLDivElement, options: object) => YTPlayer
+    PlayerState: { PLAYING: number }
+  }
+  onYouTubeIframeAPIReady: () => void
 }
 
 function IconPlay() {
@@ -91,8 +99,9 @@ function IconSpinner() {
 type ValidationStatus = 'idle' | 'loading' | 'valid' | 'error'
 
 export default function StepFour() {
-  const { data, updateField, setStep } = useCreateFormStore()
+  const { data, updateField, setTemplate, setStep } = useCreateFormStore()
   const [status, setStatus] = useState<ValidationStatus>('idle')
+  const isEssential = data.plan === 'essential'
 
   // ── Inline preview player ─────────────────────────
   const [previewVideoId, setPreviewVideoId] = useState<string | null>(null)
@@ -103,11 +112,12 @@ export default function StepFour() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (window.YT?.Player) {
+    const w = window as unknown as YTWindow
+    if (w.YT?.Player) {
       setApiReady(true)
       return
     }
-    window.onYouTubeIframeAPIReady = () => setApiReady(true)
+    w.onYouTubeIframeAPIReady = () => setApiReady(true)
     if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
       const tag = document.createElement('script')
       tag.src = 'https://www.youtube.com/iframe_api'
@@ -117,13 +127,14 @@ export default function StepFour() {
 
   useEffect(() => {
     if (!apiReady || !previewVideoId || !containerRef.current) return
+    const w = window as unknown as YTWindow
     playerRef.current?.destroy()
-    playerRef.current = new window.YT.Player(containerRef.current, {
+    playerRef.current = new w.YT.Player(containerRef.current, {
       videoId: previewVideoId,
       playerVars: { autoplay: 1, controls: 0, rel: 0 },
       events: {
         onStateChange: (e: { data: number }) => {
-          setIsPreviewPlaying(e.data === window.YT.PlayerState.PLAYING)
+          setIsPreviewPlaying(e.data === w.YT.PlayerState.PLAYING)
           setIsPreviewLoading(false)
         },
       },
@@ -168,6 +179,7 @@ export default function StepFour() {
   }
 
   const customVideoId = extractVideoId(data.youtubeUrl)
+  const canAdvance = status !== 'loading'
 
   return (
     <div className="flex flex-col gap-8">
@@ -179,132 +191,224 @@ export default function StepFour() {
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 4 de 6
+          Passo 4 de 5
         </p>
         <h1
           className="font-serif font-light italic text-wine"
           style={{ fontSize: 'clamp(1.8rem, 4vw, 2.5rem)' }}
         >
-          Qual é a música de vocês?
+          Os toques finais
         </h1>
         <p className="font-sans text-[0.85rem] text-text-muted mt-2">
-          Cola o link do YouTube. Vamos tocar quando alguém abrir a página.
+          A música e o visual da página de vocês.
         </p>
       </div>
 
-      {/* Campo de URL */}
-      <div className="flex flex-col gap-2">
-        <label className="form-label">Link do YouTube</label>
-        <input
-          className="form-input"
-          style={{
-            borderColor:
-              status === 'valid' ? '#4a7a4a' : status === 'error' ? '#c0392b' : 'var(--color-rose)',
-          }}
-          type="url"
-          placeholder="https://youtube.com/watch?v=..."
-          value={data.youtubeUrl}
-          onChange={(e) => handleUrlChange(e.target.value)}
-        />
+      {/* ── Seção: Música ── */}
+      <div className="flex flex-col gap-5">
+        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
+          Música
+        </p>
 
-        {status === 'loading' && (
-          <p className="font-sans text-[0.8rem] text-mauve">Verificando...</p>
-        )}
-        {status === 'valid' && data.youtubeTitle && customVideoId && (
-          <div className="flex items-center gap-2">
-            <p className="font-sans text-[0.8rem]" style={{ color: '#4a7a4a' }}>
-              ✓ {data.youtubeTitle}
+        {/* Campo de URL */}
+        <div className="flex flex-col gap-2">
+          <label className="form-label">
+            Link do YouTube
+            <span className="text-mauve ml-1.5">(opcional)</span>
+          </label>
+          <input
+            className="form-input"
+            style={{
+              borderColor:
+                status === 'valid' ? '#4a7a4a' : status === 'error' ? '#c0392b' : 'var(--color-rose)',
+            }}
+            type="url"
+            placeholder="https://youtube.com/watch?v=..."
+            value={data.youtubeUrl}
+            onChange={(e) => handleUrlChange(e.target.value)}
+          />
+
+          {status === 'loading' && (
+            <p className="font-sans text-[0.8rem] text-mauve">Verificando...</p>
+          )}
+          {status === 'valid' && data.youtubeTitle && customVideoId && (
+            <div className="flex items-center gap-2">
+              <p className="font-sans text-[0.8rem]" style={{ color: '#4a7a4a' }}>
+                ✓ {data.youtubeTitle}
+              </p>
+              <button
+                type="button"
+                onClick={(e) => togglePreview(customVideoId, e)}
+                className="w-6 h-6 rounded-full border border-rose flex items-center justify-center text-mauve hover:border-wine hover:text-wine transition-colors duration-150 shrink-0 cursor-pointer"
+                aria-label={previewVideoId === customVideoId && isPreviewPlaying ? 'Pausar' : 'Ouvir'}
+              >
+                {previewVideoId === customVideoId && isPreviewLoading ? (
+                  <IconSpinner />
+                ) : previewVideoId === customVideoId && isPreviewPlaying ? (
+                  <IconPause />
+                ) : (
+                  <IconPlay />
+                )}
+              </button>
+            </div>
+          )}
+          {status === 'error' && (
+            <p className="font-sans text-[0.8rem]" style={{ color: '#c0392b' }}>
+              Vídeo não encontrado. Verifique o link.
             </p>
-            <button
-              type="button"
-              onClick={(e) => togglePreview(customVideoId, e)}
-              className="w-6 h-6 rounded-full border border-rose flex items-center justify-center text-mauve hover:border-wine hover:text-wine transition-colors duration-150 shrink-0 cursor-pointer"
-              aria-label={previewVideoId === customVideoId && isPreviewPlaying ? 'Pausar' : 'Ouvir'}
-            >
-              {previewVideoId === customVideoId && isPreviewLoading ? (
-                <IconSpinner />
-              ) : previewVideoId === customVideoId && isPreviewPlaying ? (
-                <IconPause />
-              ) : (
-                <IconPlay />
-              )}
-            </button>
-          </div>
-        )}
-        {status === 'error' && (
-          <p className="font-sans text-[0.8rem]" style={{ color: '#c0392b' }}>
-            Vídeo não encontrado. Verifique o link.
-          </p>
-        )}
-        {status === 'idle' && !data.youtubeUrl && (
-          <p className="font-sans text-[0.8rem] text-mauve">
-            Não tem música ainda? Sem problema, pode pular esse passo.
-          </p>
-        )}
+          )}
+          {status === 'idle' && !data.youtubeUrl && (
+            <p className="font-sans text-[0.8rem] text-mauve">
+              Deixe em branco se preferir sem música.
+            </p>
+          )}
+        </div>
+
+        {/* Sugestões */}
+        <div className="flex flex-col gap-2">
+          <p className="form-label">Ou escolha uma sugestão:</p>
+          {SUGGESTED_SONGS.map((song) => {
+            const vid = extractVideoId(song.url)!
+            const isPlaying = previewVideoId === vid && isPreviewPlaying
+            return (
+              <div
+                key={song.url}
+                role="button"
+                tabIndex={0}
+                onClick={() => handleUrlChange(song.url)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') handleUrlChange(song.url)
+                }}
+                className="flex items-center justify-between py-3 px-4 rounded-sm transition-all duration-200 cursor-pointer text-left"
+                style={{
+                  border: `1px solid ${data.youtubeUrl === song.url ? 'var(--color-wine)' : 'var(--color-rose)'}`,
+                  background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'white',
+                }}
+              >
+                <div>
+                  <p className="font-sans text-[0.85rem] text-text">{song.title}</p>
+                  <p className="font-sans text-[0.72rem] text-mauve">{song.artist}</p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0 ml-3">
+                  <button
+                    type="button"
+                    onClick={(e) => togglePreview(vid, e)}
+                    className="w-7 h-7 rounded-full border border-rose flex items-center justify-center text-mauve hover:border-wine hover:text-wine transition-colors duration-150 shrink-0 cursor-pointer"
+                    aria-label={isPlaying ? `Pausar ${song.title}` : `Ouvir ${song.title}`}
+                  >
+                    {previewVideoId === vid && isPreviewLoading ? (
+                      <IconSpinner />
+                    ) : isPlaying ? (
+                      <IconPause />
+                    ) : (
+                      <IconPlay />
+                    )}
+                  </button>
+                  {data.youtubeUrl === song.url && <span className="text-wine text-[0.8rem]">✓</span>}
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
 
-      {/* Sugestões */}
-      <div className="flex flex-col gap-3">
-        <p className="form-label">Ou escolha uma sugestão:</p>
-        {SUGGESTED_SONGS.map((song) => {
-          const vid = extractVideoId(song.url)!
-          const isPlaying = previewVideoId === vid && isPreviewPlaying
-          return (
-            <div
-              key={song.url}
-              role="button"
-              tabIndex={0}
-              onClick={() => handleUrlChange(song.url)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') handleUrlChange(song.url)
+      {/* Divider */}
+      <div className="border-t border-blush" />
+
+      {/* ── Seção: Tema ── */}
+      <div className="flex flex-col gap-5">
+        <div>
+          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-1">
+            Tema
+          </p>
+          <p className="font-sans text-[0.82rem] text-text-muted">
+            Cada tema tem animações próprias. O conteúdo é o mesmo.
+          </p>
+        </div>
+
+        {/* Seletor de templates */}
+        <div className="flex flex-col gap-3">
+          {TEMPLATES.map((template) => {
+            const isSelected = data.template === template.id
+            const isLocked = isEssential && template.id !== 'petals'
+            return (
+              <button
+                key={template.id}
+                onClick={() => !isLocked && setTemplate(template.id as TemplateId)}
+                className="flex items-center justify-between py-4 px-5 rounded-sm transition-all duration-200 text-left"
+                style={{
+                  border: `1px solid ${isSelected ? 'var(--color-wine)' : 'var(--color-rose)'}`,
+                  background: isLocked ? '#faf8f6' : isSelected ? 'var(--color-blush)' : 'white',
+                  cursor: isLocked ? 'not-allowed' : 'pointer',
+                  opacity: isLocked ? 0.65 : 1,
+                }}
+              >
+                <div>
+                  <p className="font-sans text-[0.85rem] text-text mb-0.5">{template.name}</p>
+                  <p className="font-sans text-[0.72rem] text-text-muted">{template.description}</p>
+                </div>
+                {isLocked ? (
+                  <span
+                    className="font-sans text-[0.6rem] tracking-[0.12em] uppercase px-2 py-1 rounded-full shrink-0"
+                    style={{ background: 'var(--color-blush)', color: 'var(--color-mauve)' }}
+                  >
+                    Premium
+                  </span>
+                ) : isSelected ? (
+                  <span className="text-wine">✓</span>
+                ) : null}
+              </button>
+            )
+          })}
+        </div>
+
+        {/* Frase final */}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between gap-3">
+            <label htmlFor="closingQuote" className="form-label">
+              Frase final da página
+            </label>
+            <button
+              type="button"
+              onClick={() => {
+                const random = CLOSING_EXAMPLES[Math.floor(Math.random() * CLOSING_EXAMPLES.length)]
+                updateField('closingQuote', random)
               }}
-              className="flex items-center justify-between py-3 px-4 rounded-sm transition-all duration-200 cursor-pointer text-left"
-              style={{
-                border: `1px solid ${data.youtubeUrl === song.url ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-                background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'white',
-              }}
+              className="font-sans text-[0.7rem] text-mauve cursor-pointer underline decoration-dotted shrink-0"
             >
-              <div>
-                <p className="font-sans text-[0.85rem] text-text">{song.title}</p>
-                <p className="font-sans text-[0.72rem] text-mauve">{song.artist}</p>
-              </div>
-              <div className="flex items-center gap-2 shrink-0 ml-3">
-                <button
-                  type="button"
-                  onClick={(e) => togglePreview(vid, e)}
-                  className="w-7 h-7 rounded-full border border-rose flex items-center justify-center text-mauve hover:border-wine hover:text-wine transition-colors duration-150 shrink-0 cursor-pointer"
-                  aria-label={isPlaying ? `Pausar ${song.title}` : `Ouvir ${song.title}`}
-                >
-                  {previewVideoId === vid && isPreviewLoading ? (
-                    <IconSpinner />
-                  ) : isPlaying ? (
-                    <IconPause />
-                  ) : (
-                    <IconPlay />
-                  )}
-                </button>
-                {data.youtubeUrl === song.url && <span className="text-wine text-[0.8rem]">✓</span>}
-              </div>
-            </div>
-          )
-        })}
+              Ver sugestões →
+            </button>
+          </div>
+          <input
+            id="closingQuote"
+            className="form-input"
+            type="text"
+            placeholder="Para sempre, com você."
+            maxLength={50}
+            value={data.closingQuote}
+            onChange={(e) => updateField('closingQuote', e.target.value)}
+          />
+          <div className="flex justify-between items-center">
+            <p className="text-[0.72rem] text-mauve">
+              Aparece no final da página, antes do coração ♡
+            </p>
+            <span className="text-[0.7rem] text-mauve">{data.closingQuote.length}/50</span>
+          </div>
+        </div>
       </div>
 
       {/* Navegação */}
-      <div className="flex justify-between">
-        <button onClick={() => setStep(3)} className="btn-ghost">
-          ← Voltar
-        </button>
-        <div className="flex gap-3">
-          <button onClick={() => setStep(5)} className="btn-ghost">
-            Pular esta etapa
+      <div className="flex flex-col gap-3">
+        <div className="flex justify-between items-center">
+          <button onClick={() => setStep(3)} className="btn-ghost">
+            ← Voltar
           </button>
           <button
             onClick={() => setStep(5)}
-            disabled={status === 'loading'}
+            disabled={!canAdvance}
             className={cn(
               'btn-primary',
-              status !== 'loading'
+              canAdvance
                 ? 'bg-wine text-cream cursor-pointer'
                 : 'bg-blush text-mauve cursor-not-allowed',
             )}
@@ -312,6 +416,9 @@ export default function StepFour() {
             Continuar →
           </button>
         </div>
+        <p className="font-sans text-[0.72rem] text-mauve text-center italic">
+          Quase lá! Sua história está quase pronta ♡
+        </p>
       </div>
     </div>
   )

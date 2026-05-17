@@ -94,7 +94,7 @@ export default function StepSix() {
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
-          Passo 6 de 6
+          Passo 5 de 5
         </p>
         <h1
           className="font-serif font-light italic text-wine"
@@ -257,7 +257,7 @@ export default function StepSix() {
           </div>
           <button
             type="button"
-            onClick={() => setStep(5)}
+            onClick={() => setStep(4)}
             className="font-sans text-[0.68rem] text-mauve underline cursor-pointer shrink-0 ml-3"
           >
             Editar
@@ -273,7 +273,7 @@ export default function StepSix() {
           </div>
           <button
             type="button"
-            onClick={() => setStep(5)}
+            onClick={() => setStep(4)}
             className="font-sans text-[0.68rem] text-mauve underline cursor-pointer shrink-0 ml-3"
           >
             Editar
@@ -318,7 +318,7 @@ export default function StepSix() {
 
       {/* Navegação */}
       <div className="flex justify-between items-center">
-        <button onClick={() => setStep(5)} className="btn-ghost">
+        <button onClick={() => setStep(4)} className="btn-ghost">
           ← Voltar
         </button>
         <button
