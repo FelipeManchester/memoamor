@@ -21,15 +21,17 @@ export default function MemoryPageClient({
   onOpen,
 }: MemoryPageClientProps) {
   const [opened, setOpened] = useState(false)
+  const [showTapToPlay, setShowTapToPlay] = useState(false)
   const playRef = useRef<(() => void) | null>(null)
   const pendingPlay = useRef(false)
 
-  // Quando o play estiver pronto e houver uma intenção pendente, dispara
+  // Player pronto: se havia intenção pendente, NÃO dispara automaticamente
+  // (já fora do gesto do usuário — iOS bloquearia). Mostra botão manual.
   function handlePlayReady(fn: () => void) {
     playRef.current = fn
     if (pendingPlay.current) {
       pendingPlay.current = false
-      fn()
+      setShowTapToPlay(true)
     }
   }
 
@@ -37,20 +39,31 @@ export default function MemoryPageClient({
     setOpened(true)
     onOpen?.()
     if (playRef.current) {
+      // Player já pronto: chama dentro do gesto → funciona no iOS
       playRef.current()
     } else {
+      // Player ainda carregando: marca intenção pendente
       pendingPlay.current = true
     }
-    // Overlay removed from DOM — recalculate ScrollTrigger positions
     import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
       ScrollTrigger.refresh()
     })
   }
 
+  function handleTapToPlay() {
+    setShowTapToPlay(false)
+    playRef.current?.() // Dentro do gesto do usuário → iOS permite
+  }
+
   return (
     <>
       {!opened && <Overlay nameA={nameA} nameB={nameB} template={template} onOpen={handleOpen} />}
-      <PlayerBar youtubeUrl={youtubeUrl} onPlayReady={handlePlayReady} />
+      <PlayerBar
+        youtubeUrl={youtubeUrl}
+        onPlayReady={handlePlayReady}
+        showTapToPlay={showTapToPlay}
+        onTapToPlay={handleTapToPlay}
+      />
     </>
   )
 }

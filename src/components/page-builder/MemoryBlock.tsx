@@ -15,11 +15,10 @@ function getImageUrl(path: string, supabaseUrl: string): string {
 export default function MemoryBlock({ memory, flip = false, supabaseUrl }: MemoryBlockProps) {
   return (
     <div
-      className="reveal grid grid-cols-2 items-center"
+      className={`reveal grid grid-cols-1 md:grid-cols-2 items-center ${flip ? 'md:[direction:rtl]' : ''}`}
       style={{
-        gap: 'clamp(32px, 5vw, 80px)',
-        marginBottom: 'clamp(80px, 12vw, 140px)',
-        direction: flip ? 'rtl' : 'ltr',
+        gap: 'clamp(24px, 5vw, 80px)',
+        marginBottom: 'clamp(48px, 12vw, 140px)',
       }}
     >
       {/* Foto */}

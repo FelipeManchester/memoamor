@@ -234,17 +234,17 @@ export default function StepSix() {
           Detalhes
         </p>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-3 min-w-0">
             <span className="font-sans text-[0.72rem] text-mauve w-14 shrink-0">Música</span>
-            <span className="font-sans text-[0.8rem] text-text truncate">
+            <span className="font-sans text-[0.8rem] text-text truncate min-w-0">
               {data.youtubeTitle ?? (data.youtubeUrl ? 'Link adicionado' : 'Sem música')}
             </span>
           </div>
           <button
             type="button"
             onClick={() => setStep(4)}
-            className="font-sans text-[0.68rem] text-mauve underline cursor-pointer shrink-0 ml-3"
+            className="font-sans text-[0.68rem] text-mauve underline cursor-pointer shrink-0"
           >
             Editar
           </button>
@@ -317,15 +317,12 @@ export default function StepSix() {
       )}
 
       {/* Navegação */}
-      <div className="flex justify-between items-center">
-        <button onClick={() => setStep(4)} className="btn-ghost">
-          ← Voltar
-        </button>
+      <div className="flex flex-col gap-3">
         <button
           onClick={handleSubmit}
           disabled={!canSubmit}
           className={cn(
-            'btn-primary',
+            'btn-primary w-full text-center',
             canSubmit
               ? 'bg-wine text-cream cursor-pointer'
               : 'bg-blush text-mauve cursor-not-allowed',
@@ -334,6 +331,9 @@ export default function StepSix() {
           {isSubmitting
             ? 'Processando...'
             : `Pagar R$ ${(plan.priceInCents / 100).toFixed(2).replace('.', ',')} e criar a página ♡`}
+        </button>
+        <button onClick={() => setStep(4)} className="btn-ghost self-start">
+          ← Voltar
         </button>
       </div>
     </div>

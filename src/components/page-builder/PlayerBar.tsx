@@ -6,6 +6,8 @@ interface PlayerBarProps {
   youtubeUrl: string | null
   songTitle?: string | null
   onPlayReady?: (playFn: () => void) => void
+  showTapToPlay?: boolean
+  onTapToPlay?: () => void
 }
 
 function extractVideoId(url: string): string | null {
@@ -40,7 +42,7 @@ interface YTPlayer {
   destroy: () => void
 }
 
-export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: PlayerBarProps) {
+export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady, showTapToPlay, onTapToPlay }: PlayerBarProps) {
   const playerRef = useRef<YTPlayer | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -82,7 +84,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
       videoId,
       // Autoplay mudo: bufferiza enquanto o overlay está visível.
       // No clique de "Abrir memórias", rewind + unmute → sem delay.
-      playerVars: { autoplay: 1, controls: 0, rel: 0, mute: 1 },
+      playerVars: { autoplay: 1, controls: 0, rel: 0, mute: 1, playsinline: 1 },
       events: {
         onReady: (e: any) => {
           e.target.setVolume(volume)
@@ -126,18 +128,33 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
         background: 'var(--player-bg, rgba(250, 246, 241, 0.88))',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        // max-width garante que não ultrapasse a viewport mesmo em mobile
         maxWidth: '100vw',
         overflow: 'hidden',
       }}
     >
+      {/* Tap-to-play banner — shown on iOS when player loaded after the gesture */}
+      {showTapToPlay && (
+        <button
+          onClick={onTapToPlay}
+          className="w-full flex items-center justify-center gap-2 py-2 border-b border-rose bg-transparent cursor-pointer"
+          style={{ background: 'var(--color-blush)' }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-wine)">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+          <span className="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-wine">
+            Toque para tocar a música ♪
+          </span>
+        </button>
+      )}
+
       <div className="flex items-center h-[72px] px-4 sm:px-6 gap-3 sm:gap-4 w-full">
         {/* Container oculto do player YT */}
         <div aria-hidden="true" style={{ display: 'none' }}>
           <div ref={containerRef} />
         </div>
 
-        {/* Info da música — flex-1 + min-w-0 + overflow-hidden garante truncate correto */}
+        {/* Info da música */}
         <div className="flex-1 min-w-0 overflow-hidden">
           <p className="font-sans text-[0.6rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-0.5 truncate">
             ♪ tocando agora
@@ -164,7 +181,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady }: Player
           )}
         </button>
 
-        {/* Volume — slider compacto no mobile, maior em telas maiores */}
+        {/* Volume */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           <svg
             width="14"
