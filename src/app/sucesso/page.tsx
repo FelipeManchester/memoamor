@@ -10,6 +10,7 @@ import { PLANS } from '@/lib/constants'
 import ResetFormOnSuccess from '@/components/page-builder/ResetFormOnSuccess'
 import PetalConfetti from '@/components/ui/PetalConfetti'
 import CopyLinkButton from './CopyLinkButton'
+import WhatsAppButton from './WhatsAppButton'
 import FaqItem from './FaqItem'
 import PurchasePixelEvent from './PurchasePixelEvent'
 
@@ -241,6 +242,7 @@ export default async function SucessoPage(props: {
                   Ver página →
                 </a>
                 <CopyLinkButton url={pageUrl} />
+                <WhatsAppButton url={pageUrl} />
               </div>
             </div>
           )}
