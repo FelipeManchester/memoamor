@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useCreateFormStore } from '@/store/createForm'
 import { cn } from '@/lib/utils'
 
@@ -16,9 +16,9 @@ const SUGGESTED_SONGS = [
     artist: 'Elvis Presley',
   },
   {
-    url: 'https://www.youtube.com/watch?v=sm7onw6nVqQ',
-    title: 'Dear Bobbie',
-    artist: 'Yellowcard',
+    url: 'https://www.youtube.com/watch?v=450p7goxZqg',
+    title: 'John Legend',
+    artist: 'All of Me',
   },
 ]
 
@@ -35,12 +35,116 @@ function extractVideoId(url: string): string | null {
   return null
 }
 
+declare global {
+  interface Window {
+    YT: {
+      Player: new (el: HTMLDivElement, options: object) => YTPlayer
+      PlayerState: { PLAYING: number }
+    }
+    onYouTubeIframeAPIReady: () => void
+  }
+}
+
+interface YTPlayer {
+  playVideo: () => void
+  pauseVideo: () => void
+  destroy: () => void
+}
+
+function IconPlay() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5v14l11-7z" />
+    </svg>
+  )
+}
+
+function IconPause() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6 19h4V5H6zm8-14v14h4V5z" />
+    </svg>
+  )
+}
+
+function IconSpinner() {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      className="animate-spin"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" strokeOpacity="0.25" />
+      <path
+        d="M12 2a10 10 0 0 1 10 10"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
 type ValidationStatus = 'idle' | 'loading' | 'valid' | 'error'
 
 export default function StepFour() {
   const { data, updateField, setStep } = useCreateFormStore()
   const [status, setStatus] = useState<ValidationStatus>('idle')
 
+  // ── Inline preview player ─────────────────────────
+  const [previewVideoId, setPreviewVideoId] = useState<string | null>(null)
+  const [isPreviewPlaying, setIsPreviewPlaying] = useState(false)
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false)
+  const [apiReady, setApiReady] = useState(false)
+  const playerRef = useRef<YTPlayer | null>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (window.YT?.Player) {
+      setApiReady(true)
+      return
+    }
+    window.onYouTubeIframeAPIReady = () => setApiReady(true)
+    if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+      const tag = document.createElement('script')
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(tag)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!apiReady || !previewVideoId || !containerRef.current) return
+    playerRef.current?.destroy()
+    playerRef.current = new window.YT.Player(containerRef.current, {
+      videoId: previewVideoId,
+      playerVars: { autoplay: 1, controls: 0, rel: 0 },
+      events: {
+        onStateChange: (e: { data: number }) => {
+          setIsPreviewPlaying(e.data === window.YT.PlayerState.PLAYING)
+          setIsPreviewLoading(false)
+        },
+      },
+    })
+    return () => {
+      playerRef.current?.destroy()
+    }
+  }, [apiReady, previewVideoId])
+
+  function togglePreview(videoId: string, e: React.MouseEvent) {
+    e.stopPropagation()
+    if (previewVideoId === videoId) {
+      isPreviewPlaying ? playerRef.current?.pauseVideo() : playerRef.current?.playVideo()
+    } else {
+      setIsPreviewPlaying(false)
+      setIsPreviewLoading(true)
+      setPreviewVideoId(videoId)
+    }
+  }
+
+  // ── URL validation ────────────────────────────────
   async function handleUrlChange(url: string) {
     updateField('youtubeUrl', url)
     updateField('youtubeTitle', null)
@@ -63,8 +167,15 @@ export default function StepFour() {
     }
   }
 
+  const customVideoId = extractVideoId(data.youtubeUrl)
+
   return (
     <div className="flex flex-col gap-8">
+      {/* Hidden YT player container */}
+      <div aria-hidden="true" style={{ display: 'none' }}>
+        <div ref={containerRef} />
+      </div>
+
       {/* Cabeçalho */}
       <div>
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
@@ -96,14 +207,29 @@ export default function StepFour() {
           onChange={(e) => handleUrlChange(e.target.value)}
         />
 
-        {/* Feedback de validação */}
         {status === 'loading' && (
           <p className="font-sans text-[0.8rem] text-mauve">Verificando...</p>
         )}
-        {status === 'valid' && data.youtubeTitle && (
-          <p className="font-sans text-[0.8rem]" style={{ color: '#4a7a4a' }}>
-            ✓ {data.youtubeTitle}
-          </p>
+        {status === 'valid' && data.youtubeTitle && customVideoId && (
+          <div className="flex items-center gap-2">
+            <p className="font-sans text-[0.8rem]" style={{ color: '#4a7a4a' }}>
+              ✓ {data.youtubeTitle}
+            </p>
+            <button
+              type="button"
+              onClick={(e) => togglePreview(customVideoId, e)}
+              className="w-6 h-6 rounded-full border border-rose flex items-center justify-center text-mauve hover:border-wine hover:text-wine transition-colors duration-150 shrink-0 cursor-pointer"
+              aria-label={previewVideoId === customVideoId && isPreviewPlaying ? 'Pausar' : 'Ouvir'}
+            >
+              {previewVideoId === customVideoId && isPreviewLoading ? (
+                <IconSpinner />
+              ) : previewVideoId === customVideoId && isPreviewPlaying ? (
+                <IconPause />
+              ) : (
+                <IconPlay />
+              )}
+            </button>
+          </div>
         )}
         {status === 'error' && (
           <p className="font-sans text-[0.8rem]" style={{ color: '#c0392b' }}>
@@ -120,25 +246,48 @@ export default function StepFour() {
       {/* Sugestões */}
       <div className="flex flex-col gap-3">
         <p className="form-label">Ou escolha uma sugestão:</p>
-        {SUGGESTED_SONGS.map((song) => (
-          <button
-            key={song.url}
-            onClick={() => handleUrlChange(song.url)}
-            className="flex items-center justify-between py-3 px-4 rounded-sm transition-all duration-200 cursor-pointer text-left"
-            style={{
-              border: `1px solid ${data.youtubeUrl === song.url ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-              background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'white',
-            }}
-          >
-            <div>
-              <p className="font-sans text-[0.85rem] text-text">{song.title}</p>
-              <p className="font-sans text-[0.72rem] text-mauve">{song.artist}</p>
+        {SUGGESTED_SONGS.map((song) => {
+          const vid = extractVideoId(song.url)!
+          const isPlaying = previewVideoId === vid && isPreviewPlaying
+          return (
+            <div
+              key={song.url}
+              role="button"
+              tabIndex={0}
+              onClick={() => handleUrlChange(song.url)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') handleUrlChange(song.url)
+              }}
+              className="flex items-center justify-between py-3 px-4 rounded-sm transition-all duration-200 cursor-pointer text-left"
+              style={{
+                border: `1px solid ${data.youtubeUrl === song.url ? 'var(--color-wine)' : 'var(--color-rose)'}`,
+                background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'white',
+              }}
+            >
+              <div>
+                <p className="font-sans text-[0.85rem] text-text">{song.title}</p>
+                <p className="font-sans text-[0.72rem] text-mauve">{song.artist}</p>
+              </div>
+              <div className="flex items-center gap-2 shrink-0 ml-3">
+                <button
+                  type="button"
+                  onClick={(e) => togglePreview(vid, e)}
+                  className="w-7 h-7 rounded-full border border-rose flex items-center justify-center text-mauve hover:border-wine hover:text-wine transition-colors duration-150 shrink-0 cursor-pointer"
+                  aria-label={isPlaying ? `Pausar ${song.title}` : `Ouvir ${song.title}`}
+                >
+                  {previewVideoId === vid && isPreviewLoading ? (
+                    <IconSpinner />
+                  ) : isPlaying ? (
+                    <IconPause />
+                  ) : (
+                    <IconPlay />
+                  )}
+                </button>
+                {data.youtubeUrl === song.url && <span className="text-wine text-[0.8rem]">✓</span>}
+              </div>
             </div>
-            {data.youtubeUrl === song.url && (
-              <span className="text-wine text-[0.8rem]">✓</span>
-            )}
-          </button>
-        ))}
+          )
+        })}
       </div>
 
       {/* Navegação */}
@@ -154,8 +303,10 @@ export default function StepFour() {
             onClick={() => setStep(5)}
             disabled={status === 'loading'}
             className={cn(
-              'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200',
-              status !== 'loading' ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
+              'btn-primary',
+              status !== 'loading'
+                ? 'bg-wine text-cream cursor-pointer'
+                : 'bg-blush text-mauve cursor-not-allowed',
             )}
           >
             Continuar →

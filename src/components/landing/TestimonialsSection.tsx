@@ -151,7 +151,7 @@ export default function TestimonialsSection() {
   }
 
   return (
-    <section id="depoimentos" className="relative overflow-hidden bg-light py-20 md:py-28 lg:py-36">
+    <section id="depoimentos" className="relative overflow-hidden bg-light py-12 md:py-28 lg:py-36">
       {/* Decoração de fundo */}
       <div
         aria-hidden="true"

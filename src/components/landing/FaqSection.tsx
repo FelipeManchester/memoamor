@@ -55,7 +55,7 @@ export default function FaqSection() {
   return (
     <section
       className="bg-light"
-      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
+      style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}
     >
       <div className="max-w-[720px] mx-auto px-5 md:px-10 xl:px-20">
         {/* Cabeçalho */}

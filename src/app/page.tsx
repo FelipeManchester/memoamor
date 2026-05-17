@@ -75,7 +75,7 @@ export default function LandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <main className="overflow-x-hidden">
+      <main className="[overflow-x:clip]">
         <Navbar />
         <HeroSection />
         <Reveal><HowItWorksSection /></Reveal>

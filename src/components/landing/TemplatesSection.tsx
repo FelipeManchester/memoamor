@@ -29,7 +29,7 @@ export default function TemplatesSection() {
     <section
       id="templates"
       className="bg-light relative overflow-hidden"
-      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
+      style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}
     >
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20">
         {/* Cabeçalho */}

@@ -20,14 +20,14 @@ const PLAN_FEATURES: Record<PlanId, Feature[]> = {
   ],
   premium: [
     { text: '1 página' },
-    { text: 'Até 6 memórias',            upgrade: '2×' },
-    { text: 'Galeria com até 10 fotos',  upgrade: '2×' },
+    { text: 'Até 6 memórias',           upgrade: '2×' },
+    { text: 'Galeria com até 10 fotos', upgrade: '2×' },
     { text: 'Player de música' },
-    { text: '3 temas visuais',           upgrade: 'novo' },
+    { text: '3 temas visuais',          upgrade: 'novo' },
     { text: 'Contador de tempo' },
-    { text: 'URL personalizada',         upgrade: 'exclusivo' },
+    { text: 'URL personalizada',        upgrade: 'exclusivo' },
     { text: 'Página no ar 1 ano' },
-    { text: "Sem marca d'água",          upgrade: 'exclusivo' },
+    { text: "Sem marca d'água",         upgrade: 'exclusivo' },
   ],
 }
 
@@ -73,7 +73,7 @@ export default function PlanSelector() {
               className="text-left rounded-l-lg rounded-r-none max-sm:rounded-lg max-sm:rounded-b-none relative overflow-hidden transition-all duration-200 cursor-pointer"
               style={{
                 border: isSelected ? '2px solid var(--color-wine)' : '1px solid var(--color-rose)',
-                background: isSelected ? 'var(--color-blush)' : 'white',
+                background: 'white',
                 padding: 'clamp(20px, 3vw, 28px)',
               }}
             >
@@ -118,47 +118,35 @@ export default function PlanSelector() {
               onClick={() => selectPlan('premium')}
               className="text-left rounded-lg max-sm:rounded-t-none relative overflow-hidden transition-all duration-200 cursor-pointer"
               style={{
-                background: isSelected ? 'var(--color-wine)' : 'white',
+                background: 'white',
                 border: isSelected ? '2px solid var(--color-wine)' : '1px solid var(--color-rose)',
                 padding: 'clamp(20px, 3vw, 32px)',
-                boxShadow: isSelected
-                  ? '0 16px 48px rgba(122, 63, 63, 0.3), 0 4px 12px rgba(122, 63, 63, 0.15)'
-                  : '0 4px 16px rgba(122, 63, 63, 0.08)',
+                boxShadow: '0 4px 16px rgba(122, 63, 63, 0.08)',
               }}
             >
               {/* Popular badge */}
               <div
                 className="absolute top-4 right-4 rounded-full px-3 py-1 font-sans text-[0.6rem] tracking-[0.15em] uppercase"
                 style={{
-                  background: isSelected ? 'rgba(242,221,213,0.18)' : 'var(--color-rose)',
-                  color: isSelected ? 'var(--color-rose)' : 'var(--color-wine)',
+                  background: 'var(--color-rose)',
+                  color: 'var(--color-wine)',
                 }}
               >
                 Popular
               </div>
 
-              <p
-                className="font-sans text-[0.7rem] tracking-[0.25em] uppercase mb-2"
-                style={{ color: isSelected ? 'var(--color-rose)' : 'var(--color-mauve)' }}
-              >
+              <p className="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-mauve mb-2">
                 Premium
               </p>
 
               <p
-                className="font-serif font-light leading-none mb-1"
-                style={{
-                  fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
-                  color: isSelected ? 'var(--color-cream)' : 'var(--color-wine)',
-                }}
+                className="font-serif font-light leading-none text-wine mb-1"
+                style={{ fontSize: 'clamp(1.8rem, 4vw, 2.6rem)' }}
               >
                 R$ {(plan.priceInCents / 100).toFixed(2).replace('.', ',')}
               </p>
 
-              {/* Value framing */}
-              <p
-                className="font-sans text-[0.7rem] mb-4 leading-[1.5]"
-                style={{ color: isSelected ? 'var(--color-rose)' : 'var(--color-mauve)' }}
-              >
+              <p className="font-sans text-[0.7rem] mb-4 leading-[1.5] text-mauve">
                 apenas +R$ 10 em relação ao Essencial
               </p>
 
@@ -169,13 +157,9 @@ export default function PlanSelector() {
                     key={h}
                     className="font-sans text-[0.58rem] tracking-[0.06em] px-2 py-0.5 rounded-full"
                     style={{
-                      background: isSelected
-                        ? 'rgba(242, 221, 213, 0.14)'
-                        : 'var(--color-blush)',
-                      color: isSelected ? 'var(--color-blush)' : 'var(--color-wine)',
-                      border: isSelected
-                        ? '1px solid rgba(242, 221, 213, 0.22)'
-                        : '1px solid var(--color-rose)',
+                      background: 'var(--color-blush)',
+                      color: 'var(--color-wine)',
+                      border: '1px solid var(--color-rose)',
                     }}
                   >
                     {h}
@@ -183,12 +167,7 @@ export default function PlanSelector() {
                 ))}
               </div>
 
-              <div
-                className="h-px mb-4"
-                style={{
-                  background: isSelected ? 'rgba(242,221,213,0.18)' : 'var(--color-blush)',
-                }}
-              />
+              <div className="h-px mb-4" style={{ background: 'var(--color-blush)' }} />
 
               <ul className="list-none flex flex-col gap-[10px]">
                 {PLAN_FEATURES.premium.map((f, i) => {
@@ -196,42 +175,18 @@ export default function PlanSelector() {
                   return (
                     <li
                       key={i}
-                      className="flex items-center gap-2 font-sans text-[0.8rem] leading-[1.5]"
-                      style={{
-                        color: isSelected
-                          ? isUpgrade
-                            ? 'var(--color-cream)'
-                            : 'rgba(242, 221, 213, 0.6)'
-                          : isUpgrade
-                            ? 'var(--color-text)'
-                            : 'var(--color-text-muted)',
-                        fontWeight: isUpgrade ? 400 : 300,
-                      }}
+                      className="flex items-center gap-2 font-sans text-[0.8rem] leading-[1.5] text-text"
+                      style={{ fontWeight: isUpgrade ? 600 : 400 }}
                     >
-                      <span
-                        className="shrink-0 text-[0.72rem]"
-                        style={{
-                          color: isSelected
-                            ? isUpgrade
-                              ? 'var(--color-rose)'
-                              : 'rgba(232, 196, 184, 0.5)'
-                            : 'var(--color-mauve)',
-                        }}
-                      >
-                        ✓
-                      </span>
+                      <span className="shrink-0 text-[0.72rem] text-mauve">✓</span>
                       <span className="flex-1">{f.text}</span>
                       {f.upgrade && (
                         <span
                           className="font-sans text-[0.55rem] tracking-[0.06em] uppercase px-1.5 py-0.5 rounded-sm shrink-0"
                           style={{
-                            background: isSelected
-                              ? 'rgba(242, 221, 213, 0.18)'
-                              : 'var(--color-blush)',
-                            color: isSelected ? 'var(--color-rose)' : 'var(--color-wine)',
-                            border: isSelected
-                              ? '1px solid rgba(242, 221, 213, 0.25)'
-                              : '1px solid var(--color-rose)',
+                            background: 'var(--color-blush)',
+                            color: 'var(--color-wine)',
+                            border: '1px solid var(--color-rose)',
                           }}
                         >
                           {f.upgrade}
@@ -243,13 +198,7 @@ export default function PlanSelector() {
               </ul>
 
               {isSelected && (
-                <div
-                  className="mt-5 pt-3 border-t flex items-center gap-1.5 font-sans text-[0.68rem] tracking-[0.12em] uppercase"
-                  style={{
-                    borderColor: 'rgba(242,221,213,0.2)',
-                    color: 'var(--color-rose)',
-                  }}
-                >
+                <div className="mt-5 pt-3 border-t border-rose flex items-center gap-1.5 font-sans text-[0.68rem] tracking-[0.12em] uppercase text-wine">
                   <span>✓</span> Selecionado
                 </div>
               )}
@@ -261,7 +210,7 @@ export default function PlanSelector() {
       <div className="flex flex-col items-end gap-2">
         <button
           onClick={() => setStep(1)}
-          className="font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 bg-wine text-cream cursor-pointer hover:opacity-[0.88]"
+          className="btn-primary bg-wine text-cream cursor-pointer hover:opacity-[0.88]"
         >
           Continuar →
         </button>

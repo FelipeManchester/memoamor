@@ -103,7 +103,7 @@ export default function StepSix() {
           Tudo certo?
         </h1>
         <p className="font-sans text-[0.82rem] text-text-muted mt-1">
-          Dá uma última olhada. Você ainda pode editar tudo agora, e por mais 24h depois do pagamento ♡
+          Dá uma última olhada. Você ainda pode editar tudo agora ♡
         </p>
       </div>
 
@@ -178,7 +178,9 @@ export default function StepSix() {
                     <p className="font-sans text-[0.68rem] text-mauve">{m.dateLabel}</p>
                   )}
                   {m.body && (
-                    <p className="font-sans text-[0.72rem] text-text-muted line-clamp-1">{m.body}</p>
+                    <p className="font-sans text-[0.72rem] text-text-muted line-clamp-1">
+                      {m.body}
+                    </p>
                   )}
                 </div>
               </div>
@@ -191,7 +193,11 @@ export default function StepSix() {
       <div className="border border-rose rounded-sm bg-white p-5 flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
-            Galeria ({data.gallery.length > 0 ? `${data.gallery.length} foto${data.gallery.length > 1 ? 's' : ''}` : '0 fotos'})
+            Galeria (
+            {data.gallery.length > 0
+              ? `${data.gallery.length} foto${data.gallery.length > 1 ? 's' : ''}`
+              : '0 fotos'}
+            )
           </p>
           <button
             type="button"
@@ -215,10 +221,7 @@ export default function StepSix() {
                   className="w-14 h-14 rounded-sm object-cover"
                 />
               ) : (
-                <div
-                  key={g.id}
-                  className="w-14 h-14 rounded-sm bg-blush"
-                />
+                <div key={g.id} className="w-14 h-14 rounded-sm bg-blush" />
               ),
             )}
           </div>
@@ -322,8 +325,10 @@ export default function StepSix() {
           onClick={handleSubmit}
           disabled={!canSubmit}
           className={cn(
-            'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200',
-            canSubmit ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
+            'btn-primary',
+            canSubmit
+              ? 'bg-wine text-cream cursor-pointer'
+              : 'bg-blush text-mauve cursor-not-allowed',
           )}
         >
           {isSubmitting

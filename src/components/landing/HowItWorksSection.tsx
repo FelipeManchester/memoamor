@@ -90,7 +90,7 @@ export default function HowItWorksSection() {
     <section
       id="como-funciona"
       className="relative overflow-hidden"
-      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
+      style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}
     >
       {/* Fundo decorativo */}
       <div

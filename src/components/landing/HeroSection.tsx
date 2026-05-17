@@ -14,7 +14,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative [touch-action:pan-y]">
       <HeroHeartsCanvas />
 
       {/* Gradiente de fundo */}
@@ -26,10 +26,10 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 grid grid-cols-1 lg:grid-cols-2 items-center min-h-svh pt-20">
+      <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 grid grid-cols-1 lg:grid-cols-2 items-center min-h-[82svh] lg:min-h-svh pt-20">
 
         {/* ── Coluna esquerda — texto ── */}
-        <div className="flex flex-col gap-8 relative z-[1] py-16 pr-8">
+        <div className="flex flex-col gap-8 relative z-[1] py-10 lg:py-16 pr-8">
           <h1
             className="font-serif font-light italic text-wine leading-[1.1] m-0"
             style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}

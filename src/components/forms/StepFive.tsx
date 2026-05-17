@@ -169,7 +169,7 @@ export default function StepFive() {
         </button>
         <button
           onClick={() => setStep(6)}
-          className="font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200 bg-wine text-cream cursor-pointer"
+          className="btn-primary bg-wine text-cream cursor-pointer"
         >
           Revisar e finalizar →
         </button>

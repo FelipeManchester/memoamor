@@ -4,7 +4,7 @@ export default function CtaSection() {
   return (
     <section
       className="bg-wine relative overflow-hidden text-center"
-      style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}
+      style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}
     >
       {/* Elementos decorativos */}
       <div

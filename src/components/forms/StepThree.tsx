@@ -197,7 +197,7 @@ export default function StepThree() {
             onClick={() => setStep(4)}
             disabled={!canAdvance}
             className={cn(
-              'font-sans text-[0.72rem] tracking-[0.2em] uppercase py-4 px-8 border-none rounded-sm transition-all duration-200',
+              'btn-primary',
               canAdvance ? 'bg-wine text-cream cursor-pointer' : 'bg-blush text-mauve cursor-not-allowed',
             )}
           >
