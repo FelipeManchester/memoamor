@@ -72,9 +72,8 @@ export default function FaqItem({ question, answer }: { question: string; answer
               color: 'var(--color-text-muted)',
               margin: '0 0 16px',
             }}
-          >
-            {answer}
-          </p>
+            dangerouslySetInnerHTML={{ __html: answer }}
+          />
         </div>
       </div>
     </div>

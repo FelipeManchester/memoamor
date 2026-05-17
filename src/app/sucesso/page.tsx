@@ -28,7 +28,7 @@ const FAQS = [
   {
     question: 'Posso editar a página depois de criada?',
     answer:
-      'No momento não é possível editar após a criação. Por isso o formulário tem um resumo completo antes do pagamento. Em breve vamos adicionar a opção de edição.',
+      'Você pode enviar uma solicitação de edição em nossa página de <a href="/contato" style="color:var(--color-wine);border-bottom:1px solid var(--color-rose);text-decoration:none">contato</a>. Responderemos em até 1 dia útil.',
   },
   {
     question: 'E se eu quiser remover minha página?',
@@ -132,7 +132,6 @@ export default async function SucessoPage(props: {
             padding: 'clamp(40px, 8vw, 80px) 24px clamp(60px, 10vw, 100px)',
           }}
         >
-
           {/* Header */}
           <div style={{ textAlign: 'center', marginBottom: 40 }}>
             <div style={{ fontSize: '2.2rem', marginBottom: 16 }}>♡</div>

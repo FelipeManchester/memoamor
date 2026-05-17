@@ -16,7 +16,7 @@ const faqs = [
   {
     question: 'Posso editar a página depois de criar?',
     answer:
-      'No momento não é possível editar após a criação. Por isso o formulário tem um resumo completo antes do pagamento, você confirma tudo antes de finalizar. Em breve vamos adicionar a opção de edição.',
+      'Você pode enviar uma solicitação de edição em nossa página de <a href="/contato" style="color:var(--color-wine);border-bottom:1px solid var(--color-rose);text-decoration:none">contato</a>. Responderemos em até 1 dia útil.',
   },
   {
     question: 'Como o destinatário acessa a página?',
@@ -53,16 +53,10 @@ export default function FaqSection() {
   }
 
   return (
-    <section
-      className="bg-light"
-      style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}
-    >
+    <section className="bg-light" style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}>
       <div className="max-w-[720px] mx-auto px-5 md:px-10 xl:px-20">
         {/* Cabeçalho */}
-        <div
-          className="text-center"
-          style={{ marginBottom: 'clamp(48px, 6vw, 64px)' }}
-        >
+        <div className="text-center" style={{ marginBottom: 'clamp(48px, 6vw, 64px)' }}>
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
             Dúvidas frequentes
           </p>
@@ -120,9 +114,10 @@ export default function FaqSection() {
                 style={{ gridTemplateRows: openIndex === i ? '1fr' : '0fr' }}
               >
                 <div className="overflow-hidden">
-                  <p className="font-sans text-[0.88rem] text-text-muted leading-[1.8] pb-5">
-                    {faq.answer}
-                  </p>
+                  <p
+                    className="font-sans text-[0.88rem] text-text-muted leading-[1.8] pb-5"
+                    dangerouslySetInnerHTML={{ __html: faq.answer }}
+                  />
                 </div>
               </div>
             </div>
@@ -133,10 +128,7 @@ export default function FaqSection() {
         <div className="text-center mt-12">
           <p className="font-sans text-[0.85rem] text-text-muted leading-[1.8]">
             Ainda tem dúvidas?{' '}
-            <a
-              href="/contato"
-              className="text-wine no-underline border-b border-rose pb-px"
-            >
+            <a href="/contato" className="text-wine no-underline border-b border-rose pb-px">
               Entre em contato
             </a>
           </p>
