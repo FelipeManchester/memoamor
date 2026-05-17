@@ -8,7 +8,6 @@ import PricingSection from '@/components/landing/PricingSection'
 import FaqSection from '@/components/landing/FaqSection'
 import CtaSection from '@/components/landing/CtaSection'
 import Footer from '@/components/landing/Footer'
-import Reveal from '@/components/ui/Reveal'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'
 
@@ -78,13 +77,13 @@ export default function LandingPage() {
       <main className="[overflow-x:clip]">
         <Navbar />
         <HeroSection />
-        <Reveal><HowItWorksSection /></Reveal>
-        <Reveal><TemplatesSection /></Reveal>
-        <Reveal><TestimonialsSection /></Reveal>
-        <Reveal><PricingSection /></Reveal>
-        <Reveal><FaqSection /></Reveal>
-        <Reveal><CtaSection /></Reveal>
-        <Reveal><Footer /></Reveal>
+        <HowItWorksSection />
+        <TemplatesSection />
+        <TestimonialsSection />
+        <PricingSection />
+        <FaqSection />
+        <CtaSection />
+        <Footer />
       </main>
     </>
   )

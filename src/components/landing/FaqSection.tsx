@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Reveal from '@/components/ui/Reveal'
 
 const faqs = [
   {
@@ -56,16 +57,18 @@ export default function FaqSection() {
     <section className="bg-light" style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}>
       <div className="max-w-[720px] mx-auto px-5 md:px-10 xl:px-20">
         {/* Cabeçalho */}
-        <div className="text-center" style={{ marginBottom: 'clamp(48px, 6vw, 64px)' }}>
-          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
-            Dúvidas frequentes
-          </p>
-          <h2
-            className="font-serif font-light italic text-wine"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
-          >
-            Perguntas e respostas
-          </h2>
+        <div style={{ marginBottom: 'clamp(48px, 6vw, 64px)' }}>
+          <Reveal className="text-center">
+            <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
+              Dúvidas frequentes
+            </p>
+            <h2
+              className="font-serif font-light italic text-wine"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
+            >
+              Perguntas e respostas
+            </h2>
+          </Reveal>
         </div>
 
         {/* Accordion */}

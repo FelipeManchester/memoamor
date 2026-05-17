@@ -1,5 +1,7 @@
 'use client'
 
+import Reveal from '@/components/ui/Reveal'
+
 type Feature = {
   text: string
   upgrade?: string // shown as a small badge on premium
@@ -54,22 +56,24 @@ export default function PricingSection() {
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
         {/* Header */}
-        <div className="text-center" style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}>
-          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
-            Sem surpresas
-          </p>
-          <h2
-            className="font-serif font-light italic text-wine mb-4"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
-          >
-            Simples e transparente
-          </h2>
-          <p
-            className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
-            style={{ maxWidth: '44ch' }}
-          >
-            Pagamento único. Sem assinatura, sem cobranças escondidas.
-          </p>
+        <div style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}>
+          <Reveal className="text-center">
+            <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
+              Sem surpresas
+            </p>
+            <h2
+              className="font-serif font-light italic text-wine mb-4"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
+            >
+              Simples e transparente
+            </h2>
+            <p
+              className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
+              style={{ maxWidth: '44ch' }}
+            >
+              Pagamento único. Sem assinatura, sem cobranças escondidas.
+            </p>
+          </Reveal>
         </div>
 
         {/* Cards — premium elevated via margin hack on md+ */}

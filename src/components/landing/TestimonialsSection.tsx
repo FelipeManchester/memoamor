@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useReducer, useRef } from 'react'
+import Reveal from '@/components/ui/Reveal'
 
 interface Testimonial {
   id: number
@@ -168,18 +169,20 @@ export default function TestimonialsSection() {
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 xl:px-20">
         {/* Cabeçalho */}
-        <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
-            Histórias reais
-          </p>
-          <h2
-            className="font-serif font-light italic text-wine mb-4 leading-[1.15]"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
-          >
-            Histórias que já fizeram
-            <br />
-            alguém chorar
-          </h2>
+        <div className="mb-12 md:mb-16 lg:mb-20">
+          <Reveal className="text-center">
+            <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
+              Histórias reais
+            </p>
+            <h2
+              className="font-serif font-light italic text-wine mb-4 leading-[1.15]"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
+            >
+              Histórias que já fizeram
+              <br />
+              alguém chorar
+            </h2>
+          </Reveal>
         </div>
 
         {/* ── DESKTOP: grid 3 colunas ── */}

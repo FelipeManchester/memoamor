@@ -1,5 +1,7 @@
 'use client'
 
+import Reveal from '@/components/ui/Reveal'
+
 export default function CtaSection() {
   return (
     <section
@@ -66,7 +68,7 @@ export default function CtaSection() {
         />
       </svg>
 
-      <div className="max-w-[600px] mx-auto px-5 relative z-[1]">
+      <Reveal className="max-w-[600px] mx-auto px-5 relative z-[1]">
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-rose mb-6">
           Comece agora
         </p>
@@ -92,7 +94,7 @@ export default function CtaSection() {
         <p className="font-sans text-[0.72rem] text-rose mt-4 opacity-70">
           A partir de R$ 19,90 · Pagamento único
         </p>
-      </div>
+      </Reveal>
     </section>
   )
 }

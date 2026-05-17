@@ -46,10 +46,12 @@ export default function PrivacidadePage() {
             Coletamos apenas os dados necessários para a prestação do serviço:
             <ul className="mt-3 pl-5 flex flex-col gap-2">
               {[
+                'Nomes do casal: os nomes inseridos no formulário de criação da página',
+                'Data de início do relacionamento: informada no formulário e exibida na página',
                 'E-mail: para entrega do link da página e comunicações sobre o serviço',
                 'Fotos e textos: conteúdo inserido voluntariamente para compor a página',
                 'Dados de pagamento: processados pelo gateway AbacatePay, não armazenamos dados de cartão',
-                'Dados de acesso: logs técnicos para segurança e diagnóstico de problemas',
+                'Dados de navegação: coletados por ferramentas analíticas para entender o uso do serviço (veja seção 8)',
               ].map((item, i) => (
                 <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
                   {item}
@@ -78,9 +80,20 @@ export default function PrivacidadePage() {
           <Block title="4. Compartilhamento de dados">
             Não vendemos nem compartilhamos seus dados com terceiros para fins comerciais.
             Compartilhamos apenas com prestadores de serviço essenciais ao funcionamento da
-            plataforma: processador de pagamento (AbacatePay), serviço de e-mail (Resend) e
-            infraestrutura de hospedagem (Supabase e Vercel), todos sob obrigação contratual de
-            confidencialidade.
+            plataforma, todos sob obrigação contratual de confidencialidade:
+            <ul className="mt-3 pl-5 flex flex-col gap-2">
+              {[
+                'AbacatePay: processamento de pagamentos',
+                'Resend: envio de e-mails transacionais',
+                'Supabase e Vercel: hospedagem e banco de dados',
+                'Google Analytics: análise de uso e comportamento de navegação',
+                'Meta (Facebook): mensuração de campanhas e eventos de conversão via Meta Pixel',
+              ].map((item, i) => (
+                <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </Block>
 
           <Block title="5. Armazenamento e segurança">
@@ -121,10 +134,24 @@ export default function PrivacidadePage() {
             </p>
           </Block>
 
-          <Block title="8. Cookies">
+          <Block title="8. Cookies e rastreamento">
             O Memoamor utiliza cookies técnicos essenciais para o funcionamento do serviço, como
-            manutenção de estado do formulário. Não utilizamos cookies de rastreamento ou
-            publicidade.
+            manutenção de estado do formulário. Utilizamos também as seguintes ferramentas de
+            análise e mensuração:
+            <ul className="mt-3 pl-5 flex flex-col gap-2">
+              {[
+                'Google Analytics (GA4): coleta dados anônimos de navegação para entendermos como o serviço é usado',
+                'Meta Pixel: registra eventos de conversão (visualização de página, início de checkout, compra) para mensurar campanhas',
+              ].map((item, i) => (
+                <li key={i} className="font-sans text-[0.88rem] text-text-muted leading-[1.7]">
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3">
+              Você pode desativar esses rastreadores nas configurações do seu navegador ou por meio
+              de extensões de bloqueio de anúncios.
+            </p>
           </Block>
 
           <Block title="9. Alterações nesta política">

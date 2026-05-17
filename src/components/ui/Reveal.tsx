@@ -10,16 +10,25 @@ interface Props {
 export default function Reveal({ children, className }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
-  const [reduced, setReduced] = useState(false)
 
   useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    setReduced(prefersReduced)
-    if (prefersReduced) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true)
+      return
+    }
 
     const el = ref.current
     if (!el) return
 
+    // Already in (or near) viewport on mount — show immediately.
+    // This covers zoom, fast scroll, or a short page.
+    if (el.getBoundingClientRect().top < window.innerHeight + 50) {
+      setVisible(true)
+      return
+    }
+
+    // Trigger 120px before the section enters the viewport so the
+    // animation is already playing when the user reaches it.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -27,13 +36,11 @@ export default function Reveal({ children, className }: Props) {
           observer.disconnect()
         }
       },
-      { threshold: 0.15 },
+      { threshold: 0, rootMargin: '0px 0px 120px 0px' },
     )
     observer.observe(el)
     return () => observer.disconnect()
   }, [])
-
-  if (reduced) return <div className={className}>{children}</div>
 
   return (
     <div

@@ -1,5 +1,7 @@
 'use client'
 
+import Reveal from '@/components/ui/Reveal'
+
 export default function TemplatesSection() {
   const templates = [
     {
@@ -33,26 +35,25 @@ export default function TemplatesSection() {
     >
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20">
         {/* Cabeçalho */}
-        <div
-          className="text-center"
-          style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}
-        >
-          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
-            Três temas exclusivos
-          </p>
-          <h2
-            className="font-serif font-light italic text-wine mb-4"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
-          >
-            Escolha o clima da sua história
-          </h2>
-          <p
-            className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
-            style={{ maxWidth: '48ch' }}
-          >
-            Cada tema tem animações únicas que se revelam conforme o scroll. O conteúdo é sempre o
-            mesmo, só o clima muda.
-          </p>
+        <div style={{ marginBottom: 'clamp(48px, 8vw, 72px)' }}>
+          <Reveal className="text-center">
+            <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
+              Três temas exclusivos
+            </p>
+            <h2
+              className="font-serif font-light italic text-wine mb-4"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
+            >
+              Escolha o clima da sua história
+            </h2>
+            <p
+              className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
+              style={{ maxWidth: '48ch' }}
+            >
+              Cada tema tem animações únicas que se revelam conforme o scroll. O conteúdo é sempre o
+              mesmo, só o clima muda.
+            </p>
+          </Reveal>
         </div>
 
         {/* Cards */}

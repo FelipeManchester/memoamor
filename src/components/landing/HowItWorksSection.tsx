@@ -1,5 +1,7 @@
 'use client'
 
+import Reveal from '@/components/ui/Reveal'
+
 function IconPen() {
   return (
     <svg
@@ -102,16 +104,18 @@ export default function HowItWorksSection() {
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 relative z-[1]">
         {/* Cabeçalho */}
-        <div className="text-center" style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}>
-          <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
-            Simples assim
-          </p>
-          <h2
-            className="font-serif font-light italic text-wine m-0"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
-          >
-            Pronto em menos de 5 minutos
-          </h2>
+        <div style={{ marginBottom: 'clamp(48px, 8vw, 80px)' }}>
+          <Reveal className="text-center">
+            <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-4">
+              Simples assim
+            </p>
+            <h2
+              className="font-serif font-light italic text-wine m-0"
+              style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)' }}
+            >
+              Pronto em menos de 5 minutos
+            </h2>
+          </Reveal>
         </div>
 
         {/* Steps */}

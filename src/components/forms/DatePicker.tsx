@@ -1,130 +1,98 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-
-const MONTHS = [
-  'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro',
-]
-
-const CURRENT_YEAR = new Date().getFullYear()
-const YEARS = Array.from({ length: 80 }, (_, i) => CURRENT_YEAR - i)
-
-function daysInMonth(month: number, year: number): number {
-  if (!month || !year) return 31
-  return new Date(year, month, 0).getDate()
-}
-
-function parseISO(value: string) {
-  const parts = value ? value.split('-') : []
-  return {
-    year: parts[0] ? parseInt(parts[0]) : 0,
-    month: parts[1] ? parseInt(parts[1]) : 0,
-    day: parts[2] ? parseInt(parts[2]) : 0,
-  }
-}
+import { useState, useEffect, useRef } from 'react'
 
 interface DatePickerProps {
-  value: string
+  value: string         // ISO YYYY-MM-DD (or empty)
   onChange: (iso: string) => void
-  max?: string
+  max?: string          // ISO YYYY-MM-DD upper bound
+}
+
+function isoToDisplay(iso: string): string {
+  if (!iso) return ''
+  const [y, m, d] = iso.split('-')
+  if (!y || !m || !d) return ''
+  return `${d}/${m}/${y}`
+}
+
+function applyMask(digits: string): string {
+  const d = digits.slice(0, 8)
+  if (d.length <= 2) return d
+  if (d.length <= 4) return `${d.slice(0, 2)}/${d.slice(2)}`
+  return `${d.slice(0, 2)}/${d.slice(2, 4)}/${d.slice(4)}`
+}
+
+function parseDisplay(masked: string): { day: number; month: number; year: number } | null {
+  const digits = masked.replace(/\D/g, '')
+  if (digits.length < 8) return null
+  const day = parseInt(digits.slice(0, 2), 10)
+  const month = parseInt(digits.slice(2, 4), 10)
+  const year = parseInt(digits.slice(4, 8), 10)
+  if (month < 1 || month > 12) return null
+  if (day < 1 || day > 31) return null
+  // Check real days in month
+  const daysInMonth = new Date(year, month, 0).getDate()
+  if (day > daysInMonth) return null
+  return { day, month, year }
 }
 
 export default function DatePicker({ value, onChange, max }: DatePickerProps) {
-  const initial = parseISO(value)
-  const [day, setDay] = useState(initial.day)
-  const [month, setMonth] = useState(initial.month)
-  const [year, setYear] = useState(initial.year)
+  const [display, setDisplay] = useState(() => isoToDisplay(value))
+  const prevValue = useRef(value)
 
   // Sync when value resets externally (e.g., form clear)
   useEffect(() => {
-    const parsed = parseISO(value)
-    setDay(parsed.day)
-    setMonth(parsed.month)
-    setYear(parsed.year)
+    if (value !== prevValue.current) {
+      prevValue.current = value
+      setDisplay(isoToDisplay(value))
+    }
   }, [value])
 
-  const maxDay = daysInMonth(month, year)
-  const days = Array.from({ length: maxDay }, (_, i) => i + 1)
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value
+    const digits = raw.replace(/\D/g, '').slice(0, 8)
+    const masked = applyMask(digits)
+    setDisplay(masked)
 
-  function emit(d: number, m: number, y: number) {
-    if (d && m && y) {
-      const safe = Math.min(d, daysInMonth(m, y))
-      onChange(`${y}-${String(m).padStart(2, '0')}-${String(safe).padStart(2, '0')}`)
+    const parsed = parseDisplay(masked)
+    if (parsed) {
+      const iso = `${parsed.year}-${String(parsed.month).padStart(2, '0')}-${String(parsed.day).padStart(2, '0')}`
+      onChange(iso)
+    } else {
+      onChange('')
     }
   }
 
-  const isoSelected = day && month && year
-    ? `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const parsed = parseDisplay(display)
+  const isoSelected = parsed
+    ? `${parsed.year}-${String(parsed.month).padStart(2, '0')}-${String(parsed.day).padStart(2, '0')}`
     : ''
   const isFuture = !!(max && isoSelected && isoSelected > max)
-
-  function handleDay(val: number) {
-    setDay(val)
-    emit(val, month, year)
-  }
-
-  function handleMonth(val: number) {
-    setMonth(val)
-    // Clamp day if it exceeds days in new month
-    const safe = day ? Math.min(day, daysInMonth(val, year)) : 0
-    if (safe !== day) setDay(safe)
-    emit(safe || day, val, year)
-  }
-
-  function handleYear(val: number) {
-    setYear(val)
-    const safe = day ? Math.min(day, daysInMonth(month, val)) : 0
-    if (safe !== day) setDay(safe)
-    emit(safe || day, month, val)
-  }
-
-  const cls = `form-input flex-1 appearance-none cursor-pointer${isFuture ? ' border-[#c0392b]' : ''}`
+  const isInvalid = display.replace(/\D/g, '').length === 8 && !parsed
 
   return (
     <div className="flex flex-col gap-1.5">
-    <div className="flex gap-2">
-      <select
-        value={day || ''}
-        onChange={(e) => handleDay(parseInt(e.target.value) || 0)}
-        className={cls}
-        aria-label="Dia"
-      >
-        <option value="">Dia</option>
-        {days.map((d) => (
-          <option key={d} value={d}>{d}</option>
-        ))}
-      </select>
-
-      <select
-        value={month || ''}
-        onChange={(e) => handleMonth(parseInt(e.target.value) || 0)}
-        className={`${cls} flex-[2]`}
-        aria-label="Mês"
-      >
-        <option value="">Mês</option>
-        {MONTHS.map((m, i) => (
-          <option key={i} value={i + 1}>{m}</option>
-        ))}
-      </select>
-
-      <select
-        value={year || ''}
-        onChange={(e) => handleYear(parseInt(e.target.value) || 0)}
-        className={cls}
-        aria-label="Ano"
-      >
-        <option value="">Ano</option>
-        {YEARS.map((y) => (
-          <option key={y} value={y}>{y}</option>
-        ))}
-      </select>
-    </div>
-    {isFuture && (
-      <p className="text-[0.72rem]" style={{ color: '#c0392b' }}>
-        A data deve ser igual ou anterior à data de hoje.
-      </p>
-    )}
+      <input
+        type="text"
+        inputMode="numeric"
+        placeholder="DD/MM/AAAA"
+        value={display}
+        onChange={handleChange}
+        maxLength={10}
+        className="form-input"
+        style={isFuture || isInvalid ? { borderColor: '#c0392b' } : undefined}
+        aria-label="Data de início do relacionamento"
+      />
+      {isFuture && (
+        <p className="text-[0.72rem]" style={{ color: '#c0392b' }}>
+          A data deve ser igual ou anterior à data de hoje.
+        </p>
+      )}
+      {isInvalid && !isFuture && (
+        <p className="text-[0.72rem]" style={{ color: '#c0392b' }}>
+          Data inválida.
+        </p>
+      )}
     </div>
   )
 }
