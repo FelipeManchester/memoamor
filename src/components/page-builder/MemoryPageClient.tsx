@@ -23,28 +23,23 @@ export default function MemoryPageClient({
   const [opened, setOpened] = useState(false)
   const [showTapToPlay, setShowTapToPlay] = useState(false)
   const playRef = useRef<(() => void) | null>(null)
-  const pendingPlay = useRef(false)
 
-  // Player pronto: se havia intenção pendente, NÃO dispara automaticamente
-  // (já fora do gesto do usuário — iOS bloquearia). Mostra botão manual.
   function handlePlayReady(fn: () => void) {
     playRef.current = fn
-    if (pendingPlay.current) {
-      pendingPlay.current = false
-      setShowTapToPlay(true)
-    }
   }
 
   function handleOpen() {
     setOpened(true)
     onOpen?.()
+
     if (playRef.current) {
-      // Player já pronto: chama dentro do gesto → funciona no iOS
+      // Call directly inside the tap handler — iOS requires this to allow audio
       playRef.current()
     } else {
-      // Player ainda carregando: marca intenção pendente
-      pendingPlay.current = true
+      // Extremely rare: user tapped before first effect ran in PlayerBar
+      setShowTapToPlay(true)
     }
+
     import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
       ScrollTrigger.refresh()
     })
@@ -52,7 +47,7 @@ export default function MemoryPageClient({
 
   function handleTapToPlay() {
     setShowTapToPlay(false)
-    playRef.current?.() // Dentro do gesto do usuário → iOS permite
+    playRef.current?.()
   }
 
   return (

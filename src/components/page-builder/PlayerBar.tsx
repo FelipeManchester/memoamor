@@ -23,90 +23,95 @@ function extractVideoId(url: string): string | null {
   return null
 }
 
-declare global {
-  interface Window {
-    YT: {
-      Player: new (el: HTMLDivElement, options: object) => YTPlayer
-      PlayerState: { PLAYING: number }
-    }
-    onYouTubeIframeAPIReady: () => void
-  }
-}
-
 interface YTPlayer {
   playVideo: () => void
   pauseVideo: () => void
-  seekTo: (seconds: number, allowSeekAhead: boolean) => void
   setVolume: (v: number) => void
-  unMute: () => void
   destroy: () => void
 }
 
-export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady, showTapToPlay, onTapToPlay }: PlayerBarProps) {
+interface YTWindow {
+  YT?: {
+    Player: new (el: HTMLIFrameElement, options: object) => YTPlayer
+    PlayerState: { PLAYING: number }
+  }
+  onYouTubeIframeAPIReady?: () => void
+}
+
+export default function PlayerBar({
+  youtubeUrl,
+  songTitle,
+  onPlayReady,
+  showTapToPlay,
+  onTapToPlay,
+}: PlayerBarProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null)
   const playerRef = useRef<YTPlayer | null>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const volumeRef = useRef(30)
   const [isPlaying, setIsPlaying] = useState(false)
   const [volume, setVolume] = useState(30)
-  const [apiReady, setApiReady] = useState(false)
   const [fetchedTitle, setFetchedTitle] = useState<string | null>(null)
 
   const videoId = youtubeUrl ? extractVideoId(youtubeUrl) : null
 
+  // Fetch song title for display
   useEffect(() => {
     if (!videoId) return
-    fetch(
-      `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`,
-    )
+    fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`)
       .then((r) => r.json())
       .then((d) => setFetchedTitle(d.title ?? null))
       .catch(() => {})
   }, [videoId])
 
+  // Load IFrame API script early so it's ready when the user taps
+  useEffect(() => {
+    if (!videoId) return
+    if (!document.getElementById('yt-iframe-api')) {
+      const tag = document.createElement('script')
+      tag.id = 'yt-iframe-api'
+      tag.src = 'https://www.youtube.com/iframe_api'
+      document.head.appendChild(tag)
+    }
+  }, [videoId])
+
+  // Provide the play trigger to the parent immediately —
+  // no waiting for the player to be ready.
   useEffect(() => {
     if (!videoId) return
 
-    if (window.YT?.Player) {
-      setApiReady(true)
-      return
-    }
+    onPlayReady?.(() => {
+      const iframe = iframeRef.current
+      if (!iframe) return
 
-    window.onYouTubeIframeAPIReady = () => setApiReady(true)
+      // Setting src within a user gesture is what iOS requires for audio.
+      // postMessage (the IFrame API path) is not treated as a gesture by iOS.
+      iframe.src =
+        `https://www.youtube.com/embed/${videoId}` +
+        `?autoplay=1&controls=0&rel=0&playsinline=1&enablejsapi=1&mute=0`
 
-    const tag = document.createElement('script')
-    tag.src = 'https://www.youtube.com/iframe_api'
-    document.head.appendChild(tag)
-  }, [videoId])
+      setIsPlaying(true)
 
-  useEffect(() => {
-    if (!apiReady || !videoId || !containerRef.current) return
+      // After the iframe loads, wire up IFrame API for pause/volume control.
+      iframe.addEventListener(
+        'load',
+        () => {
+          const yt = (window as unknown as YTWindow).YT
+          if (!yt?.Player) return
 
-    playerRef.current = new window.YT.Player(containerRef.current, {
-      videoId,
-      // Autoplay mudo: bufferiza enquanto o overlay está visível.
-      // No clique de "Abrir memórias", rewind + unmute → sem delay.
-      playerVars: { autoplay: 1, controls: 0, rel: 0, mute: 1, playsinline: 1 },
-      events: {
-        onReady: (e: any) => {
-          e.target.setVolume(volume)
-          onPlayReady?.(() => {
-            const p = playerRef.current
-            if (!p) return
-            p.seekTo(0, true)
-            p.unMute()
-            p.setVolume(volume)
-            p.playVideo()
+          playerRef.current = new yt.Player(iframe, {
+            events: {
+              onStateChange: (e: { data: number }) => {
+                const playing = (window as unknown as YTWindow).YT?.PlayerState.PLAYING ?? 1
+                setIsPlaying(e.data === playing)
+              },
+            },
           })
+          playerRef.current.setVolume(volumeRef.current)
         },
-        onStateChange: (e: any) => {
-          setIsPlaying(e.data === window.YT.PlayerState.PLAYING)
-        },
-      },
+        { once: true },
+      )
     })
-
-    return () => {
-      playerRef.current?.destroy()
-    }
-  }, [apiReady, videoId])
+  }, [videoId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function togglePlay() {
     if (!playerRef.current) return
@@ -116,6 +121,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady, showTapT
   function handleVolume(e: React.ChangeEvent<HTMLInputElement>) {
     const val = Number(e.target.value)
     setVolume(val)
+    volumeRef.current = val
     playerRef.current?.setVolume(val)
   }
 
@@ -132,7 +138,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady, showTapT
         overflow: 'hidden',
       }}
     >
-      {/* Tap-to-play banner — shown on iOS when player loaded after the gesture */}
+      {/* Tap-to-play fallback banner for iOS edge cases */}
       {showTapToPlay && (
         <button
           onClick={onTapToPlay}
@@ -149,12 +155,16 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady, showTapT
       )}
 
       <div className="flex items-center h-[72px] px-4 sm:px-6 gap-3 sm:gap-4 w-full">
-        {/* Container oculto do player YT */}
-        <div aria-hidden="true" style={{ display: 'none' }}>
-          <div ref={containerRef} />
-        </div>
+        {/* Hidden YouTube iframe — src is set on user tap, not on mount */}
+        <iframe
+          ref={iframeRef}
+          aria-hidden="true"
+          allow="autoplay; encrypted-media"
+          style={{ display: 'none' }}
+          title="music-player"
+        />
 
-        {/* Info da música */}
+        {/* Song info */}
         <div className="flex-1 min-w-0 overflow-hidden">
           <p className="font-sans text-[0.6rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-0.5 truncate">
             ♪ tocando agora
@@ -164,7 +174,7 @@ export default function PlayerBar({ youtubeUrl, songTitle, onPlayReady, showTapT
           </p>
         </div>
 
-        {/* Botão play/pause */}
+        {/* Play/pause */}
         <button
           onClick={togglePlay}
           aria-label={isPlaying ? 'Pausar' : 'Tocar'}
