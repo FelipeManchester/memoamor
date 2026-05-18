@@ -24,7 +24,7 @@ export async function generateMetadata({
   const supabase = createAdminClient()
   const { data } = await supabase
     .from('memory_pages')
-    .select('name_a, name_b, start_date, status')
+    .select('name_a, name_b, start_date, status, template')
     .eq('slug', slug)
     .single()
 
@@ -34,7 +34,14 @@ export async function generateMetadata({
 
   const title = `${data.name_a} & ${data.name_b} | Memoamor`
   const description = `A história de ${data.name_a} e ${data.name_b}, desde ${formatDatePtBR(data.start_date)}. Uma página de memórias especial, criada com amor.`
-  const ogImage = `/api/og?slug=${slug}`
+  const ogParams = new URLSearchParams({
+    a: data.name_a,
+    b: data.name_b,
+    date: data.start_date,
+    template: data.template ?? 'petals',
+    slug,
+  })
+  const ogImage = `/api/og?${ogParams.toString()}`
   const pageUrl = `/p/${slug}`
 
   return {

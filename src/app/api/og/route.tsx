@@ -1,8 +1,7 @@
 import { ImageResponse } from 'next/og'
 import { NextRequest } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
 
-export const runtime = 'nodejs'
+export const runtime = 'edge'
 
 type TemplateId = 'petals' | 'hearts' | 'constellations'
 
@@ -38,45 +37,35 @@ function formatDatePtBR(dateStr: string): string {
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
+  const nameA = searchParams.get('a')
+  const nameB = searchParams.get('b')
+  const date = searchParams.get('date')
+  const template = (searchParams.get('template') as TemplateId) ?? 'petals'
   const slug = searchParams.get('slug')
 
-  if (slug) {
-    try {
-      return await dynamicOG(slug)
-    } catch (err) {
-      return new Response(String(err), { status: 500, headers: { 'Content-Type': 'text/plain' } })
-    }
+  if (nameA && nameB) {
+    return dynamicOG({ nameA, nameB, date, template, slug })
   }
 
-  try {
-    return staticOG()
-  } catch (err) {
-    return new Response(String(err), { status: 500, headers: { 'Content-Type': 'text/plain' } })
-  }
+  return staticOG()
 }
 
-async function dynamicOG(slug: string) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { autoRefreshToken: false, persistSession: false } },
-  )
-
-  const { data } = await supabase
-    .from('memory_pages')
-    .select('name_a, name_b, start_date, template')
-    .eq('slug', slug)
-    .eq('status', 'active')
-    .single()
-
-  if (!data) {
-    return new Response('Not found', { status: 404 })
-  }
-
-  const templateId = (data.template as TemplateId) ?? 'petals'
-  const colors = TEMPLATE_COLORS[templateId] ?? TEMPLATE_COLORS.petals
-  const formattedDate = formatDatePtBR(data.start_date)
-  const isConstellations = templateId === 'constellations'
+function dynamicOG({
+  nameA,
+  nameB,
+  date,
+  template,
+  slug,
+}: {
+  nameA: string
+  nameB: string
+  date: string | null
+  template: TemplateId
+  slug: string | null
+}) {
+  const colors = TEMPLATE_COLORS[template] ?? TEMPLATE_COLORS.petals
+  const formattedDate = date ? formatDatePtBR(date) : null
+  const isConstellations = template === 'constellations'
 
   return new ImageResponse(
     (
@@ -193,7 +182,7 @@ async function dynamicOG(slug: string) {
               fontFamily: 'serif',
             }}
           >
-            {data.name_a} & {data.name_b}
+            {nameA} & {nameB}
           </div>
 
           <div
@@ -207,18 +196,20 @@ async function dynamicOG(slug: string) {
             }}
           />
 
-          <div
-            style={{
-              fontSize: 22,
-              color: colors.muted,
-              letterSpacing: '3px',
-              textTransform: 'uppercase',
-              fontFamily: 'sans-serif',
-              fontWeight: 300,
-            }}
-          >
-            {formattedDate}
-          </div>
+          {formattedDate && (
+            <div
+              style={{
+                fontSize: 22,
+                color: colors.muted,
+                letterSpacing: '3px',
+                textTransform: 'uppercase',
+                fontFamily: 'sans-serif',
+                fontWeight: 300,
+              }}
+            >
+              {formattedDate}
+            </div>
+          )}
         </div>
 
         {/* Bottom divider line */}
