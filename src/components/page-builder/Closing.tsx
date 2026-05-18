@@ -30,7 +30,6 @@ export default function Closing({ page }: ClosingProps) {
         <div className="mt-20 pt-8 border-t border-blush">
           <a
             href="https://memoamor.app"
-            target="_blank"
             className="font-sans text-[0.62rem] tracking-[0.25em] uppercase text-rose no-underline opacity-70 transition-opacity duration-200"
           >
             Feito com Memoamor

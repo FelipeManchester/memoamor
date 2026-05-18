@@ -77,6 +77,6 @@ export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 // ── AbacatePay Product IDs ─────────────────────────────
 export const ABACATEPAY_PRODUCTS: Record<string, string> = {
-  essential: 'prod_Uz4DUFFpRhgKd06aCFhkxdWD',
-  premium: 'prod_xkWMUuznqGNHTbDmN6tSFdRd',
+  essential: 'prod_kPQ0x1UZKe2hbskWButLjgxq',
+  premium: 'prod_QSQSTrukUuygDYtaPTqfZckf',
 }

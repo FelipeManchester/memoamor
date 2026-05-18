@@ -152,12 +152,19 @@ export async function POST(req: NextRequest) {
         abacate_session_id: checkout?.id ?? null,
       })
       .eq('slug', slug)
+      .neq('status', 'active') // idempotency — skip if already processed
       .select('name_a, name_b, customer_email, memories, gallery, plan')
       .single()
 
     if (error) {
       console.error('[webhook] erro ao ativar página:', error)
       return new NextResponse('Erro interno', { status: 500 })
+    }
+
+    // Already active — webhook was already processed (retry from gateway)
+    if (!data) {
+      console.log('[webhook] página já ativa, ignorando duplicata:', slug)
+      return new NextResponse('ok', { status: 200 })
     }
 
     try {

@@ -21,21 +21,21 @@ const essentialFeatures: Feature[] = [
 
 const premiumFeatures: Feature[] = [
   { text: '1 página' },
-  { text: 'Até 6 memórias',         upgrade: '2×' },
+  { text: 'Até 6 memórias', upgrade: '2×' },
   { text: 'Galeria com até 10 fotos', upgrade: '2×' },
   { text: 'Player de música' },
-  { text: '3 temas visuais',         upgrade: 'novo' },
+  { text: '3 temas visuais', upgrade: 'novo' },
   { text: 'Contador de tempo' },
-  { text: 'URL personalizada',       upgrade: 'exclusivo' },
+  { text: 'URL personalizada', upgrade: 'exclusivo' },
   { text: 'Página no ar 1 ano' },
-  { text: "Sem marca d'água",        upgrade: 'exclusivo' },
+  { text: "Sem marca d'água", upgrade: 'exclusivo' },
 ]
 
 const HIGHLIGHTS = [
   { label: '2× memórias' },
   { label: '2× fotos' },
   { label: 'URL própria' },
-  { label: "Sem logo" },
+  { label: 'Sem logo' },
 ]
 
 export default function PricingSection() {
@@ -49,8 +49,7 @@ export default function PricingSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 50% 100%, #f0d4ca33 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 70% 60% at 50% 100%, #f0d4ca33 0%, transparent 70%)',
         }}
       />
 
@@ -78,7 +77,6 @@ export default function PricingSection() {
 
         {/* Cards — premium elevated via margin hack on md+ */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-end max-w-3xl mx-auto">
-
           {/* ── Essencial ── */}
           <div
             className="rounded-l-lg rounded-r-none max-md:rounded-lg relative"
@@ -171,12 +169,6 @@ export default function PricingSection() {
             </div>
 
             {/* Value framing */}
-            <p
-              className="font-sans text-[0.72rem] mb-2 leading-[1.5]"
-              style={{ color: 'var(--color-rose)' }}
-            >
-              apenas +R$ 10 em relação ao Essencial
-            </p>
 
             <p
               className="font-sans text-[0.82rem] mb-5 leading-[1.6]"
@@ -202,10 +194,7 @@ export default function PricingSection() {
               ))}
             </div>
 
-            <div
-              className="h-px mb-6"
-              style={{ background: 'rgba(242, 221, 213, 0.18)' }}
-            />
+            <div className="h-px mb-6" style={{ background: 'rgba(242, 221, 213, 0.18)' }} />
 
             {/* Features */}
             <ul className="list-none flex flex-col gap-3 mb-8">
@@ -222,7 +211,9 @@ export default function PricingSection() {
                   >
                     <span
                       className="shrink-0"
-                      style={{ color: isUpgrade ? 'var(--color-rose)' : 'rgba(232, 196, 184, 0.5)' }}
+                      style={{
+                        color: isUpgrade ? 'var(--color-rose)' : 'rgba(232, 196, 184, 0.5)',
+                      }}
                     >
                       ✓
                     </span>

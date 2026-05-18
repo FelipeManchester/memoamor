@@ -20,14 +20,14 @@ const PLAN_FEATURES: Record<PlanId, Feature[]> = {
   ],
   premium: [
     { text: '1 página' },
-    { text: 'Até 6 memórias',           upgrade: '2×' },
+    { text: 'Até 6 memórias', upgrade: '2×' },
     { text: 'Galeria com até 10 fotos', upgrade: '2×' },
     { text: 'Player de música' },
-    { text: '3 temas visuais',          upgrade: 'novo' },
+    { text: '3 temas visuais', upgrade: 'novo' },
     { text: 'Contador de tempo' },
-    { text: 'URL personalizada',        upgrade: 'exclusivo' },
+    { text: 'URL personalizada', upgrade: 'exclusivo' },
     { text: 'Página no ar 1 ano' },
-    { text: "Sem marca d'água",         upgrade: 'exclusivo' },
+    { text: "Sem marca d'água", upgrade: 'exclusivo' },
   ],
 }
 
@@ -62,7 +62,6 @@ export default function PlanSelector() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 items-end">
-
         {/* ── Essencial ── */}
         {(() => {
           const plan = PLANS.find((p) => p.id === 'essential')!
@@ -146,10 +145,6 @@ export default function PlanSelector() {
                 R$ {(plan.priceInCents / 100).toFixed(2).replace('.', ',')}
               </p>
 
-              <p className="font-sans text-[0.7rem] mb-4 leading-[1.5] text-mauve">
-                apenas +R$ 10 em relação ao Essencial
-              </p>
-
               {/* Highlight pills */}
               <div className="flex flex-wrap gap-1.5 mb-4">
                 {PREMIUM_HIGHLIGHTS.map((h) => (
@@ -214,9 +209,7 @@ export default function PlanSelector() {
         >
           Continuar →
         </button>
-        <p className="font-sans text-[0.68rem] text-mauve">
-          Renovação por R$ 9,90/ano
-        </p>
+        <p className="font-sans text-[0.68rem] text-mauve">Renovação por R$ 9,90/ano</p>
       </div>
     </div>
   )

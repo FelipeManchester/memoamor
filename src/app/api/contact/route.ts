@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
+function escapeHtml(s: string) {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { name, email, message } = await req.json()
@@ -19,11 +27,11 @@ export async function POST(req: NextRequest) {
       html: `
         <div style="font-family: Georgia, serif; max-width: 520px; color: #3d2b2b;">
           <h2 style="font-weight: 300; color: #7a3f3f;">Nova mensagem de contato</h2>
-          <p><strong>Nome:</strong> ${name}</p>
-          <p><strong>E-mail:</strong> ${email}</p>
+          <p><strong>Nome:</strong> ${escapeHtml(name)}</p>
+          <p><strong>E-mail:</strong> ${escapeHtml(email)}</p>
           <p><strong>Mensagem:</strong></p>
           <p style="background: #faf6f1; padding: 16px; border-radius: 4px; line-height: 1.8;">
-            ${message.replace(/\n/g, '<br>')}
+            ${escapeHtml(message).replace(/\n/g, '<br>')}
           </p>
         </div>
       `,
