@@ -2,6 +2,30 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+// ── Debug overlay ─────────────────────────────────────────────────────────────
+// Remove this block and the <DebugOverlay /> usage once the iOS issue is solved.
+const debugLines: string[] = []
+function dbg(msg: string) {
+  const line = `${new Date().toISOString().slice(11, 23)} ${msg}`
+  debugLines.unshift(line)
+  if (debugLines.length > 20) debugLines.pop()
+  document.getElementById('ios-debug')!.innerText = debugLines.join('\n')
+}
+function DebugOverlay() {
+  return (
+    <div
+      id="ios-debug"
+      style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
+        background: 'rgba(0,0,0,0.85)', color: '#0f0', fontFamily: 'monospace',
+        fontSize: 11, padding: 8, whiteSpace: 'pre-wrap', pointerEvents: 'none',
+        maxHeight: '40vh', overflow: 'hidden',
+      }}
+    />
+  )
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 interface PlayerBarProps {
   youtubeUrl: string | null
   songTitle?: string | null
@@ -76,21 +100,31 @@ export default function PlayerBar({
     function createPlayer() {
       const yt = (window as unknown as YTWindow).YT
       const iframe = iframeRef.current
-      if (!yt?.Player || !iframe || cancelled || playerRef.current) return
+      if (!yt?.Player || !iframe || cancelled || playerRef.current) {
+        dbg(`createPlayer skip: yt=${!!yt?.Player} iframe=${!!iframe} cancelled=${cancelled} hasPlayer=${!!playerRef.current}`)
+        return
+      }
 
       iframe.src =
         `https://www.youtube.com/embed/${videoId}` +
         `?controls=0&rel=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`
+
+      dbg(`createPlayer: building YT.Player for ${videoId}`)
 
       playerRef.current = new yt.Player(iframe, {
         events: {
           onReady: () => {
             readyRef.current = true
             playerRef.current?.setVolume(volumeRef.current)
+            dbg('onReady: player is ready ✓')
           },
           onStateChange: (e: { data: number }) => {
             const playing = (window as unknown as YTWindow).YT?.PlayerState?.PLAYING ?? 1
+            dbg(`onStateChange: state=${e.data} (PLAYING=${playing})`)
             setIsPlaying(e.data === playing)
+          },
+          onError: (e: { data: number }) => {
+            dbg(`onError: code=${e.data}`)
           },
         },
       })
@@ -98,8 +132,10 @@ export default function PlayerBar({
 
     const w = window as unknown as YTWindow
     if (w.YT?.Player) {
+      dbg('YT already loaded, calling createPlayer immediately')
       createPlayer()
     } else {
+      dbg('YT not loaded, injecting script tag')
       if (!document.getElementById('yt-iframe-api')) {
         const tag = document.createElement('script')
         tag.id = 'yt-iframe-api'
@@ -108,6 +144,7 @@ export default function PlayerBar({
       }
       const prev = w.onYouTubeIframeAPIReady
       w.onYouTubeIframeAPIReady = () => {
+        dbg('onYouTubeIframeAPIReady fired')
         prev?.()
         createPlayer()
       }
@@ -126,8 +163,10 @@ export default function PlayerBar({
 
     onPlayReady?.(() => {
       const player = playerRef.current
+      dbg(`onPlayReady callback: player=${!!player} ready=${readyRef.current}`)
       if (!player || !readyRef.current) return false
 
+      dbg('onPlayReady: calling playVideo()')
       player.playVideo()
       setIsPlaying(true)
       return true
@@ -135,8 +174,15 @@ export default function PlayerBar({
   }, [videoId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function togglePlay() {
+    dbg(`togglePlay: playerRef=${!!playerRef.current} readyRef=${readyRef.current} isPlaying=${isPlaying}`)
     if (!playerRef.current) return
-    isPlaying ? playerRef.current.pauseVideo() : playerRef.current.playVideo()
+    if (isPlaying) {
+      dbg('calling pauseVideo()')
+      playerRef.current.pauseVideo()
+    } else {
+      dbg('calling playVideo()')
+      playerRef.current.playVideo()
+    }
   }
 
   function handleVolume(e: React.ChangeEvent<HTMLInputElement>) {
@@ -149,6 +195,8 @@ export default function PlayerBar({
   if (!videoId) return null
 
   return (
+    <>
+    <DebugOverlay />
     <div
       className="fixed bottom-0 left-0 right-0 border-t border-rose z-[1000]"
       style={{
@@ -238,5 +286,6 @@ export default function PlayerBar({
         </div>
       </div>
     </div>
+    </>
   )
 }
