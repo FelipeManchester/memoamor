@@ -41,10 +41,18 @@ export async function GET(request: NextRequest) {
   const slug = searchParams.get('slug')
 
   if (slug) {
-    return dynamicOG(slug)
+    try {
+      return await dynamicOG(slug)
+    } catch (err) {
+      return new Response(String(err), { status: 500, headers: { 'Content-Type': 'text/plain' } })
+    }
   }
 
-  return staticOG()
+  try {
+    return staticOG()
+  } catch (err) {
+    return new Response(String(err), { status: 500, headers: { 'Content-Type': 'text/plain' } })
+  }
 }
 
 async function dynamicOG(slug: string) {
