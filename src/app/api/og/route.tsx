@@ -413,39 +413,27 @@ function staticOG() {
                 letterSpacing: '4px',
                 textTransform: 'uppercase',
                 color: '#C4A0B0',
-                marginBottom: 20,
+                marginBottom: 24,
                 fontFamily: 'sans-serif',
               }}
             >
-              juntos desde
+              uma história de amor
             </div>
 
-            {/* Date */}
+            {/* Headline */}
             <div
               style={{
-                fontSize: 13,
-                letterSpacing: '2px',
-                color: '#C4A0B0',
-                fontFamily: 'sans-serif',
-                marginBottom: 16,
-              }}
-            >
-              12 de março de 2019
-            </div>
-
-            {/* Names */}
-            <div
-              style={{
-                fontSize: 42,
+                fontSize: 32,
                 fontStyle: 'italic',
                 fontWeight: 300,
                 color: '#8B3A52',
                 fontFamily: 'serif',
                 marginBottom: 20,
                 textAlign: 'center',
+                lineHeight: 1.2,
               }}
             >
-              Ana & Pedro
+              A história de vocês,{'\n'}em uma página
             </div>
 
             {/* Divider */}
@@ -459,7 +447,7 @@ function staticOG() {
               }}
             />
 
-            {/* Memory preview */}
+            {/* Tagline */}
             <div
               style={{
                 fontSize: 12,
@@ -470,7 +458,7 @@ function staticOG() {
                 maxWidth: 240,
               }}
             >
-              "Nossa primeira viagem juntos foi para Florianópolis..."
+              Fotos, músicas e memórias guardadas para sempre.
             </div>
           </div>
         </div>
