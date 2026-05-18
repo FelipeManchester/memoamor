@@ -54,7 +54,6 @@ function dynamicOG({
   nameA,
   nameB,
   date,
-  template,
   slug,
 }: {
   nameA: string
@@ -63,9 +62,7 @@ function dynamicOG({
   template: TemplateId
   slug: string | null
 }) {
-  const colors = TEMPLATE_COLORS[template] ?? TEMPLATE_COLORS.petals
   const formattedDate = date ? formatDatePtBR(date) : null
-  const isConstellations = template === 'constellations'
 
   return new ImageResponse(
     (
@@ -74,111 +71,69 @@ function dynamicOG({
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: colors.bg,
+          backgroundColor: '#FAF7F2',
           position: 'relative',
         }}
       >
-        {/* Decorative circle top-right */}
+        {/* Background accents */}
         <div
           style={{
             position: 'absolute',
-            top: -120,
-            right: -120,
-            width: 500,
-            height: 500,
+            top: -100,
+            right: -100,
+            width: 480,
+            height: 480,
             borderRadius: '50%',
-            background: colors.circle,
+            background: 'rgba(196,160,176,0.15)',
             display: 'flex',
           }}
         />
-        {/* Decorative circle bottom-left */}
         <div
           style={{
             position: 'absolute',
-            bottom: -80,
-            left: -80,
-            width: 360,
-            height: 360,
+            bottom: -60,
+            right: 300,
+            width: 300,
+            height: 300,
             borderRadius: '50%',
-            background: colors.circle,
+            background: 'rgba(139,58,82,0.07)',
             display: 'flex',
           }}
         />
 
-        {/* Stars for constellations */}
-        {isConstellations && (
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              display: 'flex',
-              fontSize: 10,
-              color: '#C8A96E',
-              opacity: 0.4,
-              letterSpacing: '60px',
-              lineHeight: '60px',
-              padding: '20px',
-              flexWrap: 'wrap',
-              overflow: 'hidden',
-            }}
-          >
-            {'✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧'}
-          </div>
-        )}
-
-        {/* Top divider line */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 60,
-            left: 120,
-            right: 120,
-            height: 1,
-            background: colors.accent,
-            opacity: 0.15,
-            display: 'flex',
-          }}
-        />
-
-        {/* Center content */}
+        {/* Left: names */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            gap: 0,
+            justifyContent: 'center',
+            padding: '80px 60px 100px 80px',
+            flex: 1,
+            maxWidth: 640,
             zIndex: 1,
-            textAlign: 'center',
-            padding: '0 80px',
           }}
         >
           <div
             style={{
-              fontSize: 14,
-              letterSpacing: '6px',
+              fontSize: 13,
+              letterSpacing: '5px',
               textTransform: 'uppercase',
-              color: colors.muted,
-              marginBottom: 24,
+              color: '#C4A0B0',
+              marginBottom: 32,
               fontFamily: 'sans-serif',
             }}
           >
-            uma história de amor
+            memoamor
           </div>
 
           <div
             style={{
-              fontSize: 88,
+              fontSize: 64,
               fontStyle: 'italic',
               fontWeight: 300,
-              color: colors.accent,
-              lineHeight: 1,
-              marginBottom: 24,
+              color: '#8B3A52',
+              lineHeight: 1.1,
+              marginBottom: 20,
               fontFamily: 'serif',
             }}
           >
@@ -187,75 +142,121 @@ function dynamicOG({
 
           <div
             style={{
-              width: 64,
-              height: 1,
-              background: colors.accent,
-              opacity: 0.3,
-              marginBottom: 24,
-              display: 'flex',
+              fontSize: 20,
+              color: '#B8948A',
+              fontFamily: 'sans-serif',
+              fontWeight: 300,
+              lineHeight: 1.5,
             }}
-          />
-
-          {formattedDate && (
-            <div
-              style={{
-                fontSize: 22,
-                color: colors.muted,
-                letterSpacing: '3px',
-                textTransform: 'uppercase',
-                fontFamily: 'sans-serif',
-                fontWeight: 300,
-              }}
-            >
-              {formattedDate}
-            </div>
-          )}
+          >
+            {formattedDate ? `juntos desde ${formattedDate}` : 'uma história de amor'}
+          </div>
         </div>
 
-        {/* Bottom divider line */}
+        {/* Right: card */}
         <div
           style={{
-            position: 'absolute',
-            bottom: 60,
-            left: 120,
-            right: 120,
-            height: 1,
-            background: colors.accent,
-            opacity: 0.15,
             display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: '0 0 auto',
+            width: 440,
+            padding: '60px 80px 60px 20px',
+            zIndex: 1,
           }}
-        />
+        >
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              background: 'rgba(255,255,255,0.75)',
+              borderRadius: 16,
+              padding: '44px 40px',
+              gap: 0,
+              border: '1px solid rgba(196,160,176,0.25)',
+            }}
+          >
+            <div
+              style={{
+                fontSize: 10,
+                letterSpacing: '4px',
+                textTransform: 'uppercase',
+                color: '#C4A0B0',
+                marginBottom: 24,
+                fontFamily: 'sans-serif',
+              }}
+            >
+              uma historia de amor
+            </div>
 
-        {/* Logo */}
+            <div
+              style={{
+                fontSize: 32,
+                fontStyle: 'italic',
+                fontWeight: 300,
+                color: '#8B3A52',
+                fontFamily: 'serif',
+                marginBottom: 20,
+                textAlign: 'center',
+                lineHeight: 1.2,
+              }}
+            >
+              {nameA} & {nameB}
+            </div>
+
+            <div
+              style={{
+                width: 40,
+                height: 1,
+                background: 'rgba(196,160,176,0.4)',
+                marginBottom: 20,
+                display: 'flex',
+              }}
+            />
+
+            <div
+              style={{
+                fontSize: 12,
+                color: '#B8948A',
+                textAlign: 'center',
+                fontFamily: 'sans-serif',
+                lineHeight: 1.6,
+                maxWidth: 240,
+              }}
+            >
+              {formattedDate ? formattedDate : 'Fotos, musicas e memorias guardadas para sempre.'}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
         <div
           style={{
             position: 'absolute',
-            bottom: 24,
-            left: 60,
+            bottom: 32,
+            left: 80,
             fontSize: 22,
             fontStyle: 'italic',
-            color: colors.accent,
-            opacity: 0.6,
+            color: '#8B3A52',
             fontFamily: 'serif',
+            opacity: 0.7,
           }}
         >
           Memoamor
         </div>
-
-        {/* URL */}
         <div
           style={{
             position: 'absolute',
-            bottom: 28,
-            right: 60,
+            bottom: 36,
+            right: 80,
             fontSize: 14,
-            color: colors.muted,
+            color: '#C4A0B0',
             fontFamily: 'sans-serif',
             letterSpacing: '1px',
-            opacity: 0.7,
           }}
         >
-          memoamor.app/{slug}
+          {slug ? `memoamor.app/p/${slug}` : 'memoamor.app'}
         </div>
       </div>
     ),
