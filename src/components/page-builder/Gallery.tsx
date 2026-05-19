@@ -9,6 +9,7 @@ interface GalleryProps {
 }
 
 function getImageUrl(path: string, supabaseUrl: string): string {
+  if (path.startsWith('/') || path.startsWith('http')) return path
   return `${supabaseUrl}/storage/v1/object/public/pages/${path}`
 }
 

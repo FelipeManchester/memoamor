@@ -3,7 +3,8 @@
     "allow": [
       "Bash(npm run *)",
       "Bash(Select-String gsap *)",
-      "Skill(frontend-design)"
+      "Skill(frontend-design)",
+      "Bash(dir C:\\\\Users\\\\Felipe\\\\Documents\\\\Personal\\\\memoamor\\\\public\\\\images *)"
     ]
   }
 }

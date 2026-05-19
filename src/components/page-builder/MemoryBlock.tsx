@@ -39,7 +39,7 @@ export default function MemoryBlock({ memory, flip = false, supabaseUrl }: Memor
               alt={memory.title}
               width={600}
               height={750}
-              quality={100}
+              quality={90}
               className="w-full h-auto aspect-4/5 object-cover block"
             />
           </div>
