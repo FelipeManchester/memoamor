@@ -72,7 +72,8 @@ export default function StepTwo() {
           onClick={() => setExamplesForMemory(null)}
         >
           <div
-            className="bg-white rounded w-full max-w-md flex flex-col gap-4 p-6 max-h-[80vh] overflow-y-auto"
+            className="rounded w-full max-w-md flex flex-col gap-4 p-6 max-h-[80vh] overflow-y-auto"
+            style={{ background: 'var(--surface-card)' }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
@@ -133,7 +134,8 @@ export default function StepTwo() {
       {data.memories.map((memory, i) => (
         <div
           key={memory.id}
-          className="border border-rose rounded flex flex-col gap-5 p-6 bg-white"
+          className="border border-rose rounded flex flex-col gap-5 p-6"
+          style={{ background: 'var(--surface-card)' }}
         >
           {/* Cabeçalho do card */}
           <div className="flex justify-between items-center">

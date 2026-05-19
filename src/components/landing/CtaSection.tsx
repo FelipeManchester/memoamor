@@ -5,8 +5,11 @@ import Reveal from '@/components/ui/Reveal'
 export default function CtaSection() {
   return (
     <section
-      className="bg-wine relative overflow-hidden text-center"
-      style={{ padding: 'clamp(48px, 12vw, 140px) 0' }}
+      className="relative overflow-hidden text-center"
+      style={{
+        padding: 'clamp(48px, 12vw, 140px) 0',
+        background: 'var(--cta-section-bg)',
+      }}
     >
       {/* Elementos decorativos */}
       <div
@@ -24,13 +27,13 @@ export default function CtaSection() {
         style={{ top: -40, left: -40 }}
         aria-hidden="true"
       >
-        <ellipse cx="100" cy="100" rx="40" ry="100" fill="var(--color-rose)" />
+        <ellipse cx="100" cy="100" rx="40" ry="100" fill="var(--cta-petal-fill)" />
         <ellipse
           cx="100"
           cy="100"
           rx="40"
           ry="100"
-          fill="var(--color-rose)"
+          fill="var(--cta-petal-fill)"
           transform="rotate(60 100 100)"
         />
         <ellipse
@@ -38,7 +41,7 @@ export default function CtaSection() {
           cy="100"
           rx="40"
           ry="100"
-          fill="var(--color-rose)"
+          fill="var(--cta-petal-fill)"
           transform="rotate(120 100 100)"
         />
       </svg>
@@ -49,13 +52,13 @@ export default function CtaSection() {
         style={{ bottom: -40, right: -40 }}
         aria-hidden="true"
       >
-        <ellipse cx="100" cy="100" rx="40" ry="100" fill="var(--color-rose)" />
+        <ellipse cx="100" cy="100" rx="40" ry="100" fill="var(--cta-petal-fill)" />
         <ellipse
           cx="100"
           cy="100"
           rx="40"
           ry="100"
-          fill="var(--color-rose)"
+          fill="var(--cta-petal-fill)"
           transform="rotate(60 100 100)"
         />
         <ellipse
@@ -63,35 +66,48 @@ export default function CtaSection() {
           cy="100"
           rx="40"
           ry="100"
-          fill="var(--color-rose)"
+          fill="var(--cta-petal-fill)"
           transform="rotate(120 100 100)"
         />
       </svg>
 
       <Reveal className="max-w-[600px] mx-auto px-5 relative z-[1]">
-        <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-rose mb-6">
+        <p
+          className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase mb-6"
+          style={{ color: 'var(--cta-eyebrow)' }}
+        >
           Comece agora
         </p>
 
         <h2
-          className="font-serif font-light italic text-cream leading-[1.15] mb-6"
-          style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)' }}
+          className="font-serif font-light italic leading-[1.15] mb-6"
+          style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--cta-heading)' }}
         >
           Conte a história de vocês.
         </h2>
 
-        <p className="font-sans text-[0.95rem] text-blush leading-[1.8] mb-10 opacity-[0.85]">
+        <p
+          className="font-sans text-[0.95rem] leading-[1.8] mb-10 opacity-[0.85]"
+          style={{ color: 'var(--cta-body)' }}
+        >
           Em menos de 5 minutos você cria uma página que vai emocionar quem você ama.
         </p>
 
         <a
           href="/criar"
-          className="inline-block font-sans text-[0.78rem] tracking-[0.2em] uppercase py-[18px] px-12 bg-cream text-wine no-underline rounded-sm transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+          className="inline-block font-sans text-[0.78rem] tracking-[0.2em] uppercase py-[18px] px-12 no-underline rounded-sm transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+          style={{
+            background: 'var(--cta-button-bg)',
+            color: 'var(--cta-button-text)',
+          }}
         >
           Criar minha página ♡
         </a>
 
-        <p className="font-sans text-[0.72rem] text-rose mt-4 opacity-70">
+        <p
+          className="font-sans text-[0.72rem] mt-4 opacity-70"
+          style={{ color: 'var(--cta-disclaimer)' }}
+        >
           A partir de R$ 19,90 · Pagamento único
         </p>
       </Reveal>

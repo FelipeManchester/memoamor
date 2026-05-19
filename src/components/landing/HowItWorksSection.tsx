@@ -98,7 +98,7 @@ export default function HowItWorksSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 60% 50% at 100% 50%, #f0d4ca33 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 60% 50% at 100% 50%, var(--section-glow) 0%, transparent 70%)',
         }}
       />
 
@@ -139,8 +139,11 @@ export default function HowItWorksSection() {
               {/* Ícone com círculo */}
               <div className="relative">
                 <div
-                  className="w-[72px] h-[72px] rounded-full bg-white border border-rose flex items-center justify-center relative z-[1]"
-                  style={{ boxShadow: '0 4px 20px rgba(122, 63, 63, 0.08)' }}
+                  className="w-[72px] h-[72px] rounded-full border border-rose flex items-center justify-center relative z-[1]"
+                  style={{
+                    background: 'var(--surface-card)',
+                    boxShadow: '0 4px 20px var(--shadow-soft)',
+                  }}
                 >
                   {step.icon}
                 </div>

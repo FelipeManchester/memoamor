@@ -15,7 +15,12 @@ interface Particle {
   rotVel: number
 }
 
-const PALETTE = ['#7a3f3f', '#c49a8a', '#b56060', '#cc8877', '#e8c4b8']
+function readPalette(el: HTMLElement | null): string[] {
+  if (!el) return ['#7a3f3f', '#c49a8a', '#b56060', '#cc8877', '#e8c4b8']
+  const raw = getComputedStyle(el).getPropertyValue('--heart-particles').trim()
+  if (!raw) return ['#7a3f3f', '#c49a8a', '#b56060', '#cc8877', '#e8c4b8']
+  return raw.split(',').map((c) => c.trim()).filter(Boolean)
+}
 
 function drawHeart(ctx: CanvasRenderingContext2D, p: Particle) {
   const r = p.size / 4
@@ -50,6 +55,7 @@ export default function HeroHeartsCanvas() {
     let w = 0
     let h = 0
     const dpr = window.devicePixelRatio || 1
+    const palette = readPalette(canvas)
 
     function resize() {
       w = canvas!.offsetWidth
@@ -68,7 +74,7 @@ export default function HeroHeartsCanvas() {
         size: Math.random() * 14 + 6,
         baseOpacity: Math.random() * 0.07 + 0.03,
         currentOpacity: 0,
-        color: PALETTE[Math.floor(Math.random() * PALETTE.length)],
+        color: palette[Math.floor(Math.random() * palette.length)],
         rotation: Math.random() * Math.PI * 2,
         rotVel: (Math.random() - 0.5) * 0.005,
       }

@@ -20,8 +20,8 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'Pedro G.',
     city: 'São Paulo',
     initial: 'P',
-    avatarBg: '#7a3f3f',
-    avatarColor: '#faf6f1',
+    avatarBg: 'var(--avatar-1-bg)',
+    avatarColor: 'var(--avatar-1-fg)',
     quote:
       'Mandei pra ela no exato dia que completamos 4 anos. Ela chorou. Eu chorei. Vale cada centavo.',
     context: 'Aniversário de namoro',
@@ -31,8 +31,8 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'André S.',
     city: 'Belo Horizonte',
     initial: 'A',
-    avatarBg: '#c49a8a',
-    avatarColor: '#3d2b2b',
+    avatarBg: 'var(--avatar-2-bg)',
+    avatarColor: 'var(--avatar-2-fg)',
     quote: 'Sou péssimo com surpresas, mas isso fez todo o trabalho por mim.',
     context: 'Dia dos Namorados',
   },
@@ -41,8 +41,8 @@ const TESTIMONIALS: Testimonial[] = [
     name: 'Camila T.',
     city: 'Salvador',
     initial: 'C',
-    avatarBg: '#f2ddd5',
-    avatarColor: '#7a3f3f',
+    avatarBg: 'var(--avatar-3-bg)',
+    avatarColor: 'var(--avatar-3-fg)',
     quote:
       'Mandei pra minha mãe nos 30 anos de casamento dela com meu pai. Eles ficaram horas vendo as memórias.',
     context: 'Bodas de pérola',
@@ -56,7 +56,7 @@ function StarRating() {
         <svg key={i} width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path
             d="M7 1l1.545 3.13L12 4.635l-2.5 2.435.59 3.44L7 8.885l-3.09 1.625.59-3.44L2 4.635l3.455-.505L7 1z"
-            fill="#7a3f3f"
+            fill="var(--star-fill)"
           />
         </svg>
       ))}
@@ -80,7 +80,8 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <article
       aria-label={`Depoimento de ${t.name}`}
-      className="bg-white rounded-[18px] p-6 md:p-8 border border-rose/40 shadow-[0_4px_24px_rgba(122,63,63,0.06)] flex flex-col gap-4 min-w-0 transition-[transform,box-shadow] duration-300 cursor-default hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(122,63,63,0.13)]"
+      className="rounded-[18px] p-6 md:p-8 border border-rose/40 shadow-[0_4px_24px_var(--shadow-soft)] flex flex-col gap-4 min-w-0 transition-[transform,box-shadow] duration-300 cursor-default hover:scale-[1.02] hover:shadow-[0_12px_40px_var(--shadow-soft-strong)]"
+      style={{ background: 'var(--surface-card)' }}
     >
       {/* Avatar + nome + cidade */}
       <div className="flex items-center gap-3">
@@ -158,13 +159,13 @@ export default function TestimonialsSection() {
         aria-hidden="true"
         className="absolute -top-20 -left-20 w-80 h-80 rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(196,154,138,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, var(--testimonial-glow-a) 0%, transparent 70%)',
         }}
       />
       <div
         aria-hidden="true"
         className="absolute -bottom-16 -right-16 w-60 h-60 rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(122,63,63,0.07) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, var(--testimonial-glow-b) 0%, transparent 70%)' }}
       />
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 xl:px-20">
@@ -219,7 +220,8 @@ export default function TestimonialsSection() {
             <button
               onClick={prev}
               aria-label="Depoimento anterior"
-              className="w-9 h-9 rounded-full border border-wine/25 bg-white flex items-center justify-center text-wine transition-colors hover:border-wine/50 cursor-pointer"
+              className="w-9 h-9 rounded-full border border-wine/25 flex items-center justify-center text-wine transition-colors hover:border-wine/50 cursor-pointer"
+              style={{ background: 'var(--surface-card)' }}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path
@@ -251,7 +253,8 @@ export default function TestimonialsSection() {
             <button
               onClick={next}
               aria-label="Próximo depoimento"
-              className="w-9 h-9 rounded-full border border-wine/25 bg-white flex items-center justify-center text-wine transition-colors hover:border-wine/50 cursor-pointer"
+              className="w-9 h-9 rounded-full border border-wine/25 flex items-center justify-center text-wine transition-colors hover:border-wine/50 cursor-pointer"
+              style={{ background: 'var(--surface-card)' }}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path

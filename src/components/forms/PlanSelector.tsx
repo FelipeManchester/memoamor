@@ -72,7 +72,7 @@ export default function PlanSelector() {
               className="text-left rounded-l-lg rounded-r-none max-sm:rounded-lg max-sm:rounded-b-none relative overflow-hidden transition-all duration-200 cursor-pointer"
               style={{
                 border: isSelected ? '2px solid var(--color-wine)' : '1px solid var(--color-rose)',
-                background: 'white',
+                background: 'var(--surface-card)',
                 padding: 'clamp(20px, 3vw, 28px)',
               }}
             >
@@ -117,10 +117,10 @@ export default function PlanSelector() {
               onClick={() => selectPlan('premium')}
               className="text-left rounded-lg max-sm:rounded-t-none relative overflow-hidden transition-all duration-200 cursor-pointer"
               style={{
-                background: 'white',
+                background: 'var(--surface-card)',
                 border: isSelected ? '2px solid var(--color-wine)' : '1px solid var(--color-rose)',
                 padding: 'clamp(20px, 3vw, 32px)',
-                boxShadow: '0 4px 16px rgba(122, 63, 63, 0.08)',
+                boxShadow: '0 4px 16px var(--shadow-soft)',
               }}
             >
               {/* Popular badge */}

@@ -282,7 +282,7 @@ export default function StepFour() {
                 className="flex items-center justify-between py-3 px-4 rounded-sm transition-all duration-200 cursor-pointer text-left"
                 style={{
                   border: `1px solid ${data.youtubeUrl === song.url ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-                  background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'white',
+                  background: data.youtubeUrl === song.url ? 'var(--color-blush)' : 'var(--surface-card)',
                 }}
               >
                 <div>
@@ -338,7 +338,7 @@ export default function StepFour() {
                 className="flex items-center justify-between py-4 px-5 rounded-sm transition-all duration-200 text-left"
                 style={{
                   border: `1px solid ${isSelected ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-                  background: isLocked ? '#faf8f6' : isSelected ? 'var(--color-blush)' : 'white',
+                  background: isLocked ? 'var(--color-light)' : isSelected ? 'var(--color-blush)' : 'var(--surface-card)',
                   cursor: isLocked ? 'not-allowed' : 'pointer',
                   opacity: isLocked ? 0.65 : 1,
                 }}

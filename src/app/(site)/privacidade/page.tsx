@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function PrivacidadePage() {
   return (
     <main
-      className="min-h-svh bg-cream"
+      className="theme-midnight min-h-svh bg-cream text-text"
       style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)' }}
     >
       <div className="max-w-[720px] mx-auto">

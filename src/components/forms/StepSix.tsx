@@ -108,7 +108,10 @@ export default function StepSix() {
       </div>
 
       {/* Card 1 — O casal */}
-      <div className="border border-rose rounded-sm bg-white p-5 flex flex-col gap-3">
+      <div
+        className="border border-rose rounded-sm p-5 flex flex-col gap-3"
+        style={{ background: 'var(--surface-card)' }}
+      >
         <div className="flex items-center justify-between">
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
             O casal
@@ -139,7 +142,10 @@ export default function StepSix() {
       </div>
 
       {/* Card 2 — Memórias */}
-      <div className="border border-rose rounded-sm bg-white p-5 flex flex-col gap-3">
+      <div
+        className="border border-rose rounded-sm p-5 flex flex-col gap-3"
+        style={{ background: 'var(--surface-card)' }}
+      >
         <div className="flex items-center justify-between">
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
             Memórias ({data.memories.length})
@@ -190,7 +196,10 @@ export default function StepSix() {
       </div>
 
       {/* Card 3 — Galeria */}
-      <div className="border border-rose rounded-sm bg-white p-5 flex flex-col gap-3">
+      <div
+        className="border border-rose rounded-sm p-5 flex flex-col gap-3"
+        style={{ background: 'var(--surface-card)' }}
+      >
         <div className="flex items-center justify-between">
           <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
             Galeria (
@@ -229,7 +238,10 @@ export default function StepSix() {
       </div>
 
       {/* Card 4 — Detalhes */}
-      <div className="border border-rose rounded-sm bg-white p-5 flex flex-col gap-3">
+      <div
+        className="border border-rose rounded-sm p-5 flex flex-col gap-3"
+        style={{ background: 'var(--surface-card)' }}
+      >
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted">
           Detalhes
         </p>

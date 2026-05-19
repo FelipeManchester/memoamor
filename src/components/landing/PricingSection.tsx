@@ -49,7 +49,7 @@ export default function PricingSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 60% at 50% 100%, #f0d4ca33 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 70% 60% at 50% 100%, var(--section-glow) 0%, transparent 70%)',
         }}
       />
 
@@ -82,7 +82,7 @@ export default function PricingSection() {
             className="rounded-l-lg rounded-r-none max-md:rounded-lg relative"
             style={{
               border: '1px solid var(--color-rose)',
-              background: 'white',
+              background: 'var(--surface-card)',
               padding: 'clamp(28px, 4vw, 40px)',
             }}
           >
@@ -134,23 +134,23 @@ export default function PricingSection() {
           <div
             className="rounded-lg relative overflow-hidden"
             style={{
-              background: 'var(--color-wine)',
+              background: 'var(--premium-bg)',
               padding: 'clamp(28px, 4vw, 44px)',
-              boxShadow: '0 24px 64px rgba(122, 63, 63, 0.35), 0 4px 16px rgba(122, 63, 63, 0.2)',
+              boxShadow: '0 24px 64px var(--shadow-brand-heavy), 0 4px 16px var(--shadow-soft-strong)',
               marginBottom: '-1px', // align bottom edge with essencial card bottom border
             }}
           >
             {/* Popular badge */}
             <div
               className="absolute top-5 right-5 rounded-full px-3 py-1 font-sans text-[0.6rem] tracking-[0.15em] uppercase"
-              style={{ background: 'rgba(242, 221, 213, 0.18)', color: 'var(--color-blush)' }}
+              style={{ background: 'var(--premium-badge-bg)', color: 'var(--premium-badge-text)' }}
             >
               Mais popular
             </div>
 
             <p
               className="font-sans text-[0.7rem] tracking-[0.25em] uppercase mb-3"
-              style={{ color: 'var(--color-rose)' }}
+              style={{ color: 'var(--premium-eyebrow)' }}
             >
               Premium
             </p>
@@ -161,7 +161,7 @@ export default function PricingSection() {
                 className="font-serif font-light leading-none"
                 style={{
                   fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
-                  color: 'var(--color-cream)',
+                  color: 'var(--premium-price)',
                 }}
               >
                 R$ 29,90
@@ -172,7 +172,7 @@ export default function PricingSection() {
 
             <p
               className="font-sans text-[0.82rem] mb-5 leading-[1.6]"
-              style={{ color: 'var(--color-blush)' }}
+              style={{ color: 'var(--premium-tagline)' }}
             >
               Pra surpreender de verdade
             </p>
@@ -184,9 +184,9 @@ export default function PricingSection() {
                   key={h.label}
                   className="font-sans text-[0.62rem] tracking-[0.08em] px-2.5 py-1 rounded-full"
                   style={{
-                    background: 'rgba(242, 221, 213, 0.14)',
-                    color: 'var(--color-blush)',
-                    border: '1px solid rgba(242, 221, 213, 0.22)',
+                    background: 'var(--premium-pill-bg)',
+                    color: 'var(--premium-pill-text)',
+                    border: '1px solid var(--premium-pill-border)',
                   }}
                 >
                   {h.label}
@@ -194,7 +194,7 @@ export default function PricingSection() {
               ))}
             </div>
 
-            <div className="h-px mb-6" style={{ background: 'rgba(242, 221, 213, 0.18)' }} />
+            <div className="h-px mb-6" style={{ background: 'var(--premium-divider)' }} />
 
             {/* Features */}
             <ul className="list-none flex flex-col gap-3 mb-8">
@@ -205,14 +205,14 @@ export default function PricingSection() {
                     key={i}
                     className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
                     style={{
-                      color: isUpgrade ? 'var(--color-cream)' : 'rgba(242, 221, 213, 0.6)',
+                      color: isUpgrade ? 'var(--premium-feat-active)' : 'var(--premium-feat-muted)',
                       fontWeight: isUpgrade ? 400 : 300,
                     }}
                   >
                     <span
                       className="shrink-0"
                       style={{
-                        color: isUpgrade ? 'var(--color-rose)' : 'rgba(232, 196, 184, 0.5)',
+                        color: isUpgrade ? 'var(--premium-check)' : 'var(--premium-check-muted)',
                       }}
                     >
                       ✓
@@ -222,9 +222,9 @@ export default function PricingSection() {
                       <span
                         className="font-sans text-[0.58rem] tracking-[0.06em] uppercase px-1.5 py-0.5 rounded-sm shrink-0"
                         style={{
-                          background: 'rgba(242, 221, 213, 0.18)',
-                          color: 'var(--color-rose)',
-                          border: '1px solid rgba(242, 221, 213, 0.25)',
+                          background: 'var(--premium-tag-bg)',
+                          color: 'var(--premium-tag-text)',
+                          border: '1px solid var(--premium-tag-border)',
                         }}
                       >
                         {f.upgrade}
@@ -240,8 +240,8 @@ export default function PricingSection() {
               href="/criar?plan=premium"
               className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.92] hover:-translate-y-px"
               style={{
-                background: 'var(--color-cream)',
-                color: 'var(--color-wine)',
+                background: 'var(--premium-cta-bg)',
+                color: 'var(--premium-cta-text)',
               }}
             >
               Quero a Premium →
@@ -249,7 +249,7 @@ export default function PricingSection() {
 
             <p
               className="font-sans text-[0.68rem] text-center mt-3 opacity-60"
-              style={{ color: 'var(--color-blush)' }}
+              style={{ color: 'var(--premium-disclaimer)' }}
             >
               Renovação por R$ 9,90/ano
             </p>

@@ -27,7 +27,7 @@ export default function ContatoPage() {
 
   return (
     <main
-      className="min-h-svh bg-cream"
+      className="theme-midnight min-h-svh bg-cream text-text"
       style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)' }}
     >
       <div className="max-w-[560px] mx-auto">
@@ -59,7 +59,10 @@ export default function ContatoPage() {
 
         {/* Formulário ou confirmação */}
         {status === 'sent' ? (
-          <div className="text-center py-12 px-6 border border-rose rounded-lg bg-white">
+          <div
+            className="text-center py-12 px-6 border border-rose rounded-lg"
+            style={{ background: 'var(--surface-card)' }}
+          >
             <span className="text-[2rem] block mb-4">♡</span>
             <h2 className="font-serif text-[1.5rem] italic font-light text-wine mb-3">
               Mensagem enviada!

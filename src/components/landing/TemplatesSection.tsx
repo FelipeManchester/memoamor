@@ -62,7 +62,8 @@ export default function TemplatesSection() {
             <a
               key={template.id}
               href={`/demo?template=${template.id}`}
-              className="no-underline block rounded-lg overflow-hidden border border-rose bg-white transition-[transform,box-shadow] duration-300 cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(122,63,63,0.12)]"
+              className="no-underline block rounded-lg overflow-hidden border border-rose transition-[transform,box-shadow] duration-300 cursor-pointer hover:-translate-y-1.5 hover:shadow-[0_20px_40px_var(--shadow-soft-strong)]"
+              style={{ background: 'var(--surface-card)' }}
             >
               {/* Preview visual do tema */}
               <div

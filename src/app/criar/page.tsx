@@ -37,7 +37,7 @@ export default function CriarPage() {
   const currentStep = useCreateFormStore((s) => s.currentStep)
 
   return (
-    <main className="min-h-svh bg-cream flex flex-col">
+    <main className="theme-midnight min-h-svh bg-cream text-text flex flex-col">
       <Suspense fallback={null}>
         <PlanFromUrl />
       </Suspense>

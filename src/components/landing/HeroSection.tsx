@@ -22,12 +22,11 @@ export default function HeroSection() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(ellipse 80% 70% at 20% 50%, #f0d4ca55 0%, transparent 60%), radial-gradient(ellipse 60% 60% at 90% 20%, #e8c4b833 0%, transparent 60%)',
+            'radial-gradient(ellipse 80% 70% at 20% 50%, var(--hero-glow-a) 0%, transparent 60%), radial-gradient(ellipse 60% 60% at 90% 20%, var(--hero-glow-b) 0%, transparent 60%)',
         }}
       />
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 grid grid-cols-1 lg:grid-cols-2 items-center min-h-[82svh] lg:min-h-svh pt-20">
-
         {/* ── Coluna esquerda — texto ── */}
         <div className="flex flex-col gap-8 relative z-[1] py-10 lg:py-16 pr-8">
           <h1
@@ -57,8 +56,8 @@ export default function HeroSection() {
             className="font-sans text-base leading-[1.8] text-text-muted m-0"
             style={{ maxWidth: '42ch' }}
           >
-            Crie uma página personalizada com fotos, memórias e a música de vocês. Compartilhe com um
-            link, sem baixar nada e sem complicação.
+            Crie uma página personalizada com fotos, memórias e a música de vocês. Compartilhe com
+            um link, sem baixar nada e sem complicação.
           </p>
 
           <div className="flex gap-4 items-center flex-wrap">
@@ -77,7 +76,7 @@ export default function HeroSection() {
           <div
             className="w-[75%] max-w-[380px] h-[75vh] rounded-3xl overflow-hidden border border-blush relative flex flex-col"
             style={{
-              boxShadow: '0 40px 80px rgba(122, 63, 63, 0.15), 0 8px 24px rgba(122, 63, 63, 0.08)',
+              boxShadow: '0 40px 80px var(--shadow-deep), 0 8px 24px var(--shadow-soft)',
               transform: `translateY(${scrollY * 0.05}px)`,
               transition: 'transform 0.1s linear',
             }}
@@ -102,21 +101,27 @@ export default function HeroSection() {
 
           {/* Badge flutuante — contador */}
           <div
-            className="absolute top-[15%] right-[5%] bg-white rounded-xl py-3 px-4 border border-blush animate-float"
-            style={{ boxShadow: '0 8px 24px rgba(122, 63, 63, 0.12)' }}
+            className="absolute top-[15%] right-[5%] rounded-xl py-3 px-4 border border-blush animate-float"
+            style={{
+              background: 'var(--surface-card)',
+              boxShadow: '0 8px 24px var(--shadow-soft-strong)',
+            }}
           >
             <p className="font-sans text-[0.6rem] tracking-[0.1em] uppercase text-mauve m-0 mb-1">
               Juntos há
             </p>
             <p className="font-serif text-[1.3rem] italic text-wine m-0">
-              <CountUp end={3} /> anos ♡
+              <CountUp end={9} /> anos ♡
             </p>
           </div>
 
           {/* Badge flutuante — player */}
           <div
-            className="absolute bottom-[20%] left-[2%] bg-white rounded-xl py-[10px] px-[14px] border border-blush animate-float-reverse flex items-center gap-2"
-            style={{ boxShadow: '0 8px 24px rgba(122, 63, 63, 0.12)' }}
+            className="absolute bottom-[20%] left-[2%] rounded-xl py-[10px] px-[14px] border border-blush animate-float-reverse flex items-center gap-2"
+            style={{
+              background: 'var(--surface-card)',
+              boxShadow: '0 8px 24px var(--shadow-soft-strong)',
+            }}
           >
             <span className="text-[1.2rem]">♪</span>
             <div>
@@ -125,7 +130,6 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   )
@@ -140,7 +144,10 @@ function CountUp({ end }: { end: number }) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setValue(end); return }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setValue(end)
+      return
+    }
 
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !animated.current) {

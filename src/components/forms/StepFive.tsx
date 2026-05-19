@@ -55,7 +55,7 @@ export default function StepFive() {
               className="flex items-center justify-between py-4 px-5 rounded-sm transition-all duration-200 text-left"
               style={{
                 border: `1px solid ${isSelected ? 'var(--color-wine)' : 'var(--color-rose)'}`,
-                background: isLocked ? '#faf8f6' : isSelected ? 'var(--color-blush)' : 'white',
+                background: isLocked ? 'var(--color-light)' : isSelected ? 'var(--color-blush)' : 'var(--surface-card)',
                 cursor: isLocked ? 'not-allowed' : 'pointer',
                 opacity: isLocked ? 0.65 : 1,
               }}
@@ -114,7 +114,10 @@ export default function StepFive() {
       </div>
 
       {/* Resumo */}
-      <div className="border border-rose rounded flex flex-col gap-[10px] p-5 bg-white">
+      <div
+        className="border border-rose rounded flex flex-col gap-[10px] p-5"
+        style={{ background: 'var(--surface-card)' }}
+      >
         <p className="font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase text-text-muted mb-2">
           Resumo
         </p>

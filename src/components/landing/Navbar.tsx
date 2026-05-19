@@ -35,7 +35,7 @@ export default function Navbar() {
       <nav
         className="fixed top-0 left-0 right-0 z-[100] transition-all duration-[400ms]"
         style={{
-          background: scrolled || menuOpen ? 'rgba(250, 246, 241, 0.96)' : 'transparent',
+          background: scrolled || menuOpen ? 'var(--navbar-scrolled-bg)' : 'transparent',
           backdropFilter: scrolled || menuOpen ? 'blur(16px)' : 'none',
           borderBottom: scrolled || menuOpen ? '1px solid var(--color-blush)' : 'none',
         }}
