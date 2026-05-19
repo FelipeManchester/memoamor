@@ -54,6 +54,16 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap"
           rel="stylesheet"
         />
+        {/* fbq queue init — runs synchronously so window.fbq exists before any component useEffect */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1685469816137988');
+          fbq('track', 'PageView');
+        `}} />
       </head>
       <body>
         <Script
@@ -68,20 +78,10 @@ export default function RootLayout({
             gtag('config', 'G-L9PMWQD4HK');
           `}
         </Script>
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {`
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1685469816137988');
-            fbq('track', 'PageView');
-          `}
-        </Script>
+        <Script
+          src="https://connect.facebook.net/en_US/fbevents.js"
+          strategy="afterInteractive"
+        />
         <noscript>
           <img
             height="1"
