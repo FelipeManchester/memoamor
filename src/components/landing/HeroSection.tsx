@@ -56,8 +56,8 @@ export default function HeroSection() {
             className="font-sans text-base leading-[1.8] text-text-muted m-0 mx-auto lg:mx-0"
             style={{ maxWidth: '42ch' }}
           >
-            Crie uma página personalizada com fotos, memórias e a música de vocês. Compartilhe com
-            um link, sem baixar nada e sem complicação.
+            Crie uma página personalizada com fotos, memórias e a música de vocês. Um presente feito
+            para emocionar, compartilhar e guardar para sempre.
           </p>
 
           <div className="flex gap-4 items-center flex-wrap justify-center lg:justify-start">
@@ -67,6 +67,34 @@ export default function HeroSection() {
             >
               Criar minha página ♡
             </Link>
+          </div>
+
+          {/* ── Mockup mobile (preview reduzido) ── */}
+          <div className="lg:hidden w-full flex justify-center pt-2">
+            <div
+              className="w-full max-w-[300px] h-[440px] rounded-2xl overflow-hidden border border-blush flex flex-col"
+              style={{
+                boxShadow: '0 20px 50px var(--shadow-deep), 0 4px 14px var(--shadow-soft)',
+              }}
+            >
+              <div className="bg-white py-[8px] px-3 flex items-center gap-2 border-b border-blush shrink-0">
+                <div className="flex gap-1">
+                  {['#ff6b6b', '#ffd93d', '#6bcb77'].map((c) => (
+                    <div
+                      key={c}
+                      className="w-[7px] h-[7px] rounded-full"
+                      style={{ background: c }}
+                    />
+                  ))}
+                </div>
+                <div className="flex-1 bg-blush rounded py-1 px-2 font-sans text-[0.55rem] text-mauve truncate">
+                  memoamor.app/p/ana-e-pedro
+                </div>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <AutoScrollPreview />
+              </div>
+            </div>
           </div>
         </div>
 
