@@ -5,29 +5,29 @@
    ───────────────────────────────────────────── */
 @theme {
   /* ── Backgrounds ─────────────────────────── */
-  --color-cream: #FAF7F2;           /* bg-primary */
-  --color-light: #F4EFE6;           /* bg-secondary */
-  --color-bg-dark: #1A1614;
+  --color-cream: #faf7f2; /* bg-primary */
+  --color-light: #f4efe6; /* bg-secondary */
+  --color-bg-dark: #1a1614;
 
   /* ── Text ────────────────────────────────── */
-  --color-text: #1A1614;            /* text-primary */
-  --color-text-secondary: #4A413B;
-  --color-text-muted: #6B5D52;
-  --color-text-on-dark: #FAF7F2;
+  --color-text: #1a1614; /* text-primary */
+  --color-text-secondary: #4a413b;
+  --color-text-muted: #6b5d52;
+  --color-text-on-dark: #faf7f2;
 
   /* ── Brand ───────────────────────────────── */
-  --color-brand: #C9504E;
-  --color-brand-hover: #B33F3D;
-  --color-rose: #E8C9B5;            /* brand-soft — borders, subtle fills */
-  --color-blush: #F0D5C0;           /* lighter blush */
-  --color-mauve: #C9504E;           /* compat alias → brand */
-  --color-wine: #7A2825;            /* brand-deep */
+  --color-brand: #c9504e;
+  --color-brand-hover: #b33f3d;
+  --color-rose: #e8c9b5; /* brand-soft — borders, subtle fills */
+  --color-blush: #f0d5c0; /* lighter blush */
+  --color-mauve: #c9504e; /* compat alias → brand */
+  --color-wine: #7a2825; /* brand-deep */
 
   /* ── States ──────────────────────────────── */
-  --color-success: #7C8E5C;
-  --color-warning: #C99B5C;
-  --color-error: #B33F3D;
-  --color-info: #5C7A8E;
+  --color-success: #7c8e5c;
+  --color-warning: #c99b5c;
+  --color-error: #b33f3d;
+  --color-info: #5c7a8e;
 
   /* ── Fonts ───────────────────────────────── */
   --font-serif: 'Fraunces', Georgia, serif;
@@ -47,68 +47,68 @@
    outside @theme)
    ───────────────────────────────────────────── */
 :root {
-  --border-subtle:  rgba(26, 22, 20, 0.06);
+  --border-subtle: rgba(26, 22, 20, 0.06);
   --border-default: rgba(26, 22, 20, 0.12);
-  --border-strong:  rgba(26, 22, 20, 0.24);
+  --border-strong: rgba(26, 22, 20, 0.24);
 
-  --shadow-sm:    0 1px 4px  rgba(26, 22, 20, 0.04);
-  --shadow-md:    0 4px 12px rgba(26, 22, 20, 0.06);
-  --shadow-lg:    0 8px 24px rgba(26, 22, 20, 0.08);
+  --shadow-sm: 0 1px 4px rgba(26, 22, 20, 0.04);
+  --shadow-md: 0 4px 12px rgba(26, 22, 20, 0.06);
+  --shadow-lg: 0 8px 24px rgba(26, 22, 20, 0.08);
   --shadow-brand: 0 4px 16px rgba(201, 80, 78, 0.18);
 
   /* ── Landing chrome tokens (overridable per-theme) ── */
-  --surface-card:        #ffffff;
+  --surface-card: #ffffff;
   --surface-card-border: var(--color-rose);
-  --shadow-soft:         rgba(122, 63, 63, 0.08);
-  --shadow-soft-strong:  rgba(122, 63, 63, 0.13);
-  --shadow-deep:         rgba(122, 63, 63, 0.15);
-  --shadow-brand-heavy:  rgba(122, 63, 63, 0.35);
-  --hero-glow-a:         rgba(240, 212, 202, 0.33);
-  --hero-glow-b:         rgba(232, 196, 184, 0.20);
-  --section-glow:        rgba(240, 212, 202, 0.20);
-  --testimonial-glow-a:  rgba(196, 154, 138, 0.12);
-  --testimonial-glow-b:  rgba(122, 63, 63, 0.07);
-  --navbar-scrolled-bg:  rgba(250, 246, 241, 0.96);
-  --cta-section-bg:      var(--color-wine);
-  --cta-button-bg:       var(--color-cream);
-  --cta-button-text:     var(--color-wine);
-  --heart-particles:     #7a3f3f, #c49a8a, #b56060, #cc8877, #e8c4b8;
-  --star-fill:           var(--color-wine);
-  --avatar-1-bg:         #7a3f3f;
-  --avatar-1-fg:         #faf6f1;
-  --avatar-2-bg:         #c49a8a;
-  --avatar-2-fg:         #3d2b2b;
-  --avatar-3-bg:         #f2ddd5;
-  --avatar-3-fg:         #7a3f3f;
+  --shadow-soft: rgba(122, 63, 63, 0.08);
+  --shadow-soft-strong: rgba(122, 63, 63, 0.13);
+  --shadow-deep: rgba(122, 63, 63, 0.15);
+  --shadow-brand-heavy: rgba(122, 63, 63, 0.35);
+  --hero-glow-a: rgba(240, 212, 202, 0.33);
+  --hero-glow-b: rgba(232, 196, 184, 0.2);
+  --section-glow: rgba(240, 212, 202, 0.2);
+  --testimonial-glow-a: rgba(196, 154, 138, 0.12);
+  --testimonial-glow-b: rgba(122, 63, 63, 0.07);
+  --navbar-scrolled-bg: rgba(250, 246, 241, 0.96);
+  --cta-section-bg: var(--color-wine);
+  --cta-button-bg: var(--color-cream);
+  --cta-button-text: var(--color-wine);
+  --heart-particles: #7a3f3f, #c49a8a, #b56060, #cc8877, #e8c4b8;
+  --star-fill: var(--color-wine);
+  --avatar-1-bg: #7a3f3f;
+  --avatar-1-fg: #faf6f1;
+  --avatar-2-bg: #c49a8a;
+  --avatar-2-fg: #3d2b2b;
+  --avatar-3-bg: #f2ddd5;
+  --avatar-3-fg: #7a3f3f;
 
   /* ── CTA section — light text on dark bg by default ── */
-  --cta-eyebrow:         var(--color-rose);
-  --cta-heading:         var(--color-cream);
-  --cta-body:            var(--color-blush);
-  --cta-disclaimer:      var(--color-rose);
-  --cta-petal-fill:      var(--color-rose);
+  --cta-eyebrow: var(--color-rose);
+  --cta-heading: var(--color-cream);
+  --cta-body: var(--color-blush);
+  --cta-disclaimer: var(--color-rose);
+  --cta-petal-fill: var(--color-rose);
 
   /* ── Premium pricing card — dark accent card ── */
-  --premium-bg:          var(--color-wine);
-  --premium-eyebrow:     var(--color-rose);
-  --premium-price:       var(--color-cream);
-  --premium-tagline:     var(--color-blush);
-  --premium-divider:     rgba(242, 221, 213, 0.18);
+  --premium-bg: var(--color-wine);
+  --premium-eyebrow: var(--color-rose);
+  --premium-price: var(--color-cream);
+  --premium-tagline: var(--color-blush);
+  --premium-divider: rgba(242, 221, 213, 0.18);
   --premium-feat-active: var(--color-cream);
-  --premium-feat-muted:  rgba(242, 221, 213, 0.6);
-  --premium-check:       var(--color-rose);
+  --premium-feat-muted: rgba(242, 221, 213, 0.6);
+  --premium-check: var(--color-rose);
   --premium-check-muted: rgba(232, 196, 184, 0.5);
-  --premium-pill-bg:     rgba(242, 221, 213, 0.14);
+  --premium-pill-bg: rgba(242, 221, 213, 0.14);
   --premium-pill-border: rgba(242, 221, 213, 0.22);
-  --premium-pill-text:   var(--color-blush);
-  --premium-badge-bg:    rgba(242, 221, 213, 0.18);
-  --premium-badge-text:  var(--color-blush);
-  --premium-tag-bg:      rgba(242, 221, 213, 0.18);
-  --premium-tag-border:  rgba(242, 221, 213, 0.25);
-  --premium-tag-text:    var(--color-rose);
-  --premium-cta-bg:      var(--color-cream);
-  --premium-cta-text:    var(--color-wine);
-  --premium-disclaimer:  var(--color-blush);
+  --premium-pill-text: var(--color-blush);
+  --premium-badge-bg: rgba(242, 221, 213, 0.18);
+  --premium-badge-text: var(--color-blush);
+  --premium-tag-bg: rgba(242, 221, 213, 0.18);
+  --premium-tag-border: rgba(242, 221, 213, 0.25);
+  --premium-tag-text: var(--color-rose);
+  --premium-cta-bg: var(--color-cream);
+  --premium-cta-text: var(--color-wine);
+  --premium-disclaimer: var(--color-blush);
 }
 
 /* ─────────────────────────────────────────────
@@ -117,71 +117,71 @@
    Templates, demo, criar, sucesso stay untouched.
    ───────────────────────────────────────────── */
 .theme-midnight {
-  --color-cream:          #14111C;
-  --color-light:          #1F1A2A;
-  --color-text:           #F0E4EC;
-  --color-text-secondary: #D4C0CC;
-  --color-text-muted:     #A89BB5;
-  --color-text-on-dark:   #F0E4EC;
-  --color-wine:           #E8A4B5;
-  --color-mauve:          #C9A0A8;
-  --color-brand:          #E8748A;
-  --color-brand-hover:    #F38FA5;
-  --color-rose:           #5C3A4A;
-  --color-blush:          #2A2235;
+  --color-cream: #14111c;
+  --color-light: #1f1a2a;
+  --color-text: #f0e4ec;
+  --color-text-secondary: #e1d8de;
+  --color-text-muted: #e1d8e1;
+  --color-text-on-dark: #f0e4ec;
+  --color-wine: #e8a4b5;
+  --color-mauve: #c9a0a8;
+  --color-brand: #e8748a;
+  --color-brand-hover: #f38fa5;
+  --color-rose: #5c3a4a;
+  --color-blush: #2a2235;
 
-  --surface-card:         #1F1A2A;
-  --surface-card-border:  rgba(232, 164, 181, 0.18);
-  --shadow-soft:          rgba(0, 0, 0, 0.35);
-  --shadow-soft-strong:   rgba(0, 0, 0, 0.50);
-  --shadow-deep:          rgba(0, 0, 0, 0.55);
-  --shadow-brand-heavy:   rgba(232, 116, 138, 0.28);
-  --hero-glow-a:          rgba(232, 116, 138, 0.16);
-  --hero-glow-b:          rgba(201, 160, 168, 0.10);
-  --section-glow:         rgba(232, 116, 138, 0.10);
-  --testimonial-glow-a:   rgba(201, 160, 168, 0.10);
-  --testimonial-glow-b:   rgba(232, 116, 138, 0.08);
-  --navbar-scrolled-bg:   rgba(20, 17, 28, 0.85);
-  --cta-section-bg:       linear-gradient(135deg, #2A1428 0%, #18101C 100%);
-  --cta-button-bg:        var(--color-wine);
-  --cta-button-text:      #14111C;
-  --heart-particles:      #E8A4B5, #C9A0A8, #E8748A, #D4889A, #5C3A4A;
-  --star-fill:            var(--color-wine);
-  --avatar-1-bg:          #5C3A4A;
-  --avatar-1-fg:          #F0E4EC;
-  --avatar-2-bg:          #C9A0A8;
-  --avatar-2-fg:          #14111C;
-  --avatar-3-bg:          #2A2235;
-  --avatar-3-fg:          #E8A4B5;
+  --surface-card: #1f1a2a;
+  --surface-card-border: rgba(232, 164, 181, 0.18);
+  --shadow-soft: rgba(0, 0, 0, 0.35);
+  --shadow-soft-strong: rgba(0, 0, 0, 0.5);
+  --shadow-deep: rgba(0, 0, 0, 0.55);
+  --shadow-brand-heavy: rgba(232, 116, 138, 0.28);
+  --hero-glow-a: rgba(232, 116, 138, 0.16);
+  --hero-glow-b: rgba(201, 160, 168, 0.1);
+  --section-glow: rgba(232, 116, 138, 0.1);
+  --testimonial-glow-a: rgba(201, 160, 168, 0.1);
+  --testimonial-glow-b: rgba(232, 116, 138, 0.08);
+  --navbar-scrolled-bg: rgba(20, 17, 28, 0.85);
+  --cta-section-bg: linear-gradient(135deg, #2a1428 0%, #18101c 100%);
+  --cta-button-bg: var(--color-wine);
+  --cta-button-text: #14111c;
+  --heart-particles: #e8a4b5, #c9a0a8, #e8748a, #d4889a, #5c3a4a;
+  --star-fill: var(--color-wine);
+  --avatar-1-bg: #5c3a4a;
+  --avatar-1-fg: #f0e4ec;
+  --avatar-2-bg: #c9a0a8;
+  --avatar-2-fg: #14111c;
+  --avatar-3-bg: #2a2235;
+  --avatar-3-fg: #e8a4b5;
 
   /* CTA — explicit light text on dark gradient */
-  --cta-eyebrow:          #E8A4B5;
-  --cta-heading:          #F0E4EC;
-  --cta-body:             #C9B5C4;
-  --cta-disclaimer:       #C9A0A8;
-  --cta-petal-fill:       #E8A4B5;
+  --cta-eyebrow: #e8a4b5;
+  --cta-heading: #f0e4ec;
+  --cta-body: #c9b5c4;
+  --cta-disclaimer: #c9a0a8;
+  --cta-petal-fill: #e8a4b5;
 
   /* Premium card — deep plum gradient with light text */
-  --premium-bg:           linear-gradient(135deg, #3A1828 0%, #240F1C 100%);
-  --premium-eyebrow:      #E8A4B5;
-  --premium-price:        #F0E4EC;
-  --premium-tagline:      #C9B5C4;
-  --premium-divider:      rgba(232, 164, 181, 0.18);
-  --premium-feat-active:  #F0E4EC;
-  --premium-feat-muted:   rgba(240, 228, 236, 0.45);
-  --premium-check:        #E8A4B5;
-  --premium-check-muted:  rgba(232, 164, 181, 0.45);
-  --premium-pill-bg:      rgba(232, 164, 181, 0.10);
-  --premium-pill-border:  rgba(232, 164, 181, 0.22);
-  --premium-pill-text:    #F0E4EC;
-  --premium-badge-bg:     #E8A4B5;
-  --premium-badge-text:   #14111C;
-  --premium-tag-bg:       rgba(232, 164, 181, 0.14);
-  --premium-tag-border:   rgba(232, 164, 181, 0.28);
-  --premium-tag-text:     #F0E4EC;
-  --premium-cta-bg:       #E8A4B5;
-  --premium-cta-text:     #14111C;
-  --premium-disclaimer:   #C9A0A8;
+  --premium-bg: linear-gradient(135deg, #3a1828 0%, #240f1c 100%);
+  --premium-eyebrow: #e8a4b5;
+  --premium-price: #f0e4ec;
+  --premium-tagline: #c9b5c4;
+  --premium-divider: rgba(232, 164, 181, 0.18);
+  --premium-feat-active: #f0e4ec;
+  --premium-feat-muted: rgba(240, 228, 236, 0.45);
+  --premium-check: #e8a4b5;
+  --premium-check-muted: rgba(232, 164, 181, 0.45);
+  --premium-pill-bg: rgba(232, 164, 181, 0.1);
+  --premium-pill-border: rgba(232, 164, 181, 0.22);
+  --premium-pill-text: #f0e4ec;
+  --premium-badge-bg: #e8a4b5;
+  --premium-badge-text: #14111c;
+  --premium-tag-bg: rgba(232, 164, 181, 0.14);
+  --premium-tag-border: rgba(232, 164, 181, 0.28);
+  --premium-tag-text: #f0e4ec;
+  --premium-cta-bg: #e8a4b5;
+  --premium-cta-text: #14111c;
+  --premium-disclaimer: #c9a0a8;
 }
 
 .theme-midnight body,
@@ -234,46 +234,100 @@ body:has(.theme-midnight) {
    Keyframes — used across multiple components
    ───────────────────────────────────────────── */
 @keyframes floatBadge {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes scrollPulse {
-  0%, 100% { transform: scaleY(1); opacity: 0.7; }
-  50% { transform: scaleY(0.5); opacity: 0.3; }
+  0%,
+  100% {
+    transform: scaleY(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scaleY(0.5);
+    opacity: 0.3;
+  }
 }
 
 @keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  14% { transform: scale(1.25); }
-  28% { transform: scale(1); }
-  42% { transform: scale(1.15); }
-  56% { transform: scale(1); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.25);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.15);
+  }
+  56% {
+    transform: scale(1);
+  }
 }
 
 @keyframes loadingDot {
-  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-  40% { opacity: 1; transform: scale(1.2); }
+  0%,
+  80%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes heartFloat {
-  0%   { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-22px) scale(0.8); }
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-22px) scale(0.8);
+  }
 }
 
 @keyframes tooltipFadeOut {
-  0%, 65% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100%     { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+  0%,
+  65% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
 }
 
 /* ─────────────────────────────────────────────
@@ -358,14 +412,18 @@ body:has(.theme-midnight) {
    Dark template themes — override tokens for
    hearts & constellations dark backgrounds
    ───────────────────────────────────────────── */
-[data-template="hearts"] {
+[data-template='hearts'] {
   --color-wine: #fcd8e8;
   --color-mauve: #e8a8c8;
   --color-text-muted: #c888aa;
   --color-text: #f0e0ea;
   --color-rose: #8a305c;
   --color-light: #280818;
-  --hero-overlay: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(200, 30, 90, 0.2) 0%, transparent 70%);
+  --hero-overlay: radial-gradient(
+    ellipse 70% 60% at 50% 0%,
+    rgba(200, 30, 90, 0.2) 0%,
+    transparent 70%
+  );
   --quote-bg: linear-gradient(135deg, #2e0a1b 0%, #1a0510 100%);
   --quote-mark-color: rgba(220, 80, 130, 0.22);
   --selector-bg: rgba(42, 8, 24, 0.92);
@@ -376,14 +434,18 @@ body:has(.theme-midnight) {
   --overlay-btn-bg: #c888aa;
 }
 
-[data-template="constellations"] {
+[data-template='constellations'] {
   --color-wine: #e8d8ff;
   --color-mauve: #c4a0e0;
   --color-text-muted: #a080c8;
   --color-text: #e0d8f8;
   --color-rose: #6040b0;
   --color-light: #0e0920;
-  --hero-overlay: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(100, 50, 220, 0.15) 0%, transparent 70%);
+  --hero-overlay: radial-gradient(
+    ellipse 70% 60% at 50% 0%,
+    rgba(100, 50, 220, 0.15) 0%,
+    transparent 70%
+  );
   --quote-bg: linear-gradient(135deg, #120a28 0%, #07051a 100%);
   --quote-mark-color: rgba(160, 120, 240, 0.22);
   --selector-bg: rgba(14, 8, 38, 0.92);

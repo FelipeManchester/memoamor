@@ -28,7 +28,7 @@ export default function HeroSection() {
 
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 grid grid-cols-1 lg:grid-cols-2 items-center min-h-[82svh] lg:min-h-svh pt-20">
         {/* ── Coluna esquerda — texto ── */}
-        <div className="flex flex-col gap-8 relative z-[1] py-10 lg:py-16 pr-8">
+        <div className="flex flex-col gap-8 relative z-[1] py-10 lg:py-16 items-center text-center lg:items-start lg:text-left lg:pr-8">
           <h1
             className="font-serif font-light italic text-wine leading-[1.1] m-0"
             style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}
@@ -53,14 +53,14 @@ export default function HeroSection() {
           </h1>
 
           <p
-            className="font-sans text-base leading-[1.8] text-text-muted m-0"
+            className="font-sans text-base leading-[1.8] text-text-muted m-0 mx-auto lg:mx-0"
             style={{ maxWidth: '42ch' }}
           >
             Crie uma página personalizada com fotos, memórias e a música de vocês. Compartilhe com
             um link, sem baixar nada e sem complicação.
           </p>
 
-          <div className="flex gap-4 items-center flex-wrap">
+          <div className="flex gap-4 items-center flex-wrap justify-center lg:justify-start">
             <Link
               href="/criar"
               className="font-sans text-[0.78rem] tracking-[0.2em] uppercase py-[18px] px-9 bg-wine text-cream no-underline rounded-sm transition-all duration-200 inline-block hover:opacity-[0.88] hover:-translate-y-0.5"

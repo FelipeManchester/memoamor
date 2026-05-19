@@ -205,16 +205,11 @@ export default function PricingSection() {
                     key={i}
                     className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
                     style={{
-                      color: isUpgrade ? 'var(--premium-feat-active)' : 'var(--premium-feat-muted)',
-                      fontWeight: isUpgrade ? 400 : 300,
+                      color: 'var(--premium-feat-active)',
+                      fontWeight: isUpgrade ? 600 : 400,
                     }}
                   >
-                    <span
-                      className="shrink-0"
-                      style={{
-                        color: isUpgrade ? 'var(--premium-check)' : 'var(--premium-check-muted)',
-                      }}
-                    >
+                    <span className="shrink-0" style={{ color: 'var(--premium-check)' }}>
                       ✓
                     </span>
                     <span className="flex-1">{f.text}</span>
