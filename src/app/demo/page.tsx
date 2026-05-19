@@ -145,6 +145,8 @@ function DemoContent() {
               key={memory.id}
               memory={memory}
               flip={i % 2 !== 0}
+              index={i}
+              total={page.memories.length}
               supabaseUrl={process.env.NEXT_PUBLIC_SUPABASE_URL!}
             />
           ))}

@@ -13,6 +13,9 @@ function getImageUrl(path: string, supabaseUrl: string): string {
   return `${supabaseUrl}/storage/v1/object/public/pages/${path}`
 }
 
+// Deterministic scatter — slight tilt per polaroid for a hand-placed look
+const TILTS = [-4, 3, -2, 4.5, -3.2, 2.4, -1.6, 3.6, -4.4, 1.8]
+
 export default function Gallery({ photos, supabaseUrl }: GalleryProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -277,65 +280,61 @@ export default function Gallery({ photos, supabaseUrl }: GalleryProps) {
         {photos.map((path, i) => (
           <div
             key={i}
-            className="gallery-card relative flex-shrink-0 rounded-lg overflow-hidden will-change-transform"
+            className="gallery-card flex-shrink-0 will-change-transform"
             style={{
-              width: 'clamp(300px, 86vw, 480px)',
-              height: 'clamp(380px, 65vh, 600px)',
+              width: 'clamp(280px, 80vw, 420px)',
               transformStyle: 'preserve-3d',
             }}
           >
-            {/* Image with overflow for parallax */}
-            <div className="absolute inset-0 overflow-hidden">
-              <Image
-                src={getImageUrl(path, supabaseUrl)}
-                alt={`Foto ${i + 1}`}
-                width={800}
-                height={1000}
-                quality={90}
-                className="gallery-card-img w-[110%] h-full object-cover object-[center_30%] block will-change-transform"
-                style={{ marginLeft: '-5%' }}
-              />
+            {/* Polaroid frame — static tilt on inner so GSAP keeps the outer */}
+            <div
+              className="relative bg-white"
+              style={{
+                transform: `rotate(${TILTS[i % TILTS.length]}deg)`,
+                padding: '16px 16px 0',
+                borderRadius: '2px',
+                boxShadow:
+                  '0 20px 44px rgba(26,22,20,0.30), 0 4px 14px rgba(26,22,20,0.18)',
+              }}
+            >
+              {/* Photo window with overflow for parallax */}
+              <div
+                className="relative overflow-hidden"
+                style={{ aspectRatio: '4 / 5', background: '#ece6dd' }}
+              >
+                <Image
+                  src={getImageUrl(path, supabaseUrl)}
+                  alt={`Foto ${i + 1}`}
+                  width={800}
+                  height={1000}
+                  quality={90}
+                  className="gallery-card-img w-[112%] h-full object-cover object-[center_30%] block will-change-transform"
+                  style={{ marginLeft: '-6%' }}
+                />
+                {/* Soft inner shadow on the print */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{ boxShadow: 'inset 0 0 36px rgba(0,0,0,0.14)' }}
+                />
+              </div>
+
+              {/* Handwritten caption strip */}
+              <div
+                className="gallery-card-caption flex items-center justify-center"
+                style={{ height: 'clamp(52px, 7vh, 74px)' }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'var(--font-handwritten)',
+                    fontSize: '1.6rem',
+                    lineHeight: 1,
+                    color: 'var(--color-wine)',
+                  }}
+                >
+                  nº {i + 1}
+                </span>
+              </div>
             </div>
-
-            {/* Darken overlay — fades when card is centred */}
-            <div
-              className="gallery-card-overlay absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  'linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 100%)',
-              }}
-            />
-
-            {/* Soft edge vignette */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                boxShadow: 'inset 0 0 60px rgba(0,0,0,0.08)',
-              }}
-            />
-
-            {/* Caption */}
-            <div className="gallery-card-caption absolute bottom-0 left-0 right-0 p-5 pointer-events-none">
-              <span className="font-serif text-white/80 italic text-lg drop-shadow-md">
-                {i + 1}
-              </span>
-            </div>
-
-            {/* Decorative corner */}
-            <div
-              className="absolute top-3 left-3 w-6 h-6 pointer-events-none opacity-40"
-              style={{
-                borderTop: '1px solid rgba(255,255,255,0.6)',
-                borderLeft: '1px solid rgba(255,255,255,0.6)',
-              }}
-            />
-            <div
-              className="absolute bottom-3 right-3 w-6 h-6 pointer-events-none opacity-40"
-              style={{
-                borderBottom: '1px solid rgba(255,255,255,0.6)',
-                borderRight: '1px solid rgba(255,255,255,0.6)',
-              }}
-            />
           </div>
         ))}
       </div>

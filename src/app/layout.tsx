@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import '@/styles/globals.css'
+import CookieBanner from '@/components/ui/CookieBanner'
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'https://memoamor.app'
 const OG_TITLE = 'Memoamor: A história de vocês, em uma página'
@@ -92,6 +93,7 @@ export default function RootLayout({
           />
         </noscript>
         {children}
+        <CookieBanner />
       </body>
     </html>
   )
