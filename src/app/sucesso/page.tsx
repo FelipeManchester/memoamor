@@ -112,10 +112,9 @@ export default async function SucessoPage(props: {
           <Link
             href="/"
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: '1.3rem',
-              fontStyle: 'italic',
-              fontWeight: 300,
+              fontFamily: 'var(--font-logo)',
+              fontSize: '1.75rem',
+              lineHeight: 1,
               color: 'var(--color-wine)',
               textDecoration: 'none',
             }}

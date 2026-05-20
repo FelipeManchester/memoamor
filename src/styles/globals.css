@@ -33,6 +33,7 @@
   --font-serif: 'Fraunces', Georgia, serif;
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-handwritten: 'Caveat', cursive;
+  --font-logo: 'Parisienne', 'Caveat', cursive;
 
   /* ── Player ──────────────────────────────── */
   --player-height: 72px;

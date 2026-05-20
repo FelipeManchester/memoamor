@@ -44,7 +44,11 @@ export default function CriarPage() {
       {/* Header com logo e progresso */}
       <header className="py-5 px-6 border-b border-blush flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <a href="/" className="font-serif text-[1.3rem] italic text-wine no-underline">
+          <a
+            href="/"
+            className="text-[1.75rem] text-wine no-underline leading-none"
+            style={{ fontFamily: 'var(--font-logo)' }}
+          >
             Memoamor
           </a>
           {currentStep > 1 && (

@@ -44,7 +44,8 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="font-serif text-[1.4rem] italic font-light text-wine no-underline"
+            className="text-[1.9rem] text-wine no-underline leading-none"
+            style={{ fontFamily: 'var(--font-logo)' }}
           >
             Memoamor
           </Link>

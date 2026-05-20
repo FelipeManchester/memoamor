@@ -13,7 +13,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
         {/* Logo + tagline */}
         <div>
-          <p className="font-serif text-[1.2rem] italic font-light text-wine mb-1">
+          <p
+            className="text-[1.7rem] text-wine mb-1 leading-none"
+            style={{ fontFamily: 'var(--font-logo)' }}
+          >
             Memoamor
           </p>
           <p className="font-sans text-[0.72rem] text-mauve">

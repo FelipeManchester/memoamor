@@ -35,7 +35,8 @@ export default function ContatoPage() {
         <div className="mb-12">
           <a
             href="/"
-            className="font-serif text-[1.2rem] italic text-wine no-underline block mb-10"
+            className="text-[1.7rem] text-wine no-underline block mb-10 leading-none"
+            style={{ fontFamily: 'var(--font-logo)' }}
           >
             Memoamor
           </a>
