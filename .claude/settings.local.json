@@ -4,7 +4,10 @@
       "Bash(npm run *)",
       "Bash(Select-String gsap *)",
       "Skill(frontend-design)",
-      "Bash(dir C:\\\\Users\\\\Felipe\\\\Documents\\\\Personal\\\\memoamor\\\\public\\\\images *)"
+      "Bash(dir C:\\\\Users\\\\Felipe\\\\Documents\\\\Personal\\\\memoamor\\\\public\\\\images *)",
+      "WebFetch(domain:unsplash.com)",
+      "PowerShell(New-Item *)",
+      "Bash(node -e \"const sharp=require\\('sharp'\\);sharp\\('public/images/memory-4.jpeg'\\).resize\\(640\\).jpeg\\({quality:75}\\).toFile\\(require\\('os'\\).tmpdir\\(\\)+'/preview-memory-4.jpg'\\).then\\(\\(\\)=>console.log\\('ok'\\)\\).catch\\(e=>console.log\\('err:'+e.message\\)\\)\")"
     ]
   }
 }
