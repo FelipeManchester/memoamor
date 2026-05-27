@@ -5,7 +5,13 @@ import { useEffect } from 'react'
 export default function ScrollAnimations() {
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) return
+    if (prefersReduced) {
+      document.querySelectorAll<HTMLElement>('.reveal').forEach((el) => {
+        el.style.opacity = '1'
+        el.style.transform = 'none'
+      })
+      return
+    }
 
     async function init() {
       const { gsap } = await import('gsap')
