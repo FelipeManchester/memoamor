@@ -30,12 +30,10 @@ export default function CookieBanner() {
     <div
       role="dialog"
       aria-label="Aviso de cookies"
-      className="fixed z-[2000] left-4 right-4 bottom-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-[360px]"
-      style={{ animation: 'fadeUp 0.5s ease' }}
+      className="fixed z-[2000] left-4 right-4 bottom-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-[360px] [animation:fadeUp_0.5s_ease]"
     >
       <div
-        className="bg-white border border-rose rounded-lg p-5 flex flex-col gap-3"
-        style={{ boxShadow: 'var(--shadow-lg)' }}
+        className="bg-white border border-rose rounded-lg p-5 flex flex-col gap-3 [box-shadow:var(--shadow-lg)]"
       >
         <p className="font-serif italic text-wine text-[1.05rem]">Sobre os cookies</p>
         <p className="font-sans text-[0.8rem] leading-[1.7] text-text-muted">

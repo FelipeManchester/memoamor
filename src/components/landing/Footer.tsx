@@ -14,8 +14,7 @@ export default function Footer() {
         {/* Logo + tagline */}
         <div>
           <p
-            className="text-[1.7rem] text-wine mb-1 leading-none"
-            style={{ fontFamily: 'var(--font-logo)' }}
+            className="font-logo text-[1.7rem] text-wine mb-1 leading-none"
           >
             Memoamor
           </p>

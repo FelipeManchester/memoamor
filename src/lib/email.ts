@@ -53,16 +53,28 @@ export async function sendDeliveryEmail({
           <p style="font-family:sans-serif;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:#6b4a4a;margin:0 0 16px;">
             QR Code da página
           </p>
-          <img
-            src="${qrUrl}"
-            alt="QR Code"
-            width="160"
-            height="160"
-            style="display:block;margin:0 auto;border-radius:4px;"
-          />
-          <p style="font-family:sans-serif;font-size:11px;color:#c49a8a;margin:12px 0 0;">
+          <div style="display:inline-block;border:1.5px dashed #b87a7a;border-radius:8px;padding:16px 20px;margin-bottom:4px;">
+            <img
+              src="${qrUrl}"
+              alt="QR Code"
+              width="160"
+              height="160"
+              style="display:block;margin:0 auto;border-radius:4px;"
+            />
+            <p style="font-family:sans-serif;font-size:14px;font-weight:600;color:#7a3f3f;margin:10px 0 0;letter-spacing:0.02em;">
+              Pra sempre com você ❤️
+            </p>
+          </div>
+          <p style="font-family:sans-serif;font-size:11px;color:#c49a8a;margin:8px 0 16px;">
             Mostre para quem você quer surpreender — é só apontar a câmera do celular.
           </p>
+          <a
+            href="${qrUrl}"
+            target="_blank"
+            style="display:inline-block;padding:10px 22px;border:1px solid #b87a7a;border-radius:2px;font-family:sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#7a3f3f;text-decoration:none;"
+          >
+            Imprimir QR
+          </a>
         </div>
 
         <hr style="border:none;border-top:1px solid #e8c4b8;margin:32px 0;" />

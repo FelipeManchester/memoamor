@@ -11,6 +11,7 @@ import ResetFormOnSuccess from '@/components/page-builder/ResetFormOnSuccess'
 import PetalConfetti from '@/components/ui/PetalConfetti'
 import CopyLinkButton from './CopyLinkButton'
 import WhatsAppButton from './WhatsAppButton'
+import PrintQRButton from './PrintQRButton'
 import FaqItem from './FaqItem'
 import PurchasePixelEvent from './PurchasePixelEvent'
 
@@ -162,80 +163,46 @@ export default async function SucessoPage(props: {
 
           {/* QR Code card */}
           {slug && (
-            <div
-              style={{
-                background: 'white',
-                border: '1px solid var(--color-rose)',
-                borderRadius: 8,
-                padding: '28px 24px',
-                textAlign: 'center',
-                marginBottom: 24,
-                boxShadow: '0 4px 24px rgba(122,63,63,0.07)',
-              }}
-            >
-              <p
-                style={{
-                  fontSize: '0.62rem',
-                  letterSpacing: '0.2em',
-                  textTransform: 'uppercase',
-                  fontWeight: 500,
-                  color: 'var(--color-text-muted)',
-                  margin: '0 0 20px',
-                }}
-              >
-                QR Code da página
-              </p>
+            <div className="bg-white border border-rose rounded-lg py-7 px-6 text-center mb-6 shadow-[0_4px_24px_rgba(122,63,63,0.07)]">
+              <div className="flex items-center justify-center gap-2 mb-5">
+                <p className="text-[0.62rem] tracking-[0.2em] uppercase font-medium text-text-muted m-0">
+                  QR Code da página
+                </p>
+                <PrintQRButton qrUrl={qrUrl} />
+              </div>
 
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={qrUrl}
-                alt="QR Code"
-                width={160}
-                height={160}
-                style={{ display: 'block', margin: '0 auto 20px', borderRadius: 4 }}
-              />
+              <div className="inline-block border-[1.5px] border-dashed border-rose rounded-lg py-4 px-5 mb-5">
 
-              <p
-                style={{
-                  fontSize: '0.78rem',
-                  color: 'var(--color-text-muted)',
-                  margin: '0 0 20px',
-                }}
-              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={qrUrl}
+                  alt="QR Code"
+                  width={160}
+                  height={160}
+                  className="block mx-auto mb-2.5 rounded"
+                />
+
+                <p
+                  className="text-[0.85rem] font-semibold text-wine m-0 tracking-[0.02em]"
+                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                >
+                  Pra sempre com você ❤️
+                </p>
+              </div>
+
+              <p className="text-[0.78rem] text-text-muted mb-5">
                 Aponte a câmera do celular para abrir a página
               </p>
 
               {/* URL + actions */}
-              <div
-                style={{
-                  background: 'var(--color-blush)',
-                  borderRadius: 4,
-                  padding: '10px 14px',
-                  fontSize: '0.8rem',
-                  color: 'var(--color-wine)',
-                  wordBreak: 'break-all',
-                  marginBottom: 16,
-                  fontFamily: 'monospace',
-                }}
-              >
+              <div className="bg-blush rounded py-2.5 px-3.5 text-[0.8rem] text-wine break-all mb-4 font-mono">
                 {pageUrl}
               </div>
 
-              <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div className="flex gap-2.5 justify-center flex-wrap">
                 <a
                   href={pageUrl}
-                  style={{
-                    fontFamily: 'var(--font-sans)',
-                    fontSize: '0.72rem',
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase',
-                    padding: '12px 24px',
-                    background: 'var(--color-wine)',
-                    color: 'var(--color-cream)',
-                    textDecoration: 'none',
-                    borderRadius: 2,
-                    whiteSpace: 'nowrap',
-                  }}
+                  className="font-sans text-[0.72rem] tracking-[0.15em] uppercase py-3 px-6 bg-wine text-cream no-underline rounded-sm whitespace-nowrap"
                 >
                   Ver página →
                 </a>

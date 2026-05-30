@@ -11,16 +11,14 @@ export const metadata: Metadata = {
 export default function PrivacidadePage() {
   return (
     <main
-      className="theme-midnight min-h-svh bg-cream text-text"
-      style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 8vw, 100px)' }}
+      className="theme-midnight min-h-svh bg-cream text-text [padding:clamp(80px,10vw,120px)_clamp(24px,8vw,100px)]"
     >
       <div className="max-w-[720px] mx-auto">
         {/* Header */}
         <div className="mb-12">
           <Link
             href="/"
-            className="text-[1.7rem] text-wine no-underline block mb-10 leading-none"
-            style={{ fontFamily: 'var(--font-logo)' }}
+            className="font-logo text-[1.7rem] text-wine no-underline block mb-10 leading-none"
           >
             Memoamor
           </Link>
@@ -28,8 +26,7 @@ export default function PrivacidadePage() {
             Última atualização: maio de 2026
           </p>
           <h1
-            className="font-serif font-light italic text-wine"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+            className="font-serif font-light italic text-wine [font-size:clamp(2rem,4vw,3rem)]"
           >
             Política de Privacidade
           </h1>
