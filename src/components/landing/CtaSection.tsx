@@ -83,14 +83,15 @@ export default function CtaSection() {
           className="font-serif font-light italic leading-[1.15] mb-6"
           style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: 'var(--cta-heading)' }}
         >
-          Conte a história de vocês.
+          Surpreenda quem você ama.
         </h2>
 
         <p
           className="font-sans text-[0.95rem] leading-[1.8] mb-10 opacity-[0.85]"
           style={{ color: 'var(--cta-body)' }}
         >
-          Em menos de 5 minutos você cria uma página que vai emocionar quem você ama.
+          Qual foi a última vez que você surpreendeu o seu amor? Em menos de 5 minutos você cria uma
+          página que vai emocionar.
         </p>
 
         <a
@@ -108,7 +109,7 @@ export default function CtaSection() {
           className="font-sans text-[0.72rem] mt-4 opacity-70"
           style={{ color: 'var(--cta-disclaimer)' }}
         >
-          A partir de R$ 19,90 · Pagamento único
+          R$ 29,90 · Pagamento único
         </p>
       </Reveal>
     </section>

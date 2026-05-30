@@ -64,7 +64,7 @@ export const PLANS: Plan[] = [
 // Duração e renovação
 // ─────────────────────────────────────────────
 export const PAGE_DURATION_DAYS = 365
-export const PAGE_RENEWAL_PRICE_CENTS = 990 // R$ 9,90
+export const PAGE_RENEWAL_PRICE_CENTS = 1990 // R$ 19,90
 export const SLUG_RESERVATION_MINUTES = 30
 export const GRACE_PERIOD_DAYS = 30 // após expirar, antes de tirar do ar
 

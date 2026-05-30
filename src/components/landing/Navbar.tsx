@@ -69,7 +69,7 @@ export default function Navbar() {
               href="/demo"
               className="font-sans text-[0.72rem] font-medium tracking-[0.15em] uppercase text-text-muted no-underline transition-colors duration-200 hover:text-wine"
             >
-              Ver exemplo
+              Veja uma história real
             </a>
             <Link
               href="/criar"
@@ -133,7 +133,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
               className="font-sans text-[0.78rem] font-medium tracking-[0.15em] uppercase text-text-muted no-underline"
             >
-              Ver exemplo
+              Veja uma história real
             </a>
           </div>
         </div>

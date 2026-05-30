@@ -24,7 +24,7 @@ const FAQS = [
   {
     question: 'Por quanto tempo a página fica no ar?',
     answer:
-      'A página fica ativa por 1 ano a partir de hoje. Você receberá um aviso por e-mail 30 dias antes do vencimento para renovar por apenas R$ 9,90/ano.',
+      'A página fica ativa por 1 ano a partir de hoje. Você receberá um aviso por e-mail 30 dias antes do vencimento para renovar por apenas R$ 19,90/ano.',
   },
   {
     question: 'Posso editar a página depois de criada?',

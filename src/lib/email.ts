@@ -118,13 +118,13 @@ export async function sendExpirationWarningEmail({
         <p style="font-size: 16px; line-height: 1.8; color: #6b4a4a;">
           A página de <strong>${nameA} e ${nameB}</strong> expira em
           <strong>${expiryDate}</strong>. Renove por mais 1 ano por apenas
-          <strong>R$ 9,90</strong>.
+          <strong>R$ 19,90</strong>.
         </p>
         <a
           href="${renewUrl}"
           style="display:inline-block;margin:24px 0;padding:14px 28px;background:#7a3f3f;color:#faf6f1;text-decoration:none;border-radius:2px;font-family:sans-serif;font-size:14px;"
         >
-          Renovar por R$ 9,90 →
+          Renovar por R$ 19,90 →
         </a>
         <p style="font-size: 13px; color: #c49a8a;">Sua página: ${pageUrl}</p>
       </div>

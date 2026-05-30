@@ -29,10 +29,7 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto px-5 md:px-10 xl:px-20 grid grid-cols-1 lg:grid-cols-2 items-center min-h-[82svh] lg:min-h-svh pt-20">
         {/* ── Coluna esquerda — texto ── */}
         <div className="flex flex-col gap-8 relative z-[1] py-10 lg:py-16 items-center text-center lg:items-start lg:text-left lg:pr-8">
-          <h1
-            className="font-serif font-light italic text-wine leading-[1.1] m-0"
-            style={{ fontSize: 'clamp(2.8rem, 5vw, 4.5rem)' }}
-          >
+          <h1 className="font-serif font-light italic text-wine leading-[1.1] m-0 text-balance text-[clamp(2.8rem,5vw,4.5rem)]">
             A história de vocês,{' '}
             <span className="relative inline-block">
               em uma página.
@@ -56,16 +53,22 @@ export default function HeroSection() {
             className="font-sans text-base leading-[1.8] text-text-muted m-0 mx-auto lg:mx-0"
             style={{ maxWidth: '42ch' }}
           >
-            Crie uma página personalizada com fotos, memórias e a música de vocês. Um presente feito
-            para emocionar, compartilhar e guardar para sempre.
+            Quando foi a última vez que você surpreendeu o seu amor? Crie uma página com fotos,
+            memórias e a música de vocês, pronto em menos de 5 minutos.
           </p>
 
-          <div className="flex gap-4 items-center flex-wrap justify-center lg:justify-start">
+          <div className="flex gap-5 items-center flex-wrap justify-center lg:justify-start">
             <Link
               href="/criar"
               className="font-sans text-[0.78rem] tracking-[0.2em] uppercase py-[18px] px-9 bg-wine text-cream no-underline rounded-sm transition-all duration-200 inline-block hover:opacity-[0.88] hover:-translate-y-0.5"
             >
               Criar minha página ♡
+            </Link>
+            <Link
+              href="/demo"
+              className="font-sans text-[0.74rem] tracking-[0.18em] uppercase text-wine no-underline inline-block border-b border-transparent transition-colors duration-200 hover:border-rose"
+            >
+              Veja uma história real →
             </Link>
           </div>
 

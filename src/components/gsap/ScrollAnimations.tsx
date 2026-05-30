@@ -13,6 +13,9 @@ export default function ScrollAnimations() {
       return
     }
 
+    let refreshTimeout: ReturnType<typeof setTimeout> | undefined
+    let onLoad: (() => void) | undefined
+
     async function init() {
       const { gsap } = await import('gsap')
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
@@ -57,14 +60,22 @@ export default function ScrollAnimations() {
         })
       })
 
-      // Recalcula posições após fontes/imagens carregarem
-      requestAnimationFrame(() => ScrollTrigger.refresh())
-      window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true })
+      // Recalcula posições após o layout estabilizar. O evento 'load' NÃO
+      // dispara em navegação client-side (SPA), então não dependemos só dele:
+      // - duplo rAF garante refresh depois do paint
+      // - timeout cobre fontes/imagens que chegam um pouco depois
+      const refresh = () => ScrollTrigger.refresh()
+      requestAnimationFrame(() => requestAnimationFrame(refresh))
+      refreshTimeout = setTimeout(refresh, 300)
+      onLoad = refresh
+      window.addEventListener('load', onLoad, { once: true })
     }
 
     init()
 
     return () => {
+      if (refreshTimeout) clearTimeout(refreshTimeout)
+      if (onLoad) window.removeEventListener('load', onLoad)
       import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
         ScrollTrigger.getAll().forEach((t) => t.kill())
       })

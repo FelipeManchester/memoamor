@@ -205,10 +205,7 @@ export default function StepOne() {
       </div>
 
       {/* Navegação */}
-      <div className="flex justify-between items-center">
-        <button onClick={() => setStep(0)} className="btn-ghost">
-          ← Mudar plano
-        </button>
+      <div className="flex justify-end items-center">
         <button
           onClick={handleAdvance}
           disabled={!canAdvance}

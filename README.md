@@ -159,14 +159,16 @@ POST /api/abacate/webhook → status: active + e-mail enviado
 
 ---
 
-## Planos
+## Plano
 
 | Plano | Preço | Memórias | Fotos | Slug customizado | Marca d'água |
 |---|---|---|---|---|---|
-| Essencial | R$ 39 | 3 | 5 | Não | Sim |
-| Premium | R$ 69 | 6 | 10 | Sim | Não |
+| Premium | R$ 29,90 | 6 | 10 | Sim | Não |
 
-Página no ar por **1 ano**. Renovação por **R$ 9,90/ano**.
+Plano único. Página no ar por **1 ano**. Renovação por **R$ 19,90/ano**.
+
+> O plano `essential` (R$ 19,90) foi descontinuado, mas permanece no código e no schema para
+> que páginas já vendidas continuem funcionando.
 
 ---
 

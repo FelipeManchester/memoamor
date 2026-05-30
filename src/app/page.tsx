@@ -47,22 +47,13 @@ const jsonLd = {
         },
       },
       areaServed: { '@type': 'Country', name: 'Brasil' },
-      offers: [
-        {
-          '@type': 'Offer',
-          name: 'Plano Essencial',
-          price: '19.90',
-          priceCurrency: 'BRL',
-          description: 'Página de memórias por 1 ano com link automático.',
-        },
-        {
-          '@type': 'Offer',
-          name: 'Plano Premium',
-          price: '29.90',
-          priceCurrency: 'BRL',
-          description: 'Página de memórias por 1 ano com link personalizado e mais recursos.',
-        },
-      ],
+      offers: {
+        '@type': 'Offer',
+        name: 'Memoamor',
+        price: '29.90',
+        priceCurrency: 'BRL',
+        description: 'Página de memórias por 1 ano com link personalizado, fotos, música e animações.',
+      },
     },
   ],
 }

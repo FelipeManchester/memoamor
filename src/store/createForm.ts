@@ -65,7 +65,7 @@ export const useCreateFormStore = create<CreateFormStore>()(
   persist(
     (set) => ({
       data: initialState,
-      currentStep: 0,
+      currentStep: 1,
 
       setStep: (step) => set({ currentStep: step }),
 
@@ -138,11 +138,14 @@ export const useCreateFormStore = create<CreateFormStore>()(
     }),
     {
       name: 'memoamor-create-form-v2',
-      version: 1,
+      version: 2,
       migrate: (persisted: any) => {
         persisted.data ??= {}
         persisted.data.closingQuote ??= 'Para sempre, com você.'
         persisted.data.reservedSlug ??= generateRandomSlug()
+        persisted.data.plan = 'premium'
+        // Plano único agora — pula o antigo seletor de plano (passo 0)
+        if (persisted.currentStep === 0) persisted.currentStep = 1
         return persisted
       },
       partialize: (state) => ({

@@ -54,7 +54,7 @@ export default function TermosPage() {
 
           <Block title="4. Pagamento e renovação">
             O pagamento é único e não recorrente. Aceitamos PIX e cartão de crédito. Após 1 ano,
-            você poderá renovar sua página pelo valor de R$ 9,90/ano. Você receberá avisos por
+            você poderá renovar sua página pelo valor de R$ 19,90/ano. Você receberá avisos por
             e-mail 30 dias e 7 dias antes do vencimento. Após o vencimento sem renovação, a página
             entra em modo pausado por 30 dias. Após esse período, a página é removida, mas os dados
             ficam armazenados por mais 60 dias para eventual reativação.

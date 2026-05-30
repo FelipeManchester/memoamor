@@ -7,7 +7,7 @@ const faqs = [
   {
     question: 'A página fica no ar para sempre?',
     answer:
-      'A página fica no ar por 1 ano a partir da data de criação. Você receberá um aviso 30 dias antes do vencimento para renovar por apenas R$ 9,90/ano. Após o vencimento, a página entra em modo pausado por 30 dias antes de ser removida. Tempo suficiente para renovar sem perder nada.',
+      'A página fica no ar por 1 ano a partir da data de criação. Você receberá um aviso 30 dias antes do vencimento para renovar por apenas R$ 19,90/ano. Após o vencimento, a página entra em modo pausado por 30 dias antes de ser removida. Tempo suficiente para renovar sem perder nada.',
   },
   {
     question: 'Posso pagar com PIX?',

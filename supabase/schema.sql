@@ -14,7 +14,7 @@ create table if not exists memory_pages (
   slug                text not null unique,
   status              text not null default 'pending_payment'
                         check (status in ('pending_payment', 'active', 'expired', 'cancelled')),
-  plan                text not null default 'essential'
+  plan                text not null default 'premium'
                         check (plan in ('essential', 'premium')),
   template            text not null default 'petals'
                         check (template in ('petals', 'hearts', 'constellations')),

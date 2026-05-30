@@ -1,12 +1,8 @@
 'use client'
 
-import { useEffect, useRef, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { useCreateFormStore } from '@/store/createForm'
 import { cn } from '@/lib/utils'
-import type { PlanId } from '@/types'
 
-import PlanSelector from '@/components/forms/PlanSelector'
 import StepOne from '@/components/forms/StepOne'
 import StepTwo from '@/components/forms/StepTwo'
 import StepThree from '@/components/forms/StepThree'
@@ -14,33 +10,12 @@ import StepFour from '@/components/forms/StepFour'
 import StepSix from '@/components/forms/StepSix'
 
 const STEPS = ['O casal', 'Memórias', 'Galeria', 'Música & Tema', 'Revisão']
-const VALID_PLANS: PlanId[] = ['essential', 'premium']
-
-function PlanFromUrl() {
-  const searchParams = useSearchParams()
-  const setPlan = useCreateFormStore((s) => s.setPlan)
-  const applied = useRef(false)
-
-  useEffect(() => {
-    if (applied.current) return
-    applied.current = true
-    const plan = searchParams.get('plan') as PlanId | null
-    if (plan && VALID_PLANS.includes(plan)) {
-      setPlan(plan)
-    }
-  }, [searchParams, setPlan])
-
-  return null
-}
 
 export default function CriarPage() {
   const currentStep = useCreateFormStore((s) => s.currentStep)
 
   return (
     <main className="theme-midnight min-h-svh bg-cream text-text flex flex-col">
-      <Suspense fallback={null}>
-        <PlanFromUrl />
-      </Suspense>
       {/* Header com logo e progresso */}
       <header className="py-5 px-6 border-b border-blush flex flex-col gap-4">
         <div className="flex items-center justify-between">
@@ -108,7 +83,6 @@ export default function CriarPage() {
         style={{ padding: 'clamp(32px, 6vw, 80px) 24px' }}
       >
         <div className="w-full max-w-[560px]">
-          {currentStep === 0 && <PlanSelector />}
           {currentStep === 1 && <StepOne />}
           {currentStep === 2 && <StepTwo />}
           {currentStep === 3 && <StepThree />}

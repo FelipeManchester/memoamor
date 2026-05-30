@@ -137,8 +137,11 @@ export default function PlayerBar({
   }, [videoId]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function togglePlay() {
-    if (!playerRef.current) return
-    isPlaying ? playerRef.current.pauseVideo() : playerRef.current.playVideo()
+    const player = playerRef.current
+    // O objeto retornado por new YT.Player() só ganha os métodos
+    // playVideo/pauseVideo depois do evento onReady.
+    if (!player || !readyRef.current) return
+    isPlaying ? player.pauseVideo() : player.playVideo()
   }
 
   function handleVolume(e: React.ChangeEvent<HTMLInputElement>) {

@@ -2,40 +2,23 @@
 
 import Reveal from '@/components/ui/Reveal'
 
-type Feature = {
-  text: string
-  upgrade?: string // shown as a small badge on premium
-}
-
-const essentialFeatures: Feature[] = [
-  { text: '1 página' },
-  { text: 'Até 3 memórias' },
-  { text: 'Galeria com até 5 fotos' },
-  { text: 'Player de música' },
-  { text: '1 tema visual' },
-  { text: 'Contador de tempo' },
-  { text: 'Link único' },
-  { text: 'Página no ar 1 ano' },
-  { text: "Marca d'água discreta" },
-]
-
-const premiumFeatures: Feature[] = [
-  { text: '1 página' },
-  { text: 'Até 6 memórias', upgrade: '2×' },
-  { text: 'Galeria com até 10 fotos', upgrade: '2×' },
-  { text: 'Player de música' },
-  { text: '3 temas visuais', upgrade: 'novo' },
-  { text: 'Contador de tempo' },
-  { text: 'URL personalizada', upgrade: 'exclusivo' },
-  { text: 'Página no ar 1 ano' },
-  { text: "Sem marca d'água", upgrade: 'exclusivo' },
+const premiumFeatures: string[] = [
+  'Até 6 memórias com foto, data e texto',
+  'Galeria com até 10 fotos',
+  'A música de vocês no player',
+  '3 temas visuais animados',
+  'Contador de tempo juntos',
+  'URL personalizada com o nome de vocês',
+  'Página no ar por 1 ano',
+  "Sem marca d'água",
+  'Acesso por link e QR Code',
 ]
 
 const HIGHLIGHTS = [
-  { label: '2× memórias' },
-  { label: '2× fotos' },
+  { label: '6 memórias' },
+  { label: '10 fotos' },
   { label: 'URL própria' },
-  { label: 'Sem logo' },
+  { label: "Sem marca d'água" },
 ]
 
 export default function PricingSection() {
@@ -49,7 +32,8 @@ export default function PricingSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 70% 60% at 50% 100%, var(--section-glow) 0%, transparent 70%)',
+          background:
+            'radial-gradient(ellipse 70% 60% at 50% 100%, var(--section-glow) 0%, transparent 70%)',
         }}
       />
 
@@ -70,89 +54,28 @@ export default function PricingSection() {
               className="font-sans text-[0.95rem] text-text-muted mx-auto leading-[1.8]"
               style={{ maxWidth: '44ch' }}
             >
-              Pagamento único. Sem assinatura, sem cobranças escondidas.
+              Página no ar por um ano. Renove anualmente. Sem assinatura, sem cobranças escondidas.
             </p>
           </Reveal>
         </div>
 
-        {/* Cards — premium elevated via margin hack on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-end max-w-3xl mx-auto">
-          {/* ── Essencial ── */}
-          <div
-            className="rounded-l-lg rounded-r-none max-md:rounded-lg relative"
-            style={{
-              border: '1px solid var(--color-rose)',
-              background: 'var(--surface-card)',
-              padding: 'clamp(28px, 4vw, 40px)',
-            }}
-          >
-            <p className="font-sans text-[0.7rem] tracking-[0.25em] uppercase text-mauve mb-3">
-              Essencial
-            </p>
-
-            <div className="flex items-baseline gap-1 mb-1">
-              <span
-                className="font-serif font-light leading-none text-wine"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 3.2rem)' }}
-              >
-                R$ 19,90
-              </span>
-            </div>
-
-            <p className="font-sans text-[0.82rem] text-text-muted mb-7 leading-[1.6]">
-              O básico bem feito
-            </p>
-
-            <div className="h-px mb-6 bg-blush" />
-
-            <ul className="list-none flex flex-col gap-3 mb-8">
-              {essentialFeatures.map((f, i) => (
-                <li
-                  key={i}
-                  className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5] text-text"
-                >
-                  <span className="shrink-0 text-mauve">✓</span>
-                  {f.text}
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href="/criar"
-              className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.88] hover:-translate-y-px"
-              style={{ background: 'var(--color-wine)', color: 'var(--color-cream)' }}
-            >
-              Criar minha página →
-            </a>
-
-            <p className="font-sans text-[0.68rem] text-center mt-3 text-mauve opacity-70">
-              Renovação por R$ 9,90/ano
-            </p>
-          </div>
-
+        {/* Card único — Premium */}
+        <div className="max-w-md mx-auto">
           {/* ── Premium ── */}
           <div
             className="rounded-lg relative overflow-hidden"
             style={{
               background: 'var(--premium-bg)',
               padding: 'clamp(28px, 4vw, 44px)',
-              boxShadow: '0 24px 64px var(--shadow-brand-heavy), 0 4px 16px var(--shadow-soft-strong)',
-              marginBottom: '-1px', // align bottom edge with essencial card bottom border
+              boxShadow:
+                '0 24px 64px var(--shadow-brand-heavy), 0 4px 16px var(--shadow-soft-strong)',
             }}
           >
-            {/* Popular badge */}
-            <div
-              className="absolute top-5 right-5 rounded-full px-3 py-1 font-sans text-[0.6rem] tracking-[0.15em] uppercase"
-              style={{ background: 'var(--premium-badge-bg)', color: 'var(--premium-badge-text)' }}
-            >
-              Mais popular
-            </div>
-
             <p
               className="font-sans text-[0.7rem] tracking-[0.25em] uppercase mb-3"
               style={{ color: 'var(--premium-eyebrow)' }}
             >
-              Premium
+              Tudo incluído
             </p>
 
             {/* Price + delta */}
@@ -174,7 +97,7 @@ export default function PricingSection() {
               className="font-sans text-[0.82rem] mb-5 leading-[1.6]"
               style={{ color: 'var(--premium-tagline)' }}
             >
-              Pra surpreender de verdade
+              Pagamento único, tudo que você precisa pra surpreender
             </p>
 
             {/* What you gain — highlight pills */}
@@ -198,55 +121,37 @@ export default function PricingSection() {
 
             {/* Features */}
             <ul className="list-none flex flex-col gap-3 mb-8">
-              {premiumFeatures.map((f, i) => {
-                const isUpgrade = !!f.upgrade
-                return (
-                  <li
-                    key={i}
-                    className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
-                    style={{
-                      color: 'var(--premium-feat-active)',
-                      fontWeight: isUpgrade ? 600 : 400,
-                    }}
-                  >
-                    <span className="shrink-0" style={{ color: 'var(--premium-check)' }}>
-                      ✓
-                    </span>
-                    <span className="flex-1">{f.text}</span>
-                    {f.upgrade && (
-                      <span
-                        className="font-sans text-[0.58rem] tracking-[0.06em] uppercase px-1.5 py-0.5 rounded-sm shrink-0"
-                        style={{
-                          background: 'var(--premium-tag-bg)',
-                          color: 'var(--premium-tag-text)',
-                          border: '1px solid var(--premium-tag-border)',
-                        }}
-                      >
-                        {f.upgrade}
-                      </span>
-                    )}
-                  </li>
-                )
-              })}
+              {premiumFeatures.map((text, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-[10px] font-sans text-[0.85rem] leading-[1.5]"
+                  style={{ color: 'var(--premium-feat-active)' }}
+                >
+                  <span className="shrink-0" style={{ color: 'var(--premium-check)' }}>
+                    ✓
+                  </span>
+                  <span className="flex-1">{text}</span>
+                </li>
+              ))}
             </ul>
 
             {/* CTA */}
             <a
-              href="/criar?plan=premium"
+              href="/criar"
               className="block text-center font-sans text-[0.75rem] tracking-[0.2em] uppercase py-4 rounded-sm no-underline transition-all duration-200 hover:opacity-[0.92] hover:-translate-y-px"
               style={{
                 background: 'var(--premium-cta-bg)',
                 color: 'var(--premium-cta-text)',
               }}
             >
-              Quero a Premium →
+              Criar minha página →
             </a>
 
             <p
               className="font-sans text-[0.68rem] text-center mt-3 opacity-60"
               style={{ color: 'var(--premium-disclaimer)' }}
             >
-              Renovação por R$ 9,90/ano
+              Renovação por R$ 19,90/ano
             </p>
           </div>
         </div>
