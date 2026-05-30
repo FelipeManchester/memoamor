@@ -68,7 +68,7 @@ export default function HeroSection() {
               href="/demo"
               className="font-sans text-[0.74rem] tracking-[0.18em] uppercase text-wine no-underline inline-block border-b border-transparent transition-colors duration-200 hover:border-rose"
             >
-              Veja uma história real →
+              Veja como fica →
             </Link>
           </div>
 
