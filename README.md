@@ -1,87 +1,87 @@
 # Memoamor
 
-> A história de vocês, em uma página.
+> Your story, on a single page.
 
-SaaS para criação de páginas de memórias personalizadas para casais — com animações GSAP, galeria de fotos, música e link único compartilhável.
+SaaS for creating personalized memory pages for couples — with GSAP animations, photo gallery, music, and a unique shareable link.
 
 ---
 
 ## Stack
 
-| Camada | Tecnologia |
+| Layer | Technology |
 |---|---|
 | Framework | Next.js 15 + TypeScript |
-| Estilo | Tailwind CSS v4 |
-| Animações | GSAP + ScrollTrigger |
-| Banco | Supabase (Postgres) |
+| Styling | Tailwind CSS v4 |
+| Animations | GSAP + ScrollTrigger |
+| Database | Supabase (Postgres) |
 | Storage | Supabase Storage |
-| Pagamentos | AbacatePay (PIX + cartão) |
-| E-mail | Resend |
+| Payments | AbacatePay (PIX + card) |
+| Email | Resend |
 | Deploy | Vercel |
 
 ---
 
-## Setup local
+## Local setup
 
-### 1. Instale as dependências
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configure as variáveis de ambiente
+### 2. Set up environment variables
 
 ```bash
 cp .env.example .env.local
 ```
 
-Preencha o `.env.local` com suas chaves:
+Fill in `.env.local` with your keys:
 
-| Variável | Onde obter |
+| Variable | Where to get it |
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Settings → API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase → Settings → API |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API |
-| `ABACATEPAY_API_KEY` | Dashboard AbacatePay |
-| `ABACATEPAY_WEBHOOK_SECRET` | Dashboard AbacatePay → Webhooks |
+| `ABACATEPAY_API_KEY` | AbacatePay dashboard |
+| `ABACATEPAY_WEBHOOK_SECRET` | AbacatePay dashboard → Webhooks |
 | `RESEND_API_KEY` | resend.com → API Keys |
 | `NEXT_PUBLIC_YOUTUBE_API_KEY` | Google Cloud Console |
 
-### 3. Configure o banco de dados
+### 3. Set up the database
 
-No [Supabase SQL Editor](https://supabase.com/dashboard), execute o arquivo:
+In the [Supabase SQL Editor](https://supabase.com/dashboard), run the file:
 
 ```
 supabase/schema.sql
 ```
 
-### 4. Configure o Storage
+### 4. Set up Storage
 
-No dashboard do Supabase:
-1. Vá em **Storage → New Bucket**
-2. Nome: `pages`
+In the Supabase dashboard:
+1. Go to **Storage → New Bucket**
+2. Name: `pages`
 3. Public: **false**
-4. Configure as policies conforme comentários no `schema.sql`
+4. Configure the policies as described in the comments in `schema.sql`
 
-### 5. Rode o projeto
+### 5. Run the project
 
 ```bash
 npm run dev
 ```
 
-Acesse: [http://localhost:3000](http://localhost:3000)
+Open: [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Estrutura do projeto
+## Project structure
 
 ```
 src/
 ├── app/
 │   ├── page.tsx                    → Landing page
-│   ├── demo/page.tsx               → Demonstração completa
-│   ├── criar/page.tsx              → Formulário (5 passos)
-│   ├── p/[slug]/page.tsx           → Página entregue (ISR)
+│   ├── demo/page.tsx               → Full demo
+│   ├── criar/page.tsx              → Form (5 steps)
+│   ├── p/[slug]/page.tsx           → Delivered page (ISR)
 │   ├── not-found.tsx               → 404
 │   ├── (site)/
 │   │   ├── sobre/page.tsx
@@ -90,40 +90,40 @@ src/
 │   │   ├── contato/page.tsx
 │   │   └── cancelado/page.tsx
 │   └── api/
-│       ├── pages/route.ts          → Salva dados antes do checkout
-│       ├── checkout/route.ts       → Cria sessão AbacatePay
-│       └── abacate/webhook/route.ts → Ativa página após pagamento
+│       ├── pages/route.ts          → Saves data before checkout
+│       ├── checkout/route.ts       → Creates AbacatePay session
+│       └── abacate/webhook/route.ts → Activates page after payment
 │
 ├── components/
-│   ├── page-builder/               → Blocos da página entregue
+│   ├── page-builder/               → Delivered page blocks
 │   │   ├── Hero.tsx
 │   │   ├── MemoryBlock.tsx
 │   │   ├── Gallery.tsx
 │   │   ├── QuoteBlock.tsx
 │   │   ├── Closing.tsx
 │   │   └── PlayerBar.tsx
-│   ├── backgrounds/                → Templates visuais
+│   ├── backgrounds/                → Visual templates
 │   │   ├── PetalBackground.tsx
 │   │   ├── HeartBackground.tsx
 │   │   └── ConstellationBackground.tsx
 │   └── gsap/
-│       └── ScrollAnimations.tsx    → Inicializa GSAP (sem renderização)
+│       └── ScrollAnimations.tsx    → Initializes GSAP (renders nothing)
 │
 ├── lib/
 │   ├── supabase/
 │   │   ├── client.ts               → Browser client
 │   │   └── server.ts               → Server + Admin client
-│   ├── constants.ts                → Templates, planos, limites
-│   ├── email.ts                    → Resend — entrega e renovação
-│   ├── image.ts                    → Processamento WebP no browser
-│   ├── slug.ts                     → Geração e sanitização de slugs
+│   ├── constants.ts                → Templates, plans, limits
+│   ├── email.ts                    → Resend — delivery and renewal
+│   ├── image.ts                    → In-browser WebP processing
+│   ├── slug.ts                     → Slug generation and sanitization
 │   └── utils.ts                    → cn() helper
 │
 ├── store/
-│   └── createForm.ts               → Zustand — estado do formulário
+│   └── createForm.ts               → Zustand — form state
 │
 ├── types/
-│   └── index.ts                    → Tipos TypeScript centrais
+│   └── index.ts                    → Central TypeScript types
 │
 └── styles/
     └── globals.css                 → Design tokens + reset
@@ -131,53 +131,53 @@ src/
 
 ---
 
-## Fluxo de pagamento
+## Payment flow
 
 ```
-Formulário (5 passos)
+Form (5 steps)
         ↓
-POST /api/pages → salva dados, status: pending_payment
+POST /api/pages → saves data, status: pending_payment
         ↓
-POST /api/checkout → cria sessão AbacatePay
+POST /api/checkout → creates AbacatePay session
         ↓
-Usuário paga (PIX ou cartão)
+User pays (PIX or card)
         ↓
-POST /api/abacate/webhook → status: active + e-mail enviado
+POST /api/abacate/webhook → status: active + email sent
         ↓
-/p/[slug] → página no ar
+/p/[slug] → page goes live
 ```
 
 ---
 
-## Templates disponíveis
+## Available templates
 
-| ID | Nome | Mood |
+| ID | Name | Mood |
 |---|---|---|
-| `petals` | Pétalas | Romântico e delicado |
-| `hearts` | Corações | Apaixonado e caloroso |
-| `constellations` | Constelações | Poético e etéreo |
+| `petals` | Petals (Pétalas) | Romantic and delicate |
+| `hearts` | Hearts (Corações) | Passionate and warm |
+| `constellations` | Constellations (Constelações) | Poetic and ethereal |
 
 ---
 
-## Plano
+## Plan
 
-| Plano | Preço | Memórias | Fotos | Slug customizado | Marca d'água |
+| Plan | Price | Memories | Photos | Custom slug | Watermark |
 |---|---|---|---|---|---|
-| Premium | R$ 29,90 | 6 | 10 | Sim | Não |
+| Premium | R$ 29.90 | 6 | 10 | Yes | No |
 
-Plano único. Página no ar por **1 ano**. Renovação por **R$ 19,90/ano**.
+Single plan. Page stays live for **1 year**. Renewal costs **R$ 19.90/year**.
 
-> O plano `essential` (R$ 19,90) foi descontinuado, mas permanece no código e no schema para
-> que páginas já vendidas continuem funcionando.
+> The `essential` plan (R$ 19.90) has been discontinued, but remains in the code and schema so
+> that pages already sold keep working.
 
 ---
 
-## Comandos úteis
+## Useful commands
 
 ```bash
-npm run dev        # desenvolvimento local
-npm run build      # build de produção
-npm run typecheck  # verificação de tipos TypeScript
+npm run dev        # local development
+npm run build      # production build
+npm run typecheck  # TypeScript type checking
 npm run lint       # ESLint
 ```
 
@@ -185,8 +185,8 @@ npm run lint       # ESLint
 
 ## Deploy (Vercel)
 
-1. Conecte o repositório na Vercel
-2. Configure as variáveis de ambiente no painel da Vercel
-3. Configure o webhook do AbacatePay apontando para:
+1. Connect the repository on Vercel
+2. Set the environment variables in the Vercel dashboard
+3. Configure the AbacatePay webhook to point to:
    `https://memoamor.app/api/abacate/webhook`
-4. Deploy automático a cada push na `main`
+4. Automatic deploy on every push to `main`
